@@ -1,5 +1,5 @@
 {
-  "name": "@{{username}}/{{project-name}}",
+  "name": "@{{scope}}/{{project-name}}",
   "author": "{{authors}}",
   "version": "0.0.0",
   "type": "module",
