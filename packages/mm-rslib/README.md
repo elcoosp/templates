@@ -108,7 +108,7 @@ Project Link: [https://github.com/elcoosp/templates](https://github.com/elcoosp/
 [npm-version-shield]: https://img.shields.io/npm/v/@elcoosp-templates/mm-rslib.svg?style=for-the-badge
 [npm-version-url]: https://www.npmjs.com/package/@elcoosp-templates/mm-rslib
 [codecov-shield]: https://img.shields.io/codecov/c/github/elcoosp/templates/main.svg?style=for-the-badge
-[codecov-url]: https://codecov.io/github/elcoosp/templates/tree/main/@elcoosp-templates/mm-rslib
+[codecov-url]: https://codecov.io/github/elcoosp/templates/tree/main/packages/mm-rslib
 [contributors-shield]: https://img.shields.io/github/contributors/elcoosp/templates.svg?style=for-the-badge
 [contributors-url]: https://github.com/elcoosp/templates/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/elcoosp/templates.svg?style=for-the-badge

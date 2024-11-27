@@ -108,7 +108,7 @@ Project Link: [https://github.com/elcoosp/templates](https://github.com/elcoosp/
 [npm-version-shield]: https://img.shields.io/npm/v/@elcoosp-templates/mm-vite-react.svg?style=for-the-badge
 [npm-version-url]: https://www.npmjs.com/package/@elcoosp-templates/mm-vite-react
 [codecov-shield]: https://img.shields.io/codecov/c/github/elcoosp/templates/main.svg?style=for-the-badge
-[codecov-url]: https://codecov.io/github/elcoosp/templates/tree/main/@elcoosp-templates/mm-vite-react
+[codecov-url]: https://codecov.io/github/elcoosp/templates/tree/main/packages/mm-vite-react
 [contributors-shield]: https://img.shields.io/github/contributors/elcoosp/templates.svg?style=for-the-badge
 [contributors-url]: https://github.com/elcoosp/templates/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/elcoosp/templates.svg?style=for-the-badge
