@@ -55,10 +55,10 @@ Monorepo of templates
 > [!TIP]
 > You are inside the entry point of **templates** workspace, here is a list of available packages
 
-| Package                                                    | Description                       |
-| ---------------------------------------------------------- | --------------------------------- |
-| [@elcoosp-templates/mm-rslib](packages/mm-rslib)           | Rslib monorepo member             |
-| [@elcoosp-templates/mm-vite-react](packages/mm-vite-react) | Vite react oxlint monorepo member |
+| Package                                                    | Description                                  |
+| ---------------------------------------------------------- | -------------------------------------------- |
+| [@elcoosp-templates/mm-rslib](packages/mm-rslib)           | Monorepo member with `rslib`                 |
+| [@elcoosp-templates/mm-vite-react](packages/mm-vite-react) | Monorepo member with `vite` `react` `oxlint` |
 
 ## ✨ Features
 

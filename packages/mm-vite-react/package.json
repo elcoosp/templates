@@ -1,7 +1,7 @@
 {
   "name": "@elcoosp-templates/mm-vite-react",
   "version": "1.0.0",
-  "description": "Vite react oxlint monorepo member",
+  "description": "Monorepo member with `vite` `react` `oxlint`",
   "keywords": [],
   "author": "",
   "license": "MIT"
