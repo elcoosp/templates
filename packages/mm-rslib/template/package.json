@@ -1,0 +1,29 @@
+{
+  "name": "@{{scope}}/{{project-name}}",
+  "author": "{{authors}}",
+  "version": "0.0.0",
+  "type": "module",
+  "description": "{{description}}",
+  "main": "./dist/cjs/index.cjs",
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index.cjs",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "rslib build",
+    "dev": "rslib build --watch",
+    "check": "biome check --write",
+    "fmt": "biome format --write",
+    "test": "vitest run",
+    "test:watch": "vitest run --watch"
+  }
+}

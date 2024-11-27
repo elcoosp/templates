@@ -1,29 +1,12 @@
 {
-  "name": "@{{scope}}/{{project-name}}",
-  "author": "{{authors}}",
-  "version": "0.0.0",
-  "type": "module",
-  "description": "{{description}}",
-  "main": "./dist/cjs/index.cjs",
-  "exports": {
-    ".": {
-      "require": "./dist/cjs/index.cjs",
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
-  },
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": ["dist"],
-  "publishConfig": {
-    "access": "public"
-  },
+  "name": "@elcoosp-templates/mm-rslib",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "build": "rslib build",
-    "dev": "rslib build --watch",
-    "check": "biome check --write",
-    "fmt": "biome format --write",
-    "test": "vitest run",
-    "test:watch": "vitest run --watch"
-  }
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

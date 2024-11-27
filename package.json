@@ -1,16 +1,13 @@
 {
-  "name": "templates",
+  "name": "@elcoosp-templates/root",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@elcoosp-configs/rslib": "^2.0.2",
-    "@rslib/core": "^0.1.0"
+    "@rslib/core": "^0.1.0",
+    "vitest": "^2.1.6"
   }
 }

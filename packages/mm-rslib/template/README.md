@@ -1,5 +1,6 @@
 <a id="readme-top"></a>
 <!-- PROJECT SHIELDS -->
+[![NPM version][npm-version-shield]][npm-version-url]
 [![Codecov][codecov-shield]][codecov-url]
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
@@ -15,11 +16,11 @@
     <img src="https://raw.githubusercontent.com/elcoosp/templates/HEAD/images/logo.png" style="max-height: 200px; object-fit: contain;" alt="Logo">
   </a>
   <h3 align="center">Templates</h3>
-  
+  <h4 align="center">@{{scope}}/{{project-name}}</h4>
   <p align="center">
     Templates using [cargo generate](https://cargo-generate.github.io/)
     <br />
-    <a href="https://github.com/elcoosp/templates"><strong>📖 Explore the docs »</strong></a>
+    <a href="https://templates.vercel.app/"><strong>📖 Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/elcoosp/templates">View Demo</a>
@@ -29,6 +30,9 @@
     <a href="https://github.com/elcoosp/templates/issues/new?template=feature-request.yml&title=%5BFeat%5D%3A+&labels=enhancement&assignees=elcoosp">Request Feature</a>
   </p>
 </div>
+
+> [!NOTE]
+> You are inside the **@{{scope}}/{{project-name}}** workspace member package, not the repository entry point
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -51,14 +55,6 @@
 
 Monorepo of templates
 
-
-> [!TIP]
-> You are inside the entry point of **templates** workspace, here is a list of available packages
-
-| Package                                          | Description |
-| ------------------------------------------------ | ----------- |
-| [@elcoosp-templates/mm-rslib](packages/mm-rslib) |             |
-
 ## ✨ Features
 
 - Rslib monorepo member
@@ -69,7 +65,18 @@ See installation
 
 ## 📋 Installation
 
-See individual packages
+```sh
+npm add @{{scope}}/{{project-name}}
+```
+```sh
+pnpm add @{{scope}}/{{project-name}}
+```
+```sh
+yarn add @{{scope}}/{{project-name}}
+```
+```sh
+deno add npm:@{{scope}}/{{project-name}}
+```
 
 ## 🔧 Usage
 
@@ -96,10 +103,12 @@ Project Link: [https://github.com/elcoosp/templates](https://github.com/elcoosp/
 
 <!--MARKDOWN LINKS & IMAGES-- >
 <!--https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-![Alt](https://repobeats.axiom.co/api/embed/b6094745c34ee025ae4eeb67dc3c6406245ab2e5.svg "Repobeats analytics image")
+![Alt](https://repobeats.axiom.co/api/embed/b4ebcd827d58791b008f7bf5bddd78a2dd0e6a43.svg "Repobeats analytics image")
 
+[npm-version-shield]: https://img.shields.io/npm/v/@{{scope}}/{{project-name}}.svg?style=for-the-badge
+[npm-version-url]: https://www.npmjs.com/package/@{{scope}}/{{project-name}}
 [codecov-shield]: https://img.shields.io/codecov/c/github/elcoosp/templates/main.svg?style=for-the-badge
-[codecov-url]: https://codecov.io/github/elcoosp/templates/tree/main
+[codecov-url]: https://codecov.io/github/elcoosp/templates/tree/main/@{{scope}}/{{project-name}}
 [contributors-shield]: https://img.shields.io/github/contributors/elcoosp/templates.svg?style=for-the-badge
 [contributors-url]: https://github.com/elcoosp/templates/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/elcoosp/templates.svg?style=for-the-badge
