@@ -7,16 +7,20 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "preview": "vite preview",
     "build": "tsc -b && vite build",
-    "lint": "eslint --flag unstable_ts_config .",
-    "lint:ox": "oxlint .",
-    "preview": "vite preview"
+    "lint:es": "eslint --flag unstable_ts_config .",
+    "lint": "oxlint .",
+    "fmt": "biome format --write",
+    "test": "vitest run",
+    "test:watch": "vitest run --watch"
   },
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
     "@eslint/js": "^9.15.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
