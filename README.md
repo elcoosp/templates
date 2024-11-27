@@ -17,7 +17,7 @@
   <h3 align="center">Templates</h3>
   
   <p align="center">
-    Templates using [cargo generate](https://cargo-generate.github.io/)
+    Templates using cargo generate
     <br />
     <a href="https://github.com/elcoosp/templates"><strong>📖 Explore the docs »</strong></a>
     <br />

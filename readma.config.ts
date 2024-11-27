@@ -16,7 +16,7 @@ const config = {
   repobeats: 'b6094745c34ee025ae4eeb67dc3c6406245ab2e5',
   images: { logo: 'images/logo.png' },
   sections: {
-    projectDescription: 'Templates using [cargo generate](https://cargo-generate.github.io/)',
+    projectDescription: 'Templates using cargo generate',
     features: `
 - Rslib monorepo member`,
     about: 'Monorepo of templates',
