@@ -1,1 +1,20 @@
+# Local
+.DS_Store
+*.local
+*.log*
+
+# Dist
 node_modules
+dist
+
+# IDE
+.idea
+
+# CI
+.turbo
+.npmrc
+codecov
+codecov.*
+
+# Test
+coverage

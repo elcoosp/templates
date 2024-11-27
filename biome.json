@@ -1,0 +1,5 @@
+{
+    "$schema": "https://biomejs.dev/schemas/1.8.0/schema.json",
+    "extends": ["node_modules/@elcoosp-configs/biome/src/fmt-base.json"]
+  }
+  

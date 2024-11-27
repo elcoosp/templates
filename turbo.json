@@ -1,0 +1,24 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "tasks": {
+      "build": {
+        "outputs": ["dist/**"]
+      },
+      "check": {
+        "dependsOn": ["^check"]
+      },
+      "fmt": {},
+      "lint": {},
+      "test": {},
+      "test:cov": {},
+      "test:watch": {
+        "cache": false,
+        "persistent": true
+      },
+      "dev": {
+        "persistent": true,
+        "cache": false
+      }
+    }
+  }
+  

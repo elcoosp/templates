@@ -4,5 +4,8 @@
   "description": "Monorepo member with `vite` `react` `oxlint`",
   "keywords": [],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "fmt": "biome format --write"
+  }
 }

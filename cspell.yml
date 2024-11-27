@@ -1,0 +1,10 @@
+ignorePaths:
+  - node_modules
+  - pnpm-lock.yaml
+words:
+  # User
+  - elcoosp
+  - rslib
+  - vite
+  - lefthook
+  - oxlint

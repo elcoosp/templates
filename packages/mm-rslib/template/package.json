@@ -25,5 +25,8 @@
     "fmt": "biome format --write",
     "test": "vitest run",
     "test:watch": "vitest run --watch"
+  },
+  "devDependencies": {
+    "@elcoosp-configs/rslib": "2"
   }
 }
