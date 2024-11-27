@@ -22,7 +22,7 @@ const config = {
     about: 'Monorepo of templates',
     installation: 'See individual packages',
     acknowledgments: '',
-    gettingStarted: 'See installation',
+    gettingStarted: 'Pick a template that match your need and follow [cargo generate](https://github.com/cargo-generate/cargo-generate)',
     roadmap: '',
     usage: '',
   },

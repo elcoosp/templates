@@ -61,7 +61,7 @@ Monorepo of templates
 
 ## 🎉 Getting started
 
-See installation
+Pick a template that match your need and follow [cargo generate](https://github.com/cargo-generate/cargo-generate)
 
 ## 📋 Installation
 
