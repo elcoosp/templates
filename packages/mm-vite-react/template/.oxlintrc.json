@@ -1,0 +1,38 @@
+{
+    "$schema": "./node_modules/oxlint/configuration_schema.json",
+    "plugins": ["import", "typescript", "unicorn", "jsdoc", "vitest", "promise", "jsx-a11y", "oxc-security", "react-perf"],
+    "env": {
+      "browser": true
+    },
+    "globals": {},
+    "settings": {},
+    "rules": {
+      "eqeqeq": "warn",
+      "import/no-cycle": "error",
+      "import/no-default-export": "off",
+      "import/unambiguous": "off",
+      "sort-imports": "off",
+      "typescript/explicit-function-return-type": "off",
+      "typescript/no-non-null-assertion": "off",
+      "unicorn/filename-case": "off",
+      "react-perf/jsx-no-new-function-as-prop": "off",
+      "no-magic-numbers": "off"
+    },
+    "categories": {
+        "correctness":"error",
+        "nursery":"error",
+        "pedantic":"error",
+        "perf":"error",
+        "restriction":"error",
+        "style":"error",
+        "suspicious":"error"
+    },
+    "overrides": [
+      {
+        "files": ["*.test.ts", "*.spec.ts"],
+        "rules": {
+          "@typescript-eslint/no-explicit-any": "off"
+        }
+      }
+    ]
+  }
