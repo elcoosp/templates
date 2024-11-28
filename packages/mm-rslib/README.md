@@ -53,7 +53,7 @@
 
 ## 💡 About the project
 
-Monorepo of templates
+Monorepo of templates using [cargo generate](https://github.com/cargo-generate/cargo-generate)
 
 ## ✨ Features
 

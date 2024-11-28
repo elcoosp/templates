@@ -1,5 +1,6 @@
 const name = 'templates';
 const author = 'elcoosp';
+const cargoGenerateLink = "[cargo generate](https://github.com/cargo-generate/cargo-generate)"
 const config = {
   language: 'ts',
   title: 'Templates',
@@ -19,10 +20,10 @@ const config = {
     projectDescription: 'Templates using cargo generate',
     features: `
 - Rslib monorepo member`,
-    about: 'Monorepo of templates',
+    about: `Monorepo of templates using ${cargoGenerateLink}`,
     installation: 'See individual packages',
     acknowledgments: '',
-    gettingStarted: 'Pick a template that match your need and follow [cargo generate](https://github.com/cargo-generate/cargo-generate)',
+    gettingStarted: `Pick a template that match your need and follow ${cargoGenerateLink}`,
     roadmap: '',
     usage: '',
   },
