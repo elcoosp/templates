@@ -14,7 +14,7 @@
   },
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": ["dist"{% if filesOnly %}, "src"{% endif %}],
   "publishConfig": {
     "access": "public"
   },

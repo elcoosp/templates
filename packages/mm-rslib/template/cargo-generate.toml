@@ -4,9 +4,9 @@ cargo_generate_version = ">=0.22.0"
 [placeholders]
 description = { type = "text", prompt = "Description of the monorepo member" }
 scope = { type = "text", prompt = "Scope of the npm package" }
-files-only = { type = "bool", prompt = "Is the package files only ?", default = false }
+filesOnly = { type = "bool", prompt = "Is the package files only ?", default = false }
 
-[conditional.'ask_for_string'.placeholders.choice]
+[conditional.filesOnly.placeholders.filesOnlyType]
 type = "string"
 prompt = "Please select one file type which src folder should contain (and error in index import - with test)"
 choices = ["yml", "json"]
