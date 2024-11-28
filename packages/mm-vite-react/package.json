@@ -6,6 +6,12 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "fmt": "biome format --write"
+    "build": "rslib build",
+    "dev": "rslib build --watch",
+    "check": "biome check --write",
+    "fmt": "biome format --write",
+    "test": "vitest run",
+    "test:cov": "vitest run --coverage",
+    "test:watch": "vitest run --watch"
   }
 }

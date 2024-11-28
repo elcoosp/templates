@@ -18,7 +18,7 @@ importers:
         specifier: ^2.27.10
         version: 2.27.10
       '@elcoosp-configs/biome':
-        specifier: '0'
+        specifier: ^0.0.1
         version: 0.0.1
       '@elcoosp-configs/rslib':
         specifier: '2'
