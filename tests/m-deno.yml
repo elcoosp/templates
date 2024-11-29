@@ -1,0 +1,5 @@
+[values]
+scope = "test"
+description = "test-desc"
+members = "foo bar"
+versioner = "changesets"

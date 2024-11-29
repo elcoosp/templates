@@ -1,0 +1,14 @@
+[template]
+cargo_generate_version = ">=0.22.0"
+ignore = ["pnpm-lock.yaml", ".turbo", "node_modules", "deno.lock"]
+
+[placeholders]
+description = { type = "text", prompt = "Description of the monorepo" }
+scope = { type = "text", prompt = "Scope of the monorepo (used in @{scope}/{pkgName})" }
+members = { type = "text", prompt = "Space separated list of monorepo member names" }
+versioner = { prompt = "Which versioner?", choices = [
+    "changesets",
+], default = "changesets", type = "string" }
+
+[hooks]
+pre = ["pre-script.rhai", "post-script.rhai"]

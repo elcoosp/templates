@@ -7,6 +7,6 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  call-workflow-passing-data:
+  ci:
     uses: elcoosp/elcoosp-configs/.github/workflows/ci.yml@main
     secrets: inherit

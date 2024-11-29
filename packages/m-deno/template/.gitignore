@@ -5,7 +5,6 @@
 
 # Dist
 node_modules
-dist
 
 # IDE
 .idea
@@ -16,8 +15,8 @@ dist
 codecov
 codecov.*
 
-# Test
+# Test & docs
 coverage
-
-# Workspace
-test-mono
+packages/**/docs
+packages/**/cov
+packages/**/cov.lcov

@@ -1,0 +1,17 @@
+{
+  "name": "@elcoosp-templates/mm-rslib",
+  "version": "1.0.0",
+  "description": "Monorepo member with `rslib`",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "build": "rslib build",
+    "dev": "rslib build --watch",
+    "check": "biome check --write",
+    "fmt": "biome format --write",
+    "test": "vitest run",
+    "test:cov": "vitest run --coverage",
+    "test:watch": "vitest run --watch"
+  }
+}

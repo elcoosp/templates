@@ -1,0 +1,35 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "tasks": {
+      "build": {
+        "dependsOn": ["^build"]
+      },
+      "dev": {
+        "persistent": true,
+        "cache": false
+      },
+      "check": {
+        "dependsOn": ["^check"]
+      },
+      "lint": {
+        "dependsOn": ["^lint"]
+      },
+      "fmt": {
+        "dependsOn": ["^fmt"]
+      },
+      "test": {
+        "dependsOn": ["^test"]
+      },
+      "test:cov": {
+        "dependsOn": ["^test:cov"]
+      },
+      "test:watch": {
+        "cache": false,
+        "persistent": true
+      },
+      "doc": {
+        "dependsOn": ["^doc"]
+      }
+    }
+  }
+  
