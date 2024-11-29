@@ -20,4 +20,4 @@ codecov.*
 coverage
 
 # Workspace
-test-mono
+test-*

@@ -20,7 +20,7 @@ const config = {
     features: '',
     projectDescription: '{{description}}',
     about: '',
-    installation: "```deno install @{{scope}}/{{project-name}}```",
+    installation: '```deno install @{{scope}}/{{project-name}}```',
     acknowledgments: '',
     gettingStarted: 'See screenshot',
     usage: `🚧 In construction, refer to the [docs](${urls.doc})`,
@@ -33,5 +33,5 @@ const config = {
     featRequest: 'feature-request.yml',
   },
   backToTop: false,
-}  as const
+} as const
 export default config

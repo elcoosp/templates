@@ -1,7 +1,7 @@
-# Usage rm -rf test-mono && cargo generate -p packages/m-deno/template --name test-mono --template-values-file tests/m-deno.yml --allow-commands
+# Usage rm -rf test-m-deno && cargo generate -p packages/m-deno/template --name test-m-deno --template-values-file tests/m-deno.yml --allow-commands
 [values]
-scope = "test"
-description = "test-desc"
+scope = "test-m-deno"
+description = "test-m-deno-desc"
 members = "foo bar"
 versioner = "changesets"
 readma-repobeats = "1b12e7ffd13fd2d15772a30e8b0a995976150797"

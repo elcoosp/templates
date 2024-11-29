@@ -1,30 +1,5 @@
 <a id="readme-top"></a>
-  <!-- PROJECT SHIELDS -->
-  
-  <!-- PROJECT LOGO -->
-  <br />
-  <div align="center">
-  <a href="https://github.com/elcoosp/templates">
-  <img src="https://raw.githubusercontent.com/elcoosp/templates/HEAD/images/logo.png" style="max-height: 200px; object-fit: contain;" alt="Logo">
-  </a>
-  <h3 align="center">Templates</h3>
-  
-  <p align="center">
-  Templates using cargo generate
-  <br />
-  <a href="https://github.com/elcoosp/templates"><strong>📖 Explore the docs »</strong></a>
-  <br />
-  <br />
-  <a href="https://github.com/elcoosp/templates">View Demo</a>
-  ·
-  <a href="https://github.com/elcoosp/templates/issues/new?template=bug-report.yml&title=%5BBug%5D%3A+&labels=bug&assignees=elcoosp">Report Bug</a>
-  ·
-  <a href="https://github.com/elcoosp/templates/issues/new?template=feature-request.yml&title=%5BFeat%5D%3A+&labels=enhancement&assignees=elcoosp">Request Feature</a>
-    </p>
-    </div>
-
-
-      
+<!-- PROJECT SHIELDS -->
 [![Codecov][codecov-shield]][codecov-url]
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
@@ -32,6 +7,28 @@
 [![Commit activity][commit-activity-shield]][commit-activity-url]
 [![Branch action runs][branch-action-runs-shield]][branch-action-runs-url]
 [![License][license-shield]][license-url]
+
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/elcoosp/templates">
+    <img src="https://raw.githubusercontent.com/elcoosp/templates/HEAD/images/logo.png" style="max-height: 200px; object-fit: contain;" alt="Logo">
+  </a>
+  <h3 align="center">Templates</h3>
+  
+  <p align="center">
+    Templates using cargo generate
+    <br />
+    <a href="https://github.com/elcoosp/templates"><strong>📖 Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/elcoosp/templates">View Demo</a>
+    ·
+    <a href="https://github.com/elcoosp/templates/issues/new?template=bug-report.yml&title=%5BBug%5D%3A+&labels=bug&assignees=elcoosp">Report Bug</a>
+    ·
+    <a href="https://github.com/elcoosp/templates/issues/new?template=feature-request.yml&title=%5BFeat%5D%3A+&labels=enhancement&assignees=elcoosp">Request Feature</a>
+  </p>
+</div>
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -58,11 +55,11 @@ Monorepo of templates using [cargo generate](https://github.com/cargo-generate/c
 > [!TIP]
 > You are inside the entry point of **templates** workspace, here is a list of available packages
 
-| Package                                                    | Description                                  |
-| ---------------------------------------------------------- | -------------------------------------------- |
-| [@elcoosp-templates/mm-rslib](packages/mm-rslib)           | Monorepo member with `rslib`                 |
-| [@elcoosp-templates/mm-vite-react](packages/mm-vite-react) | Monorepo member with `vite` `react` `oxlint` |
-| [@elcoosp-templates/m-deno](packages/m-deno)               | Monorepo member with `deno` `turbo`          |
+| Package                                                    | Description |
+| ---------------------------------------------------------- | ----------- |
+| [@elcoosp-templates/mm-rslib](packages/mm-rslib)           |             |
+| [@elcoosp-templates/mm-vite-react](packages/mm-vite-react) |             |
+| [@elcoosp-templates/m-deno](packages/m-deno)               |             |
 
 ## ✨ Features
 
@@ -89,7 +86,7 @@ Any contributions you make are **greatly appreciated**.
 
 ## 📄 License
 
-Distributed under the MIT License. See [`LICENSE.txt`](./LICENSE.txt) for more information.
+Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## 📨 Contact
 

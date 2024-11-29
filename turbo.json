@@ -11,6 +11,7 @@
       "lint": {},
       "test": {},
       "test:cov": {},
+      "doc": {},
       "test:watch": {
         "cache": false,
         "persistent": true
