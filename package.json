@@ -14,8 +14,8 @@
     "fmt": "turbo run fmt",
     "test:watch": "turbo run test:watch",
     "test:cov": "turbo run test:cov",
-    "ci:publish": "pnpm build && changeset publish",
-    "ci:version": "changeset version && pnpm fmt",
+    "ci:publish": "changeset publish",
+    "ci:version": "changeset version",
     "changeset": "changeset"
   },
   "devDependencies": {
