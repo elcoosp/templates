@@ -8,7 +8,7 @@
   <img src="https://raw.githubusercontent.com/elcoosp/templates/HEAD/images/logo.png" style="max-height: 200px; object-fit: contain;" alt="Logo">
   </a>
   <h3 align="center">Templates</h3>
-  <h4 align="center">@elcoosp-templates/mm-rslib</h4>
+  <h4 align="center">@elcoosp-templates/m-deno</h4>
   <p align="center">
   Templates using cargo generate
   <br />
@@ -24,7 +24,7 @@
     </div>
 
 > [!NOTE]
-> You are inside the **@elcoosp-templates/mm-rslib** workspace member package, not the repository entry point
+> You are inside the **@elcoosp-templates/m-deno** workspace member package, not the repository entry point
       
 [![NPM version][npm-version-shield]][npm-version-url]
 [![Codecov][codecov-shield]][codecov-url]
@@ -67,19 +67,19 @@ Pick a template that match your need and follow [cargo generate](https://github.
 ## 📋 Installation
 
 ```sh
-pnpm add @elcoosp-templates/mm-rslib
+pnpm add @elcoosp-templates/m-deno
 ```
 ```sh
-npm add @elcoosp-templates/mm-rslib
+npm add @elcoosp-templates/m-deno
 ```
 ```sh
-yarn add @elcoosp-templates/mm-rslib
+yarn add @elcoosp-templates/m-deno
 ```
 ```sh
-deno add npm:@elcoosp-templates/mm-rslib
+deno add npm:@elcoosp-templates/m-deno
 ```
 ```sh
-bun add @elcoosp-templates/mm-rslib
+bun add @elcoosp-templates/m-deno
 ```
 
 ## 🔧 Usage
@@ -109,8 +109,8 @@ Project Link: [https://github.com/elcoosp/templates](https://github.com/elcoosp/
 <!--https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 ![Alt](https://repobeats.axiom.co/api/embed/b6094745c34ee025ae4eeb67dc3c6406245ab2e5.svg "Repobeats analytics image")
 
-[npm-version-shield]: https://img.shields.io/npm/v/@elcoosp-templates/mm-rslib.svg?style=for-the-badge
-[npm-version-url]: https://www.npmjs.com/package/@elcoosp-templates/mm-rslib
+[npm-version-shield]: https://img.shields.io/npm/v/@elcoosp-templates/m-deno.svg?style=for-the-badge
+[npm-version-url]: https://www.npmjs.com/package/@elcoosp-templates/m-deno
 [codecov-shield]: https://img.shields.io/codecov/c/github/elcoosp/templates/main.svg?style=for-the-badge
 [codecov-url]: https://codecov.io/github/elcoosp/templates/tree/main/packages/m-deno
 [contributors-shield]: https://img.shields.io/github/contributors/elcoosp/templates.svg?style=for-the-badge

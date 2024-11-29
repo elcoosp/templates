@@ -62,7 +62,7 @@ Monorepo of templates using [cargo generate](https://github.com/cargo-generate/c
 | ---------------------------------------------------------- | -------------------------------------------- |
 | [@elcoosp-templates/mm-rslib](packages/mm-rslib)           | Monorepo member with `rslib`                 |
 | [@elcoosp-templates/mm-vite-react](packages/mm-vite-react) | Monorepo member with `vite` `react` `oxlint` |
-| [@elcoosp-templates/mm-rslib](packages/m-deno)             | Monorepo member with `rslib`                 |
+| [@elcoosp-templates/m-deno](packages/m-deno)               | Monorepo member with `deno` `turbo`          |
 
 ## ✨ Features
 
