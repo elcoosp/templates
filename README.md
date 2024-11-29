@@ -51,6 +51,7 @@
 
 Monorepo of templates using [cargo generate](https://github.com/cargo-generate/cargo-generate)
 
+<img src="https://raw.githubusercontent.com/elcoosp/templates/HEAD/images/screenshot.gif" alt="Product screenshot" />
 
 > [!TIP]
 > You are inside the entry point of **templates** workspace, here is a list of available packages

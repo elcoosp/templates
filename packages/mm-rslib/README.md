@@ -55,6 +55,8 @@
 
 Monorepo of templates using [cargo generate](https://github.com/cargo-generate/cargo-generate)
 
+<img src="https://raw.githubusercontent.com/elcoosp/templates/HEAD/images/screenshot.gif" alt="Product screenshot" />
+
 ## ✨ Features
 
 - Rslib monorepo member

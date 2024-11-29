@@ -15,7 +15,7 @@ const config = {
     // doc: `https://${name}.vercel.app`,
   },
   repobeats: 'b6094745c34ee025ae4eeb67dc3c6406245ab2e5',
-  images: { logo: 'images/logo.png' },
+  images: { logo: 'images/logo.png', screenshot: 'images/screenshot.gif' },
   sections: {
     projectDescription: 'Templates using cargo generate',
     features: `
