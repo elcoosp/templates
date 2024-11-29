@@ -1,3 +1,4 @@
+# Usage rm -rf test-mono && cargo generate -p packages/m-deno/template --name test-mono --template-values-file tests/m-deno.yml --allow-commands
 [values]
 scope = "test"
 description = "test-desc"
