@@ -15,6 +15,7 @@
     "lint": "deno lint",
     "fmt": "deno fmt",
     "test": "deno test -A",
+    "test:up": "pnpm test -- -- --update",
     "test:cov": "deno test -A --coverage=cov/ && deno coverage --lcov cov/ > cov.lcov",
     "test:watch": "deno test --watch",
     "doc": "deno doc --html src/mod.ts"
