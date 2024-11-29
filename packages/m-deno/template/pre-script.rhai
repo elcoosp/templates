@@ -50,4 +50,23 @@ fn createMembersFiles(){
     file::delete(`${global::PACKAGES_ROOT_FOLDER}/${global::WM_PLACEHOLDER}`)
     
 }
+fn collectReadmaArgs(){
+  let authors = variable::get("authors");
+  let authorsSplit = authors.split();
+  let authorName = authorsSplit[0];
+  let authorFullEmail = authorsSplit[1];
+  authorFullEmail.replace("<", "");
+  authorFullEmail.replace(">", "");
+  let authorFullEmailSplit =authorFullEmail.split("@");
+  let authorEmailDomain = authorFullEmailSplit[1];
+  let authorEmailDomainSplit = authorEmailDomain.split(".");
+  authorEmailDomain = authorEmailDomainSplit[0];
+  let authorEmailDomainExtension = authorEmailDomainSplit[1];
+  debug(`authorName: ${authorName}, authorEmailDomain: ${authorEmailDomain}, authorEmailDomainExtension: ${authorEmailDomainExtension}`);
+  variable::set("readma-author-name", authorName);
+  variable::set("readma-author-email-domain", authorEmailDomain);
+  variable::set("readma-author-email-ext", authorEmailDomainExtension);
+  variable::set("readma-title", variable::get("project-name").to_title_case());
+}
 createMembersFiles();
+collectReadmaArgs();

@@ -1,7 +1,7 @@
 {
   "name": "@elcoosp-templates/m-deno",
   "version": "1.0.0",
-  "description": "Monorepo member with `deno` `turbo`",
+  "description": "Monorepo with `deno` `turbo`",
   "keywords": [],
   "author": "",
   "license": "MIT",

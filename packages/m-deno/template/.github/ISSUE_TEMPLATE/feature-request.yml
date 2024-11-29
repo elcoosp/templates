@@ -1,0 +1,35 @@
+name: Feature Request
+description: Ask for a new feature.
+title: '[Feat]: '
+labels: ['enhancement']
+assignees:
+  - elcoosp
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Thanks :heart: for taking the time to fill out this feature request report!** We kindly ask that you search to
+        see if an issue [already exists](https://github.com/elcoosp/readma/issues?q=is%3Aissue+sort%3Acreated-desc+) for your feature.
+
+        ---
+
+        To address this feature request as fast as possible, we need some information.
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear and concise description of the feature you're interested in.
+      placeholder: Describe your feature here
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested solution
+      description: Describe the solution you'd like. A clear and concise description of what you want to happen. If you have considered alternatives, please describe them.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell

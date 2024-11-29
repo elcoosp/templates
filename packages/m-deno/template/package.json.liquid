@@ -5,7 +5,8 @@
   "description": "{{description}}",
   "packageManager": "pnpm@9.14.3",
   "scripts": {
-    "bootstrap": "pnpm i && pnpm check && pnpm lint && pnpm fmt && pnpm test && pnpm doc",
+    "bootstrap": "pnpm i && pnpm check && pnpm lint && pnpm fmt && pnpm test && pnpm doc && pnpm gen:readme",
+    "gen:readme": "deno run -A jsr:@readma/cli gen",
     "build": "turbo run build",
     "dev": "turbo run dev",
     "check": "turbo run check",
