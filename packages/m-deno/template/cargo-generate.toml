@@ -9,8 +9,9 @@ pre = ["pre-script.rhai", "post-script.rhai"]
 description = { type = "text", prompt = "Description of the monorepo" }
 scope = { type = "text", prompt = "Scope of the monorepo (used in @{scope}/{pkgName})" }
 members = { type = "text", prompt = "Space separated list of monorepo member names" }
-versioner = { prompt = "Which versioner?", choices = [
+versioner = { type = "string", prompt = "Which versioner?", choices = [
     "changesets",
-], default = "changesets", type = "string" }
+], default = "changesets" }
+
 # Readma
 readma-repobeats = { type = "text", prompt = "Readma repobeats hash (not url)" }
