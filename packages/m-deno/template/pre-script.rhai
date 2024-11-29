@@ -50,11 +50,6 @@ import ${wm} from ${pkgName}
 ...
 ` + "```";
         file::write(`${ readmaSectionsFolderPath}/usage.mdx`, readmaUsageSection);
-
-
-        // FIXME return exit status 1
-        // system::command("sed", ["-i", "-e", `'s/WM/${wm}/g'`,`${wmFolderPath}/package.json`]);
-        // system::command("cargo", ["generate", "--allow-commands", "-p", "../packages/mm-vite-react/template", "--name", wm, "--template-values-file", "../tests/mm-rslib.yml"]);
     }
     file::delete(`${global::PACKAGES_ROOT_FOLDER}/${global::WM_PLACEHOLDER}`)
     
@@ -77,5 +72,5 @@ fn collectReadmaArgs(){
   variable::set("readma-author-email-ext", authorEmailDomainExtension);
   variable::set("readma-title", variable::get("project-name").to_title_case());
 }
-createMembersFiles();
 collectReadmaArgs();
+createMembersFiles();
