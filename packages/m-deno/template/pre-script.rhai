@@ -11,9 +11,10 @@ fn createMembersFiles(){
     for (wm, i) in workspaceMembers {
         let wmFolderPath = `${global::PACKAGES_ROOT_FOLDER}/${wm}`;
         debug(`${wm} -> ${wmFolderPath}`);
+        let pkgName = `@{{scope}}/${wm}`;
         let pkgJson = `
 {
-    "name": "@{{scope}}/${wm}",
+    "name": "${pkgName}",
     "author": "{{authors}}",
     "version": "0.0.0",
     "type": "module",
@@ -41,6 +42,14 @@ fn createMembersFiles(){
         cpWmFile(wmFolderPath, "src/mod.ts");
         system::command("mkdir", [`${wmFolderPath}/tests`]);
         cpWmFile(wmFolderPath, "tests/mod.test.ts");
+        let readmaFolderPath =`${wmFolderPath}/readma`;
+        let readmaSectionsFolderPath =`${readmaFolderPath}/sections`;
+        system::command("mkdir", ["-p", readmaSectionsFolderPath]);
+        let readmaUsageSection = "```ts\n" + `
+import ${wm} from ${pkgName}
+...
+` + "```";
+        file::write(`${ readmaSectionsFolderPath}/usage.mdx`, readmaUsageSection);
 
 
         // FIXME return exit status 1
@@ -57,7 +66,7 @@ fn collectReadmaArgs(){
   let authorFullEmail = authorsSplit[1];
   authorFullEmail.replace("<", "");
   authorFullEmail.replace(">", "");
-  let authorFullEmailSplit =authorFullEmail.split("@");
+  let authorFullEmailSplit = authorFullEmail.split("@");
   let authorEmailDomain = authorFullEmailSplit[1];
   let authorEmailDomainSplit = authorEmailDomain.split(".");
   authorEmailDomain = authorEmailDomainSplit[0];
