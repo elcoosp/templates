@@ -4,7 +4,7 @@
   "description": "",
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "packageManager": "pnpm@9.14.3",
   "scripts": {
     "boot": "pnpm i && turbo check lint fmt test doc & pnpm gen:readme",
