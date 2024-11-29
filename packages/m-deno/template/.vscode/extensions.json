@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "gruntfuggly.todo-tree",
+        "denoland.vscode-deno",
+        "wayou.vscode-todo-highlight",
+        "pflannery.vscode-versionlens",
+        "github.vscode-github-actions",
+        "eamodio.gitlens",
+        "gruntfuggly.todo-tree"
+    ]
+}

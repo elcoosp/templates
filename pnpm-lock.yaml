@@ -21,8 +21,8 @@ importers:
         specifier: ^0.0.1
         version: 0.0.1
       '@elcoosp-configs/cspell':
-        specifier: ^0.0.3
-        version: 0.0.3
+        specifier: 0.0.4
+        version: 0.0.4
       '@elcoosp-configs/rslib':
         specifier: '2'
         version: 2.0.3
@@ -41,6 +41,8 @@ importers:
       vitest:
         specifier: ^2.1.6
         version: 2.1.6(jiti@2.4.0)
+
+  packages/m-deno: {}
 
   packages/mm-rslib: {}
 
@@ -197,8 +199,8 @@ packages:
   '@elcoosp-configs/biome@0.0.1':
     resolution: {integrity: sha512-jsrMyXdICN8243oSFmg/aSphr67uJXZ6/G+k6nSMpg71PKfNsq6CukC9mg+Enye1oGQ8p9PC6ChZB5M6Le8mVg==}
 
-  '@elcoosp-configs/cspell@0.0.3':
-    resolution: {integrity: sha512-QXJaJWZEnEx2WK3dPJ62oN/UtvIHrKYgUs4vWEqtpO4ELfgB4hNiCOuN5rpxzPHv+MDwuc94BSSLyXQ2+P0K6Q==}
+  '@elcoosp-configs/cspell@0.0.4':
+    resolution: {integrity: sha512-e1lCMEO4+H0qOMisaBRlgbKYsHjtVlX0U4OgnmYP76y7MlrUfE1dcHdSfo3ZP+DMyNbwU4o3zDl4RKs78gtZug==}
 
   '@elcoosp-configs/rslib@2.0.3':
     resolution: {integrity: sha512-lFIyTBY3lQ7bLcFpgIWSuZ13Xma5GDjqP4yjg2Uf1bjRXEFTGpw4eX1xfPjlS5AtWn4weQZ1XzuAkr21L5rhFw==}
@@ -1674,7 +1676,7 @@ snapshots:
 
   '@elcoosp-configs/biome@0.0.1': {}
 
-  '@elcoosp-configs/cspell@0.0.3': {}
+  '@elcoosp-configs/cspell@0.0.4': {}
 
   '@elcoosp-configs/rslib@2.0.3':
     dependencies:
