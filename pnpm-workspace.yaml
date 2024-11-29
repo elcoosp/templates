@@ -1,3 +1,4 @@
 packages:
   - "packages/mm-rslib"
   - "packages/mm-vite-react"
+  - "packages/m-deno"
