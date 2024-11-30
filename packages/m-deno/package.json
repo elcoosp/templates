@@ -2,9 +2,13 @@
   "name": "@elcoosp-templates/m-deno",
   "version": "1.0.0",
   "description": "Monorepo with `deno` `turbo`",
-  "keywords": [],
-  "author": "",
+  "keywords": ["templates", "cargo-generate"],
+  "author": "elcoosp <elcoosp@gmail.com>",
   "license": "MIT",
+  "files": ["template"],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "rslib build",
     "dev": "rslib build --watch",

@@ -2,8 +2,8 @@
   "name": "@elcoosp-templates/root",
   "version": "1.0.0",
   "description": "",
-  "keywords": [],
-  "author": "",
+  "keywords": ["templates", "cargo-generate"],
+  "author": "elcoosp <elcoosp@gmail.com>",
   "license": "MIT",
   "packageManager": "pnpm@9.14.4",
   "scripts": {
