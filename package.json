@@ -5,7 +5,7 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "packageManager": "pnpm@9.14.3",
+  "packageManager": "pnpm@9.14.4",
   "scripts": {
     "boot": "pnpm i && turbo check lint fmt test doc & pnpm gen:readme",
     "gen:readme": "deno run -A jsr:@readma/cli gen",
