@@ -19,7 +19,7 @@ importers:
         version: 2.27.10
       '@elcoosp-configs/biome':
         specifier: '0'
-        version: 0.0.1
+        version: 0.0.2
       '@elcoosp-configs/cspell':
         specifier: '0'
         version: 0.0.4
@@ -196,8 +196,8 @@ packages:
   '@changesets/write@0.3.2':
     resolution: {integrity: sha512-kDxDrPNpUgsjDbWBvUo27PzKX4gqeKOlhibaOXDJA6kuBisGqNHv/HwGJrAu8U/dSf8ZEFIeHIPtvSlZI1kULw==}
 
-  '@elcoosp-configs/biome@0.0.1':
-    resolution: {integrity: sha512-jsrMyXdICN8243oSFmg/aSphr67uJXZ6/G+k6nSMpg71PKfNsq6CukC9mg+Enye1oGQ8p9PC6ChZB5M6Le8mVg==}
+  '@elcoosp-configs/biome@0.0.2':
+    resolution: {integrity: sha512-gChrAPUCzV6M8/n0SsbBI9fpr3seuIZbhNRBnM8itvg27UtHrjmfKzbQrInnn5jBnBkvfEAL0ccjVi/Fl2bD8Q==}
 
   '@elcoosp-configs/cspell@0.0.4':
     resolution: {integrity: sha512-e1lCMEO4+H0qOMisaBRlgbKYsHjtVlX0U4OgnmYP76y7MlrUfE1dcHdSfo3ZP+DMyNbwU4o3zDl4RKs78gtZug==}
@@ -1674,7 +1674,7 @@ snapshots:
       human-id: 1.0.2
       prettier: 2.8.8
 
-  '@elcoosp-configs/biome@0.0.1': {}
+  '@elcoosp-configs/biome@0.0.2': {}
 
   '@elcoosp-configs/cspell@0.0.4': {}
 
