@@ -26,7 +26,7 @@
     "@changesets/changelog-github": "^0.5.0",
     "@vitest/coverage-v8": "^2.1.6",
     "@changesets/cli": "^2.27.10",
-    "@elcoosp-configs/biome": "^0.0.1",
+    "@elcoosp-configs/biome": "^0.0.2",
     "@elcoosp-configs/cspell": "0.0.4",
     "@elcoosp-configs/rslib": "2",
     "@rslib/core": "^0.1.0",
