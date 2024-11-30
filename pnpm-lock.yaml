@@ -25,7 +25,7 @@ importers:
         version: 0.0.4
       '@elcoosp-configs/rslib':
         specifier: '2'
-        version: 2.0.3
+        version: 2.0.4
       '@rslib/core':
         specifier: ^0.1.0
         version: 0.1.1(typescript@5.7.2)
@@ -202,8 +202,8 @@ packages:
   '@elcoosp-configs/cspell@0.0.4':
     resolution: {integrity: sha512-e1lCMEO4+H0qOMisaBRlgbKYsHjtVlX0U4OgnmYP76y7MlrUfE1dcHdSfo3ZP+DMyNbwU4o3zDl4RKs78gtZug==}
 
-  '@elcoosp-configs/rslib@2.0.3':
-    resolution: {integrity: sha512-lFIyTBY3lQ7bLcFpgIWSuZ13Xma5GDjqP4yjg2Uf1bjRXEFTGpw4eX1xfPjlS5AtWn4weQZ1XzuAkr21L5rhFw==}
+  '@elcoosp-configs/rslib@2.0.4':
+    resolution: {integrity: sha512-HjmgIaX7556B8HY6foShbdtlw8U63z0nc67bTMJgQAdQIXI+cyeJpCKqXu6uYUyjhfK4aZOQFNRD8taVXKrymw==}
 
   '@esbuild/aix-ppc64@0.24.0':
     resolution: {integrity: sha512-WtKdFM7ls47zkKHFVzMz8opM7LkcsIp9amDUBIAWirg70RM71WRSjdILPsY5Uv1D42ZpUfaPILDlfactHgsRkw==}
@@ -1678,7 +1678,7 @@ snapshots:
 
   '@elcoosp-configs/cspell@0.0.4': {}
 
-  '@elcoosp-configs/rslib@2.0.3':
+  '@elcoosp-configs/rslib@2.0.4':
     dependencies:
       read-pkg: 9.0.1
       terminal-link: 3.0.0
