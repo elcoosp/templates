@@ -27,7 +27,7 @@
     "@vitest/coverage-v8": "^2.1.6",
     "@changesets/cli": "^2.27.10",
     "@elcoosp-configs/biome": "^0.0.1",
-    "@elcoosp-configs/cspell": "0.0.4",
+    "@elcoosp-configs/cspell": "0.0.5",
     "@elcoosp-configs/rslib": "2",
     "@rslib/core": "^0.1.0",
     "lefthook": "^1.8.4",
