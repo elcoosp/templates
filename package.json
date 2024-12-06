@@ -5,7 +5,7 @@
   "keywords": ["templates", "cargo-generate"],
   "author": "elcoosp <elcoosp@gmail.com>",
   "license": "MIT",
-  "packageManager": "pnpm@9.14.4",
+  "packageManager": "pnpm@9.15.0",
   "scripts": {
     "boot": "pnpm i && turbo check lint fmt test doc & pnpm gen:readme",
     "gen:readme": "deno run -A jsr:@readma/cli gen",
