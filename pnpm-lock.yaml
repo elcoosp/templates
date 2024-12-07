@@ -22,7 +22,7 @@ importers:
         version: 0.0.2
       '@elcoosp-configs/cspell':
         specifier: '0'
-        version: 0.0.5
+        version: 0.0.6
       '@elcoosp-configs/rslib':
         specifier: '2'
         version: 2.0.4
@@ -199,8 +199,8 @@ packages:
   '@elcoosp-configs/biome@0.0.2':
     resolution: {integrity: sha512-gChrAPUCzV6M8/n0SsbBI9fpr3seuIZbhNRBnM8itvg27UtHrjmfKzbQrInnn5jBnBkvfEAL0ccjVi/Fl2bD8Q==}
 
-  '@elcoosp-configs/cspell@0.0.5':
-    resolution: {integrity: sha512-1+ojobI42IxC8zuNVbhjqKj0bMo3WAKIGUnup2GjwWR8fjAq52BrxY1rqlVxZolvlotd1wgL/kJDSohwGciP+A==}
+  '@elcoosp-configs/cspell@0.0.6':
+    resolution: {integrity: sha512-sx+xI9EE7bzkIW7SpZCfRGyxfeqcb29NWGyhyx3WnY4e21sx8cVDr5OdKABZ6jFdxBbUISHtgwPJvuSosJRv0g==}
 
   '@elcoosp-configs/rslib@2.0.4':
     resolution: {integrity: sha512-HjmgIaX7556B8HY6foShbdtlw8U63z0nc67bTMJgQAdQIXI+cyeJpCKqXu6uYUyjhfK4aZOQFNRD8taVXKrymw==}
@@ -1657,7 +1657,7 @@ snapshots:
 
   '@elcoosp-configs/biome@0.0.2': {}
 
-  '@elcoosp-configs/cspell@0.0.5': {}
+  '@elcoosp-configs/cspell@0.0.6': {}
 
   '@elcoosp-configs/rslib@2.0.4':
     dependencies:
