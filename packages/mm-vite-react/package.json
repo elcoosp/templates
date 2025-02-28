@@ -1,11 +1,16 @@
 {
   "name": "@elcoosp-templates/mm-vite-react",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Monorepo member with `vite` `react` `oxlint`",
-  "keywords": ["templates", "cargo-generate"],
+  "keywords": [
+    "templates",
+    "cargo-generate"
+  ],
   "author": "elcoosp <elcoosp@gmail.com>",
   "license": "MIT",
-  "files": ["template"],
+  "files": [
+    "template"
+  ],
   "publishConfig": {
     "access": "public"
   },
