@@ -22,16 +22,16 @@
     "changeset": "changeset"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.3",
-    "@changesets/changelog-github": "^0.5.0",
-    "@vitest/coverage-v8": "^3.0.0",
-    "@changesets/cli": "^2.27.10",
-    "@elcoosp-configs/biome": "0",
-    "@elcoosp-configs/cspell": "0",
-    "@elcoosp-configs/rslib": "2",
-    "@rslib/core": "^0.5.0",
-    "lefthook": "^1.8.4",
-    "turbo": "^2.3.2",
-    "vitest": "^3.0.0"
+    "@biomejs/biome": "^1.9.4",
+    "@changesets/changelog-github": "^0.5.1",
+    "@vitest/coverage-v8": "^3.0.7",
+    "@changesets/cli": "^2.28.1",
+    "@elcoosp-configs/biome": "0.0.4",
+    "@elcoosp-configs/cspell": "0.0.7",
+    "@elcoosp-configs/rslib": "2.0.6",
+    "@rslib/core": "^0.5.2",
+    "lefthook": "^1.11.2",
+    "turbo": "^2.4.4",
+    "vitest": "^3.0.7"
   }
 }

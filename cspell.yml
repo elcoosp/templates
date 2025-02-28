@@ -3,5 +3,8 @@ import:
 words:
   # User
   - elcoosp
+  - loongarch
+  - rslog
+  - napi
 ignorePaths:
   - "*.cast"
