@@ -8,7 +8,7 @@ espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.6.1"
 activityCompose = "1.9.1"
 composeBom = "2024.04.01"
-constraintlayout = "2.2.0"
+constraintlayout = "2.2.1"
 appcompat = "1.7.0"
 
 [libraries]
