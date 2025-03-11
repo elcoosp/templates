@@ -2,7 +2,10 @@
   "name": "@elcoosp-templates/root",
   "version": "1.0.0",
   "description": "",
-  "keywords": ["templates", "cargo-generate"],
+  "keywords": [
+    "templates",
+    "cargo-generate"
+  ],
   "author": "elcoosp <elcoosp@gmail.com>",
   "license": "MIT",
   "packageManager": "pnpm@10.6.2",
@@ -16,7 +19,7 @@
     "test": "turbo run test",
     "test:cov": "turbo run test:cov",
     "test:watch": "turbo run test:watch",
-    "test-lynx":"rm -rf test-mm-native-lynx-app && /Users/admin/.cargo/bin/kickstart packages/mm-native-lynx-app -o test-mm-native-lynx-app",
+    "test-lynx": "rm -rf test-mm-native-lynx-app && /Users/admin/.cargo/bin/kickstart packages/mm-native-lynx-app -o test-mm-native-lynx-app && cd test-mm-native-lynx-app/template && npm i --force && npm run build && cd android/KotlinMyProj && chmod +x ./gradlew && ./gradlew build && adb install app/build/outputs/apk/debug/app-debug.apk",
     "doc": "turbo run doc",
     "ci:publish": "changeset publish",
     "ci:version": "changeset version",

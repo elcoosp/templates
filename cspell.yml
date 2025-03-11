@@ -7,6 +7,8 @@ words:
   - rslog
   - napi
   - emptyproject
+  - gradlew
+  - lynxpo
 ignorePaths:
   - "*.cast"
   - "packages/mm-native-lynx-app/template/*"
