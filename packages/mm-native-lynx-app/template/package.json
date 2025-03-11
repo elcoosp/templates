@@ -1,31 +1,36 @@
 {
-  "name": "{{project_name|camel_case}}",
-  "version": "0.0.0",
+  "name": "@{{org|kebab_case}}/{{project_name|kebab_case}}",
+  "version": "1.0.0",
   "type": "module",
-  "description": "{{description}}",
-  "main": "./dist/cjs/index.cjs",
-  "exports": {
-    ".": {
-      "require": "./dist/cjs/index.cjs",
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
-  },
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": ["dist"],
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
-    "build": "rslib build",
-    "dev": "rslib build --watch",
+    "build": "rspeedy build",
     "check": "biome check --write",
-    "fmt": "biome format --write",
-    "test": "vitest run",
-    "test:watch": "vitest run --watch"
+    "dev": "rspeedy dev",
+    "format": "biome format --write",
+    "preview": "rspeedy preview"
+  },
+  "dependencies": {
+    "@lynx-js/react": "^0.105.1"
   },
   "devDependencies": {
-    "@elcoosp-configs/rslib": "2"
-  }
+    "@biomejs/biome": "^1.9.4",
+    "@lynx-js/qrcode-rsbuild-plugin": "^0.3.4",
+    "@lynx-js/react-rsbuild-plugin": "^0.9.1",
+    "@lynx-js/rspeedy": "^0.8.3",
+    "@lynx-js/types": "^3.2.0",
+    "@tsconfig/node20": "^20.1.4",
+    "@tsconfig/strictest": "^2.0.5",
+    "@types/react": "^19.0.10",
+    "typescript": "~5.8.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@biomejs/biome",
+      "core-js"
+    ]
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "private": true
 }

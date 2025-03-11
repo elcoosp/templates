@@ -44,6 +44,8 @@ importers:
 
   packages/m-deno: {}
 
+  packages/mm-native-lynx-app: {}
+
   packages/mm-rslib: {}
 
   packages/mm-vite-react: {}

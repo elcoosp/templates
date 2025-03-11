@@ -9,6 +9,7 @@ ignore = [
     "template/android/Java{{project_name}}/.gradle",
     "template/android/Kotlin{{project_name}}/.gradle",
 ]
+copy_without_render = ["template/src/App.tsx"]
 directory = "template"
 
 [[variables]]
