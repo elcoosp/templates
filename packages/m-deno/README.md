@@ -1,31 +1,5 @@
 <a id="readme-top"></a>
-  <!-- PROJECT SHIELDS -->
-  
-  <!-- PROJECT LOGO -->
-  <br />
-  <div align="center">
-  <a href="https://github.com/elcoosp/templates">
-  <img src="https://raw.githubusercontent.com/elcoosp/templates/HEAD/images/logo.png" style="max-height: 200px; object-fit: contain;" alt="Logo">
-  </a>
-  <h3 align="center">Templates</h3>
-  <h4 align="center">@elcoosp-templates/m-deno</h4>
-  <p align="center">
-  Templates using cargo generate
-  <br />
-  <a href="https://github.com/elcoosp/templates"><strong>📖 Explore the docs »</strong></a>
-  <br />
-  <br />
-  <a href="https://github.com/elcoosp/templates">View Demo</a>
-  ·
-  <a href="https://github.com/elcoosp/templates/issues/new?template=bug-report.yml&title=%5BBug%5D%3A+&labels=bug&assignees=elcoosp">Report Bug</a>
-  ·
-  <a href="https://github.com/elcoosp/templates/issues/new?template=feature-request.yml&title=%5BFeat%5D%3A+&labels=enhancement&assignees=elcoosp">Request Feature</a>
-    </p>
-    </div>
-
-> [!NOTE]
-> You are inside the **@elcoosp-templates/m-deno** workspace member package, not the repository entry point
-      
+<!-- PROJECT SHIELDS -->
 [![NPM version][npm-version-shield]][npm-version-url]
 [![Codecov][codecov-shield]][codecov-url]
 [![Contributors][contributors-shield]][contributors-url]
@@ -34,6 +8,31 @@
 [![Commit activity][commit-activity-shield]][commit-activity-url]
 [![Branch action runs][branch-action-runs-shield]][branch-action-runs-url]
 [![License][license-shield]][license-url]
+
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/elcoosp/templates">
+    <img src="https://raw.githubusercontent.com/elcoosp/templates/HEAD/images/logo.png" style="max-height: 200px; object-fit: contain;" alt="Logo">
+  </a>
+  <h3 align="center">Templates</h3>
+  <h4 align="center">@elcoosp-templates/m-deno</h4>
+  <p align="center">
+    Templates using cargo generate
+    <br />
+    <a href="https://github.com/elcoosp/templates"><strong>📖 Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/elcoosp/templates">View Demo</a>
+    ·
+    <a href="https://github.com/elcoosp/templates/issues/new?template=bug-report.yml&title=%5BBug%5D%3A+&labels=bug&assignees=elcoosp">Report Bug</a>
+    ·
+    <a href="https://github.com/elcoosp/templates/issues/new?template=feature-request.yml&title=%5BFeat%5D%3A+&labels=enhancement&assignees=elcoosp">Request Feature</a>
+  </p>
+</div>
+
+> [!NOTE]
+> You are inside the **@elcoosp-templates/m-deno** workspace member package, not the repository entry point
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -54,7 +53,7 @@
 
 ## 💡 About the project
 
-Monorepo of templates using [cargo generate](https://github.com/cargo-generate/cargo-generate)
+Monorepo of templates using [cargo generate](https://github.com/cargo-generate/cargo-generate) or [kickstart](https://github.com/Keats/kickstart)
 
 <img src="https://raw.githubusercontent.com/elcoosp/templates/HEAD/images/screenshot.gif" alt="Product screenshot" />
 
@@ -64,24 +63,21 @@ Monorepo of templates using [cargo generate](https://github.com/cargo-generate/c
 
 ## 🎉 Getting started
 
-Pick a template that match your need and follow [cargo generate](https://github.com/cargo-generate/cargo-generate)
+Pick a template that match your need and follow [cargo generate](https://github.com/cargo-generate/cargo-generate) or [kickstart](https://github.com/Keats/kickstart) depending on the template
 
 ## 📋 Installation
 
 ```sh
-pnpm add @elcoosp-templates/m-deno
+npm add @elcoosp-templates/m-deno
 ```
 ```sh
-npm add @elcoosp-templates/m-deno
+pnpm add @elcoosp-templates/m-deno
 ```
 ```sh
 yarn add @elcoosp-templates/m-deno
 ```
 ```sh
 deno add npm:@elcoosp-templates/m-deno
-```
-```sh
-bun add @elcoosp-templates/m-deno
 ```
 
 ## 🔧 Usage
@@ -97,7 +93,7 @@ Any contributions you make are **greatly appreciated**.
 
 ## 📄 License
 
-Distributed under the MIT License. See [`LICENSE.txt`](./LICENSE.txt) for more information.
+Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## 📨 Contact
 
