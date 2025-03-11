@@ -49,7 +49,7 @@ fn createMembersFiles(){
 import ${wm} from ${pkgName}
 ...
 ` + "```";
-        file::write(`${ readmaSectionsFolderPath}/usage.mdx`, readmaUsageSection);
+        file::write(`${readmaSectionsFolderPath}/usage.mdx`, readmaUsageSection);
     }
     file::delete(`${global::PACKAGES_ROOT_FOLDER}/${global::WM_PLACEHOLDER}`)
     

@@ -3,7 +3,8 @@ cargo_generate_version = ">=0.22.0"
 ignore = ["pnpm-lock.yaml", ".turbo", "node_modules", "deno.lock"]
 
 [hooks]
-pre = ["pre-script.rhai", "post-script.rhai"]
+pre = ["pre-script.rhai"]
+post = ["post-script.rhai"]
 
 [placeholders]
 description = { type = "text", prompt = "Description of the monorepo" }

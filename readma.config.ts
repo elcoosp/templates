@@ -1,6 +1,8 @@
 const name = 'templates';
 const author = 'elcoosp';
 const cargoGenerateLink = "[cargo generate](https://github.com/cargo-generate/cargo-generate)"
+const kickstartLink = "[kickstart](https://github.com/Keats/kickstart)"
+
 const config = {
   language: 'ts',
   title: 'Templates',
@@ -20,10 +22,10 @@ const config = {
     projectDescription: 'Templates using cargo generate',
     features: `
 - Rslib monorepo member`,
-    about: `Monorepo of templates using ${cargoGenerateLink}`,
+    about: `Monorepo of templates using ${cargoGenerateLink} or ${kickstartLink}`,
     installation: 'See individual packages',
     acknowledgments: '',
-    gettingStarted: `Pick a template that match your need and follow ${cargoGenerateLink}`,
+    gettingStarted: `Pick a template that match your need and follow ${cargoGenerateLink} or ${kickstartLink} depending on the template`,
     roadmap: '',
     usage: '',
   },

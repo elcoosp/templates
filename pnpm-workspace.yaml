@@ -1,4 +1,7 @@
 packages:
-  - "packages/mm-rslib"
-  - "packages/mm-vite-react"
-  - "packages/m-deno"
+  - packages/mm-rslib
+  - packages/mm-vite-react
+  - packages/m-deno
+onlyBuiltDependencies:
+  - core-js
+  - lefthook

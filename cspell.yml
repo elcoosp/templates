@@ -6,5 +6,7 @@ words:
   - loongarch
   - rslog
   - napi
+  - emptyproject
 ignorePaths:
   - "*.cast"
+  - "packages/mm-native-lynx-app/template/*"

@@ -1,0 +1,28 @@
+name = "mm-native-lynx-app"
+description = "Monorepo member for a native lynx app"
+kickstart_version = 1
+authors = ["elcoosp"]
+ignore = [
+    "pnpm-lock.yaml",
+    ".turbo",
+    "node_modules",
+    "template/android/Java{{project_name}}/.gradle",
+    "template/android/Kotlin{{project_name}}/.gradle",
+]
+directory = "template"
+
+[[variables]]
+name = "project_name"
+default = "MyProj"
+prompt = "Name (PascalCase) of the project"
+validation = "^([A-Z][a-zA-Z0-9_-]+)$"
+[[variables]]
+name = "org"
+default = "myOrg"
+prompt = "Name (camelCase) of the organization (com.{{org}}.{{project_name|camel_case}}"
+validation = "^([a-z][a-zA-Z0-9_-]+)$"
+
+[[variables]]
+name = "description"
+default = "{{project_name}} lynx app"
+prompt = "Description of the project"
