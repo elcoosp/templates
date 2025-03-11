@@ -4,5 +4,7 @@ packages:
   - packages/mm-native-lynx-app
   - packages/m-deno
 onlyBuiltDependencies:
+  - '@biomejs/biome'
   - core-js
+  - esbuild
   - lefthook
