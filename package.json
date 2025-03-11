@@ -29,7 +29,7 @@
     "@changesets/cli": "^2.28.1",
     "@elcoosp-configs/biome": "0.0.4",
     "@elcoosp-configs/cspell": "0.0.7",
-    "@elcoosp-configs/rslib": "2.0.6",
+    "@elcoosp-configs/rslib": "2.1.0",
     "@rslib/core": "^0.5.2",
     "lefthook": "^1.11.2",
     "turbo": "^2.4.4",

@@ -24,8 +24,8 @@ importers:
         specifier: 0.0.7
         version: 0.0.7
       '@elcoosp-configs/rslib':
-        specifier: 2.0.6
-        version: 2.0.6
+        specifier: 2.1.0
+        version: 2.1.0(typescript@5.7.2)
       '@rslib/core':
         specifier: ^0.5.2
         version: 0.5.4(typescript@5.7.2)
@@ -261,8 +261,8 @@ packages:
   '@elcoosp-configs/cspell@0.0.7':
     resolution: {integrity: sha512-YYEVODUxM+j9ukVXDOHroNg8jmG6Xvti6+9yMH1XK3w4TFLtxPwGSNhV5daB2Diy2b794bv+agQTpMzuW59ltQ==}
 
-  '@elcoosp-configs/rslib@2.0.6':
-    resolution: {integrity: sha512-bFPxzIOoPKSNmB4H4gMqp2YNk0MshDPDAfCNcav9+q4Fx74BNz50AEsmzlxZiHwPpJENUaTW+DeNGVPQ7Qh6og==}
+  '@elcoosp-configs/rslib@2.1.0':
+    resolution: {integrity: sha512-u28jKHY3yHScxP4HJwL7K77YikwYa4+Zv+ZJuwTTmdX0AHB5ABIhHNy8PKK8htxk8cTolwhqi/pklH4MgzdiZw==}
 
   '@esbuild/aix-ppc64@0.25.0':
     resolution: {integrity: sha512-O7vun9Sf8DFjH2UtqK8Ku3LkquL9SZL8OLY1T5NZkA34+wG3OQF7cl4Ql8vdNzM6fzBbYfLaiRLIOZ+2FOCgBQ==}
@@ -1813,10 +1813,15 @@ snapshots:
 
   '@elcoosp-configs/cspell@0.0.7': {}
 
-  '@elcoosp-configs/rslib@2.0.6':
+  '@elcoosp-configs/rslib@2.1.0(typescript@5.7.2)':
     dependencies:
+      '@rslib/core': 0.5.4(typescript@5.7.2)
       read-pkg: 9.0.1
       terminal-link: 3.0.0
+    transitivePeerDependencies:
+      - '@microsoft/api-extractor'
+      - '@rspack/tracing'
+      - typescript
 
   '@esbuild/aix-ppc64@0.25.0':
     optional: true
