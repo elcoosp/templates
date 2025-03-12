@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "com.{{org}}.{{project_name|camel_case}}"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
