@@ -2,15 +2,16 @@
   "extends": ["@tsconfig/strictest", "@tsconfig/node20"],
   "compilerOptions": {
     "jsx": "preserve",
-    "module": "node16",
-    "moduleResolution": "node16",
+    "module": "ESNext",
+    "moduleResolution": "node",
     "strict": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "exclude": ["dist/"],
+  "exclude": ["./dist"],
+  "include": ["./src"],
   "paths": {
     "@assets/*": ["./assets/*"]
   }

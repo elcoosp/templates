@@ -1,10 +1,8 @@
-import { useCallback, useEffect, useState } from '@lynx-js/react'
-
 import './App.css'
 import arrow from '@assets/arrow.png?inline'
 import lynxLogo from '@assets/lynx-logo.png?inline'
 import reactLynxLogo from '@assets/react-logo.png?inline'
-
+import { ChangeLang } from './ChangeLang'
 export function App() {
   const [alterLogo, setAlterLogo] = useState(false)
 
@@ -39,9 +37,8 @@ export function App() {
             Edit<text style={{ fontStyle: 'italic' }}>{' src/App.tsx '}</text>
             to see updates!
           </text>
-          <text class="text-3xl font-bold">
-            Hello world from tailwind!
-          </text>
+          <text className="text-3xl font-bold">Hello world from tailwind!</text>
+          <ChangeLang />
         </view>
         <view style={{ flex: 1 }}></view>
       </view>
