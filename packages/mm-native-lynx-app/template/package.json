@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "build": "rspeedy build && npm run build:android:java",
+    "build": "rspeedy build && npm run build:android:kt",
     "build:android:kt": "PROJ_DIR=android/Kotlin{{project_name}} npm run build-install:android",
     "build:android:java": "PROJ_DIR=android/Java{{project_name}} npm run build-install:android",
     "build-install:android": "cd $PROJ_DIR && chmod +x ./gradlew && ./gradlew build && adb install app/build/outputs/apk/debug/app-debug.apk",
