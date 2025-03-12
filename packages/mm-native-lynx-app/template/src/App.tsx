@@ -2,7 +2,7 @@ import './App.css'
 import arrow from '@assets/arrow.png?inline'
 import lynxLogo from '@assets/lynx-logo.png?inline'
 import reactLynxLogo from '@assets/react-logo.png?inline'
-import { ChangeLang } from './ChangeLang'
+import { ChangeLang } from '@components/ChangeLang'
 export function App() {
   const [alterLogo, setAlterLogo] = useState(false)
 

@@ -8,11 +8,12 @@
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@assets/*": ["./assets/*"],
+      "@components/*": ["./src/components/*"]
+    }
   },
-  "exclude": ["./dist"],
-  "include": ["./src"],
-  "paths": {
-    "@assets/*": ["./assets/*"]
-  }
+  "exclude": ["dist"],
+  "include": ["src"]
 }
