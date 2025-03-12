@@ -1,6 +1,7 @@
 import { defineConfig } from '@lynx-js/rspeedy'
 import { pluginReactLynx } from '@lynx-js/react-rsbuild-plugin'
 import { pluginQRCode } from '@lynx-js/qrcode-rsbuild-plugin'
+import { pluginTailwindCSS } from "rsbuild-plugin-tailwindcss";
 import fs from 'fs/promises'
 
 const copyNativeBundle = async (
@@ -33,6 +34,7 @@ export default defineConfig({
     pluginQRCode(),
     pluginCopyNativeBundle('android', 'Kotlin{{project_name}}'),
     pluginCopyNativeBundle('android', 'Java{{project_name}}'),
+    pluginTailwindCSS()
   ],
   environments: {
     web: {},

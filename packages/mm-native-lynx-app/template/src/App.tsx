@@ -39,6 +39,9 @@ export function App() {
             Edit<text style={{ fontStyle: 'italic' }}>{' src/App.tsx '}</text>
             to see updates!
           </text>
+          <text class="text-3xl font-bold">
+            Hello worldfrom tailwind!
+          </text>
         </view>
         <view style={{ flex: 1 }}></view>
       </view>
