@@ -67,7 +67,7 @@ dependencies {
     implementation("com.facebook.fresco:animated-gif:2.3.0")
     implementation("com.facebook.fresco:animated-webp:2.3.0")
     implementation("com.facebook.fresco:webpsupport:2.3.0")
-    implementation("com.facebook.fresco:animated-base:2.3.0")
+    implementation("com.facebook.fresco:animated-base:2.6.0")
     implementation("org.lynxsdk.lynx:lynx-service-log:3.2.0-rc.0")
     implementation("org.lynxsdk.lynx:lynx-service-http:3.2.0-rc.0")
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
