@@ -19,7 +19,7 @@
     "test": "turbo run test",
     "test:cov": "turbo run test:cov",
     "test:watch": "turbo run test:watch",
-    "test-lynx": "rm -rf test-mm-native-lynx-app && /Users/admin/.cargo/bin/kickstart packages/mm-native-lynx-app -o test-mm-native-lynx-app && cd test-mm-native-lynx-app/template && npm i --force && npm run build && cd android/KotlinMyProj && chmod +x ./gradlew && ./gradlew build && adb install app/build/outputs/apk/debug/app-debug.apk",
+    "test-lynx": "rm -rf test-mm-native-lynx-app && /Users/admin/.cargo/bin/kickstart packages/mm-native-lynx-app -o test-mm-native-lynx-app && cd test-mm-native-lynx-app/template && npm i --force && npm run build",
     "doc": "turbo run doc",
     "ci:publish": "changeset publish",
     "ci:version": "changeset version",

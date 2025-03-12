@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.{{org}}.{{project_name|camel_case}}"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.{{org}}.{{project_name|camel_case}}"

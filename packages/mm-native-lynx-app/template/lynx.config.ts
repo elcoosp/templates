@@ -1,38 +1,37 @@
 import { defineConfig } from '@lynx-js/rspeedy'
 import { pluginReactLynx } from '@lynx-js/react-rsbuild-plugin'
+import { pluginQRCode } from '@lynx-js/qrcode-rsbuild-plugin'
 import fs from 'fs/promises'
 
-const copyNativeAssets = async (
+const copyNativeBundle = async (
   platform: 'android' | 'ios',
   projectName: string,
 ) => {
   if (platform === 'ios') throw new Error(`Unsupported platform: ${platform}`)
-  const langs = { ios: ['Swift', 'Objc'], android: ['Kotlin', 'Java'] }[
-    platform
-  ]
-
   const fromFolder = `dist`
+  const bundleName = 'main.lynx.bundle'
   const toFolder = `${platform}/${projectName}/app/src/main/assets`
-  await fs.cp(fromFolder, toFolder, { recursive: true })
+  await fs.copyFile(`${fromFolder}/${bundleName}`, `${toFolder}/${bundleName}`)
 }
 
-function pluginCopyNativeAssets(
+function pluginCopyNativeBundle(
   platform: 'android' | 'ios',
   projectName: string,
 ) {
   return {
-    name: 'lynxpo:copy-native-asset',
+    name: 'lynxpo:copy-native-bundle',
     setup(api) {
       api.onAfterBuild(
-        async () => await copyNativeAssets(platform, projectName),
+        async () => await copyNativeBundle(platform, projectName),
       )
     },
   }
 }
 export default defineConfig({
   plugins: [
-    pluginCopyNativeAssets('android', 'Kotlin{{project_name}}'),
     pluginReactLynx(),
+    pluginQRCode(),
+    pluginCopyNativeBundle('android', 'Kotlin{{project_name}}'),
   ],
   environments: {
     web: {},
