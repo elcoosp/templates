@@ -63,7 +63,7 @@ dependencies {
     debugImplementation libs.androidx.ui.test.manifest
 
     implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
 
     implementation "org.lynxsdk.lynx:lynx:3.2.0-rc.0"
     implementation "org.lynxsdk.lynx:lynx-jssdk:3.2.0-rc.0"
