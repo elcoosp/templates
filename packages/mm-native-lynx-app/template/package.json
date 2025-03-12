@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "build": "npm run check && rspeedy build && npm run build:android:kt",
+    "build": "npm run check && rspeedy build && npm run build:android:java",
     "build:android:kt": "PROJ_DIR=android/Kotlin{{project_name}} npm run build-install:android",
     "build:android:java": "PROJ_DIR=android/Java{{project_name}} npm run build-install:android",
     "build-install:android": "cd $PROJ_DIR && chmod +x ./gradlew && ./gradlew build && ./gradlew installDebug && adb shell monkey -p com.{{org}}.{{project_name|camel_case}} -c android.intent.category.LAUNCHER 1",
