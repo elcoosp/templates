@@ -32,6 +32,7 @@ export default defineConfig({
     pluginReactLynx(),
     pluginQRCode(),
     pluginCopyNativeBundle('android', 'Kotlin{{project_name}}'),
+    pluginCopyNativeBundle('android', 'Java{{project_name}}'),
   ],
   environments: {
     web: {},
