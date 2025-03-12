@@ -4,25 +4,24 @@ plugins {
 }
 
 android {
-    namespace 'com.{{org}}.{{project_name|camel_case}}'
-    compileSdk 35
+    namespace = 'com.{{org}}.{{project_name|camel_case}}'
+    compileSdk = 35
 
     defaultConfig {
         applicationId "com.{{org}}.{{project_name|camel_case}}"
-        minSdk 24
-        targetSdk 34
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdk = 24
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
-            useSupportLibrary true
+            useSupportLibrary = true
         }
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled = false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -30,17 +29,17 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
-        compose true
+        compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.5.15'
+        kotlinCompilerExtensionVersion = '1.5.15'
     }
     packaging {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
-    ndkVersion '21.1.6352462'
+    ndkVersion = '21.1.6352462'
 }
 
 dependencies {
