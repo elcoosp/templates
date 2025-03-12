@@ -6,7 +6,7 @@
     "build": "rspeedy build && npm run build:android:kt",
     "build:android:kt": "PROJ_DIR=android/Kotlin{{project_name}} npm run build-install:android",
     "build:android:java": "PROJ_DIR=android/Java{{project_name}} npm run build-install:android",
-    "build-install:android": "cd $PROJ_DIR && chmod +x ./gradlew && ./gradlew build && adb install app/build/outputs/apk/debug/app-debug.apk && adb shell monkey -p com.{{org}}.{{project_name|camel_case}} -c android.intent.category.LAUNCHER 1",
+    "build-install:android": "cd $PROJ_DIR && chmod +x ./gradlew && ./gradlew build && ./gradlew installDebug && adb shell monkey -p com.{{org}}.{{project_name|camel_case}} -c android.intent.category.LAUNCHER 1",
     "check": "biome check --write",
     "dev": "rspeedy dev",
     "format": "biome format --write",

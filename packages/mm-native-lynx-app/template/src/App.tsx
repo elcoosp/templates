@@ -40,7 +40,7 @@ export function App() {
             to see updates!
           </text>
           <text class="text-3xl font-bold">
-            Hello worldfrom tailwind!
+            Hello world from tailwind!
           </text>
         </view>
         <view style={{ flex: 1 }}></view>
