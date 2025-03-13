@@ -1,0 +1,17 @@
+diff --git a/node_modules/@tanstack/react-router/dist/esm/Transitioner.js b/node_modules/@tanstack/react-router/dist/esm/Transitioner.js
+index 9c6e521..c659662 100644
+--- a/node_modules/@tanstack/react-router/dist/esm/Transitioner.js
++++ b/node_modules/@tanstack/react-router/dist/esm/Transitioner.js
+@@ -22,10 +22,8 @@ function Transitioner() {
+   if (!router.isServer) {
+     router.startTransition = (fn) => {
+       setIsTransitioning(true);
+-      React.startTransition(() => {
+-        fn();
+-        setIsTransitioning(false);
+-      });
++      fn();
++      setIsTransitioning(false);
+     };
+   }
+   React.useEffect(() => {

@@ -3,6 +3,7 @@ import { pluginReactLynx } from '@lynx-js/react-rsbuild-plugin'
 import { pluginQRCode } from '@lynx-js/qrcode-rsbuild-plugin'
 import { pluginTailwindCSS } from 'rsbuild-plugin-tailwindcss'
 import pluginAutoImport from 'unplugin-auto-import/rspack'
+import { TanStackRouterRspack } from '@tanstack/router-plugin/rspack'
 import fs from 'fs/promises'
 
 const copyNativeBundle = async (
@@ -40,6 +41,7 @@ export default defineConfig({
   tools: {
     rspack: {
       plugins: [
+        TanStackRouterRspack({ target: 'react', autoCodeSplitting: true }),
         pluginAutoImport({
           dts: './src/auto-imports.d.ts',
           dirs: ['./src/i18n'],

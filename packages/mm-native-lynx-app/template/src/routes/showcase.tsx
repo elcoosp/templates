@@ -1,9 +1,11 @@
-import './App.css'
+import { useNavigate } from '@tanstack/react-router'
 import arrow from '@assets/arrow.png?inline'
 import lynxLogo from '@assets/lynx-logo.png?inline'
 import reactLynxLogo from '@assets/react-logo.png?inline'
 import { ChangeLang } from '@components/ChangeLang'
-export function App() {
+import './showcase.css'
+
+export function Route() {
   const [alterLogo, setAlterLogo] = useState(false)
 
   useEffect(() => {
@@ -15,7 +17,7 @@ export function App() {
     setAlterLogo(!alterLogo)
   }, [alterLogo])
 
-  const nav = useNavigate()
+  const nav = useNavigate({ from: "/showcase" })
   return (
     <view>
       <view className="Background" />
@@ -42,7 +44,7 @@ export function App() {
           <ChangeLang />
 
           <view>
-            <text bindtap={() => nav('/home')}>Navigate to Home</text>
+            <text bindtap={() => nav({ to: '/' })}>Navigate to Home</text>
           </view>
         </view>
         <view style={{ flex: 1 }}></view>
