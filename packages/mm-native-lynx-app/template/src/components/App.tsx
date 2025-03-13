@@ -15,6 +15,7 @@ export function App() {
     setAlterLogo(!alterLogo)
   }, [alterLogo])
 
+  const nav = useNavigate()
   return (
     <view>
       <view className="Background" />
@@ -39,6 +40,10 @@ export function App() {
           </text>
           <text className="text-3xl font-bold">Hello world from tailwind!</text>
           <ChangeLang />
+
+          <view>
+            <text bindtap={() => nav('/home')}>Navigate to Home</text>
+          </view>
         </view>
         <view style={{ flex: 1 }}></view>
       </view>

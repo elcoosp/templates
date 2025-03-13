@@ -43,7 +43,9 @@ export default defineConfig({
         pluginAutoImport({
           dts: './src/auto-imports.d.ts',
           dirs: ['./src/i18n'],
+
           imports: [
+            'react-router',
             {
               // TODO: PR https://github.com/unplugin/unplugin-auto-import/tree/main/src/presets
               '@lynx-js/react': [
