@@ -5,7 +5,6 @@ import com.lynx.jsbridge.LynxModule
 import com.lynx.jsbridge.Promise
 import com.lynx.tasm.behavior.LynxContext
 
-
 import android.app.ActivityManager
 import android.app.UiModeManager
 import android.content.Context
@@ -23,6 +22,7 @@ import java.util.*
 
 import kotlinx.serialization.*
 import dev.adamko.kxstsgen.*
+import lynxpo.ktts.annotations.Typed
 
 object EmulatorUtilities {
   // Adapted from https://github.com/react-native-device-info/react-native-device-info/blob/ea9f868a80acaec68583094c891098a03ecb411a/android/src/main/java/com/learnium/RNDeviceInfo/RNDeviceModule.java#L225
@@ -52,6 +52,7 @@ object EmulatorUtilities {
   }
 }
 
+@Typed()
 class DeviceModule(private val context: Context) : LynxModule(context) {
   @Serializable
   enum class DeviceType(val JSValue: Int) {

@@ -12,6 +12,9 @@ plugins {
 
     // Apply the Kotlin JVM plugin to add support for Kotlin.
     alias(libs.plugins.kotlin.jvm)
+    kotlin("plugin.serialization") version "2.1.0"
+
+    `maven-publish`
 }
 
 repositories {
@@ -24,6 +27,25 @@ buildscript { dependencies { classpath(kotlin("gradle-plugin", version = "2.1.0"
 dependencies {
     implementation("com.google.devtools.ksp:symbol-processing-api:2.1.20-RC2-1.0.31")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
+}
+
+
+group = "lynxpo.ktts"  // GROUP_ID
+version = "1.0.0"      // VERSION
+
+// Publish the plugin JAR (which includes annotations)
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "lynxpo.ktts"
+            artifactId = "ktts-plugin"  // ARTIFACT_ID
+            version = "1.0.0"
+            from(components["java"])
+        }
+    }
+    repositories {
+        mavenLocal()  // Publish to ~/.m2/repository
+    }
 }
 
 testing {
