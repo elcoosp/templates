@@ -7,7 +7,8 @@ data class TypeInfo(
         val qualifiedName: String,
         val simpleName: String,
         val isNullable: Boolean = false,
-        val typeArguments: List<TypeInfo> = emptyList()
+        val typeArguments: List<TypeInfo> = emptyList(),
+        val tsReturnInto: String? = null
 )
 
 @Serializable
@@ -31,32 +32,28 @@ data class MethodInfo(
 
 @Serializable
 data class EnumValueInfo(
-    val name: String,
-    val ordinal: Int,
-    val properties: List<Property> = emptyList()
-) {
-    @Serializable
-    data class Property(
         val name: String,
-        val value: String
-    )
+        val ordinal: Int,
+        val properties: List<Property> = emptyList()
+) {
+        @Serializable data class Property(val name: String, val value: String)
 }
 
 @Serializable
 data class SerializableTypeInfo(
-    val qualifiedName: String,
-    val simpleName: String,
-    val kind: String, // "class", "interface", "enum", "object", etc.
-    val properties: List<Property> = emptyList(),
-    val enumValues: List<EnumValueInfo> = emptyList()
+        val qualifiedName: String,
+        val simpleName: String,
+        val kind: String, // "class", "interface", "enum", "object", etc.
+        val properties: List<Property> = emptyList(),
+        val enumValues: List<EnumValueInfo> = emptyList()
 ) {
-    @Serializable
-    data class Property(
-        val name: String,
-        val type: TypeInfo,
-        val isNullable: Boolean = false,
-        val hasDefaultValue: Boolean = false
-    )
+        @Serializable
+        data class Property(
+                val name: String,
+                val type: TypeInfo,
+                val isNullable: Boolean = false,
+                val hasDefaultValue: Boolean = false
+        )
 }
 
 @Serializable

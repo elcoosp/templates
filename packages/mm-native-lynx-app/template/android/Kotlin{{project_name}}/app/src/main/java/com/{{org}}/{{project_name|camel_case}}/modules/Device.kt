@@ -22,7 +22,7 @@ import java.util.*
 
 import kotlinx.serialization.*
 import dev.adamko.kxstsgen.*
-import lynxpo.ktts.annotations.Typed
+import lynxpo.ktts.annotations.*
 
 object EmulatorUtilities {
   // Adapted from https://github.com/react-native-device-info/react-native-device-info/blob/ea9f868a80acaec68583094c891098a03ecb411a/android/src/main/java/com/learnium/RNDeviceInfo/RNDeviceModule.java#L225
@@ -52,7 +52,7 @@ object EmulatorUtilities {
   }
 }
 
-@Typed()
+@Typed
 class DeviceModule(private val context: Context) : LynxModule(context) {
   @Serializable
   enum class DeviceType(val JSValue: Int) {
@@ -88,6 +88,7 @@ class DeviceModule(private val context: Context) : LynxModule(context) {
     (context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).getMemoryInfo(memoryInfo)
     memoryInfo.totalMem
   }
+  @TsRetInto("DeviceType")
   @LynxMethod
   fun deviceType() = run {
     getDeviceType(context).JSValue
