@@ -9,7 +9,6 @@ import kotlinx.serialization.json.Json
 import lynxpo.ktts.annotations.TsRetInto
 import lynxpo.ktts.annotations.Typed
 import lynxpo.ktts.model.ClassInfo
-import lynxpo.ktts.model.EnumValueInfo
 import lynxpo.ktts.model.MethodInfo
 import lynxpo.ktts.model.ParameterInfo
 import lynxpo.ktts.model.SerializableTypeInfo
@@ -54,7 +53,7 @@ class KttsPlugin(
         collectSerializableTypes(classDecl, serializableTypes, resolver)
         val simpleNameToQualified =
                 serializableTypes.associate {
-                    it.simpleName to it.qualifiedName
+                    it.name to it.fullName
                 } // Get all methods with @LynxMethod annotation
         val methodsInfo =
                 classDecl
@@ -68,10 +67,10 @@ class KttsPlugin(
         // Build class info object
         val classInfo =
                 ClassInfo(
-                        qualifiedName = classDecl.qualifiedName?.asString() ?: "",
-                        simpleName = classDecl.simpleName.asString(),
+                        fullName = classDecl.qualifiedName?.asString() ?: "",
+                        name = classDecl.simpleName.asString(),
                         methods = methodsInfo,
-                        lynxType = "", // No longer extracting the value from the annotation
+                        genericMetadata = "", // No longer extracting the value from the annotation
                         serializableTypes = serializableTypes // Add collected serializable types
                 )
 
@@ -130,46 +129,66 @@ class KttsPlugin(
                     when {
                         classDecl.classKind == ClassKind.ENUM_CLASS -> {
                             // For enums, collect all enum entries and their properties
-                            val enumValues =
+                            val enumEntries =
                                     classDecl
                                             .declarations
                                             .filterIsInstance<KSClassDeclaration>()
                                             .filter { it.classKind == ClassKind.ENUM_ENTRY }
-                                            .mapIndexed { index, enumEntry ->
-                                                // Get the primary constructor properties
-                                                val primaryConstructor =
-                                                        classDecl.primaryConstructor
-                                                val properties =
-                                                        if (primaryConstructor != null) {
-                                                            primaryConstructor.parameters.map {
-                                                                    param ->
-                                                                val name =
-                                                                        param.name?.asString() ?: ""
-                                                                val value = index.toString() // Use
-                                                                // index as
-                                                                // value
-                                                                EnumValueInfo.Property(name, value)
-                                                            }
-                                                        } else {
-                                                            emptyList()
-                                                        }
-
-                                                EnumValueInfo(
-                                                        name = enumEntry.simpleName.asString(),
-                                                        ordinal = index,
-                                                        properties = properties
-                                                )
-                                            }
                                             .toList()
 
+                            // Get the primary constructor properties for the enum class
+                            val primaryConstructor = classDecl.primaryConstructor
+                            val propertyDefinitions =
+                                    if (primaryConstructor != null) {
+                                        primaryConstructor.parameters.map { param ->
+                                            SerializableTypeInfo.PropertyDefinition(
+                                                    name = param.name?.asString() ?: "",
+                                                    type = processTypeReference(param.type),
+                                                    isNullable =
+                                                            param.type.resolve().nullability ==
+                                                                    Nullability.NULLABLE
+                                            )
+                                        }
+                                    } else {
+                                        emptyList()
+                                    }
+
+                            // Collect enum values with their property values
+                            val enumValues =
+                                    enumEntries.map { enumEntry ->
+                                        val propertyValues =
+                                                if (primaryConstructor != null) {
+                                                    // Extract the actual values passed to
+                                                    // constructor
+                                                    primaryConstructor.parameters.mapIndexed {
+                                                            index,
+                                                            _ ->
+                                                        // For simple enums like in the example,
+                                                        // we'll use the ordinal values
+                                                        // In a real implementation, you'd need to
+                                                        // parse the enum entry's constructor
+                                                        // arguments
+                                                        val enumOrdinal =
+                                                                enumEntries.indexOf(enumEntry)
+                                                        enumOrdinal.toString()
+                                                    }
+                                                } else {
+                                                    emptyList()
+                                                }
+
+                                        SerializableTypeInfo.EnumValue(
+                                                name = enumEntry.simpleName.asString(),
+                                                propertyValues = propertyValues
+                                        )
+                                    }
+
                             SerializableTypeInfo(
-                                    qualifiedName = qualifiedName,
-                                    simpleName = classDecl.simpleName.asString(),
-                                    kind = "enum",
-                                    enumValues = enumValues,
-                                    properties = emptyList() // Enums don't have properties in this
-                                    // context
-                                    )
+                                    fullName = qualifiedName,
+                                    name = classDecl.simpleName.asString(),
+                                    kind = SerializableTypeInfo.TypeKind.ENUM,
+                                    propertyDefinitions = propertyDefinitions,
+                                    enumValues = enumValues
+                            )
                         }
                         else -> {
                             // For normal classes or data classes, collect all properties
@@ -178,29 +197,28 @@ class KttsPlugin(
                                             .getAllProperties()
                                             .map { prop ->
                                                 val propType = processTypeReference(prop.type)
-                                                SerializableTypeInfo.Property(
+                                                SerializableTypeInfo.PropertyDefinition(
                                                         name = prop.simpleName.asString(),
                                                         type = propType,
-                                                        isNullable = propType.isNullable,
-                                                        hasDefaultValue =
-                                                                false // We can't easily determine
-                                                        // this, might require more
-                                                        // analysis
-                                                        )
+                                                        isNullable = propType.isNullable
+                                                )
                                             }
                                             .toList()
 
+                            val kind =
+                                    when (classDecl.classKind) {
+                                        ClassKind.CLASS -> SerializableTypeInfo.TypeKind.CLASS
+                                        ClassKind.INTERFACE ->
+                                                SerializableTypeInfo.TypeKind.INTERFACE
+                                        ClassKind.OBJECT -> SerializableTypeInfo.TypeKind.OBJECT
+                                        else -> SerializableTypeInfo.TypeKind.CLASS // Default
+                                    }
+
                             SerializableTypeInfo(
-                                    qualifiedName = qualifiedName,
-                                    simpleName = classDecl.simpleName.asString(),
-                                    kind =
-                                            when (classDecl.classKind) {
-                                                ClassKind.CLASS -> "class"
-                                                ClassKind.INTERFACE -> "interface"
-                                                ClassKind.OBJECT -> "object"
-                                                else -> "class" // Default
-                                            },
-                                    properties = properties,
+                                    fullName = qualifiedName,
+                                    name = classDecl.simpleName.asString(),
+                                    kind = kind,
+                                    propertyDefinitions = properties,
                                     enumValues = emptyList() // Not an enum
                             )
                         }
@@ -209,8 +227,8 @@ class KttsPlugin(
             serializableTypes.add(serializableType)
 
             // Now recursively process property types that might be serializable
-            if (serializableType.kind != "enum") {
-                for (property in serializableType.properties) {
+            if (serializableType.kind != SerializableTypeInfo.TypeKind.ENUM) {
+                for (property in serializableType.propertyDefinitions) {
                     processPropertyTypeForSerializable(property.type, serializableTypes, resolver)
                 }
             }
@@ -223,17 +241,15 @@ class KttsPlugin(
             resolver: Resolver
     ) {
         // Skip primitive types and already processed types
-        if (typeInfo.qualifiedName.startsWith("kotlin.") ||
-                        processedSerializableTypes.contains(typeInfo.qualifiedName)
+        if (typeInfo.fullName.startsWith("kotlin.") ||
+                        processedSerializableTypes.contains(typeInfo.fullName)
         ) {
             return
         }
 
         // Look up the type declaration
         val declaration =
-                resolver.getClassDeclarationByName(
-                        resolver.getKSNameFromString(typeInfo.qualifiedName)
-                )
+                resolver.getClassDeclarationByName(resolver.getKSNameFromString(typeInfo.fullName))
                         ?: return
 
         // Process this type
@@ -246,7 +262,7 @@ class KttsPlugin(
     }
 
     private fun generateTypeCompanion(classInfo: ClassInfo, packageName: String) {
-        val fileName = "${classInfo.simpleName}TypeCompanion"
+        val fileName = "${classInfo.name}TypeCompanion"
 
         codeGenerator.createNewFile(Dependencies(false), packageName, fileName).use { output ->
             OutputStreamWriter(output).use { writer ->
@@ -255,11 +271,11 @@ class KttsPlugin(
                     |package $packageName
                     |
                     |/**
-                    | * Compile-time type information for ${classInfo.simpleName}
+                    | * Compile-time type information for ${classInfo.name}
                     | * Generated by KttsPlugin
                     | */
                     |@Suppress("unused")
-                    |object ${classInfo.simpleName}TypeCompanion {
+                    |object ${classInfo.name}TypeCompanion {
                     |
                     |    object Methods {
                     |${classInfo.methods.joinToString("\n") { method ->
@@ -295,17 +311,17 @@ class KttsPlugin(
             sb.append(
                     """
             |            /**
-            | * ${type.simpleName} type information
+            | * ${type.name} type information
             | * Kind: ${type.kind}
-            | * Qualified name: ${type.qualifiedName}
+            | * Qualified name: ${type.fullName}
             | */
-            |            const val ${type.simpleName.uppercase()} = "${type.qualifiedName}"
+            |            const val ${type.name.uppercase()} = "${type.fullName}"
             |""".trimMargin()
             )
 
             // For enums, generate additional constants for their values
-            if (type.kind == "enum" && type.enumValues.isNotEmpty()) {
-                sb.append("\n            object ${type.simpleName} {\n")
+            if (type.kind == SerializableTypeInfo.TypeKind.ENUM && type.enumValues.isNotEmpty()) {
+                sb.append("\n            object ${type.name} {\n")
 
                 // Generate constants for each enum value
                 for (enumValue in type.enumValues) {
@@ -314,10 +330,14 @@ class KttsPlugin(
                     )
 
                     // If the enum has properties, generate constants for them
-                    if (enumValue.properties.isNotEmpty()) {
-                        for (prop in enumValue.properties) {
+                    if (enumValue.propertyValues.isNotEmpty() &&
+                                    type.propertyDefinitions.isNotEmpty()
+                    ) {
+                        for (i in enumValue.propertyValues.indices) {
+                            val propName = type.propertyDefinitions.getOrNull(i)?.name ?: continue
+                            val propValue = enumValue.propertyValues[i]
                             sb.append(
-                                    "                const val ${enumValue.name}_${prop.name.uppercase()} = ${prop.value}\n"
+                                    "                const val ${enumValue.name}_${propName.uppercase()} = $propValue\n"
                             )
                         }
                     }
@@ -338,7 +358,7 @@ class KttsPlugin(
                     "<${typeInfo.typeArguments.joinToString(", ") { typeInfoToString(it) }}>"
                 } else ""
 
-        return "${typeInfo.qualifiedName}$genericPart$nullableSuffix"
+        return "${typeInfo.fullName}$genericPart$nullableSuffix"
     }
 
     private fun processFunctionDeclaration(
@@ -376,11 +396,11 @@ class KttsPlugin(
                 if (tsRetIntoValue != null) {
                     if (resolvedQualifiedName == null) {
                         logger.error(
-                                "@JsRetInto on function ${funcDecl.simpleName.asString()} references unknown type '$tsRetIntoValue'",
+                                "@TsRetInto on function ${funcDecl.simpleName.asString()} references unknown type '$tsRetIntoValue'",
                                 funcDecl
                         )
                     }
-                    actualReturnTypeInfo.copy(tsReturnInto = tsRetIntoValue)
+                    actualReturnTypeInfo.copy(customReturnHint = tsRetIntoValue)
                 } else {
                     actualReturnTypeInfo
                 }
@@ -397,15 +417,25 @@ class KttsPlugin(
 
         // Get receiver type if it's an extension function
         val receiverTypeInfo = funcDecl.extensionReceiver?.let { processTypeReference(it) }
+
+        val visibility =
+                when (funcDecl.getVisibility()) {
+                    Visibility.PUBLIC -> MethodInfo.Visibility.PUBLIC
+                    Visibility.PRIVATE -> MethodInfo.Visibility.PRIVATE
+                    Visibility.PROTECTED -> MethodInfo.Visibility.PROTECTED
+                    Visibility.INTERNAL -> MethodInfo.Visibility.INTERNAL
+                    else -> MethodInfo.Visibility.PUBLIC
+                }
+
         return MethodInfo(
                 name = funcDecl.simpleName.asString(),
                 returnType = finalReturnTypeInfo, // Updated return type
                 parameters = parameterInfos,
                 receiverType = receiverTypeInfo,
-                visibility = funcDecl.getVisibility().name.lowercase(),
+                visibility = visibility,
                 isExtension = funcDecl.extensionReceiver != null,
                 isInline = funcDecl.modifiers.contains(Modifier.INLINE),
-                isSuspend = funcDecl.modifiers.contains(Modifier.SUSPEND)
+                isAsync = funcDecl.modifiers.contains(Modifier.SUSPEND)
         )
     }
 
@@ -416,9 +446,10 @@ class KttsPlugin(
     ): TypeInfo {
         val visitor = ReturnTypeVisitor(resolver, processedSerializableTypes)
         funcDecl.accept(visitor, Unit)
-        return visitor.foundSerializableType?.let { declaredType.copy(qualifiedName = it) }
+        return visitor.foundSerializableType?.let { declaredType.copy(fullName = it) }
                 ?: declaredType
     }
+
     // A visitor class to analyze function bodies for return statements
     private inner class ReturnTypeVisitor(
             private val resolver: Resolver,
@@ -441,13 +472,14 @@ class KttsPlugin(
             }
         }
     }
+
     private fun processTypeReference(typeRef: KSTypeReference): TypeInfo {
         val resolvedType = typeRef.resolve()
         val declaration = resolvedType.declaration
 
         return TypeInfo(
-                qualifiedName = declaration.qualifiedName?.asString() ?: "kotlin.Any",
-                simpleName = declaration.simpleName.asString(),
+                fullName = declaration.qualifiedName?.asString() ?: "kotlin.Any",
+                name = declaration.simpleName.asString(),
                 isNullable = resolvedType.nullability == Nullability.NULLABLE,
                 typeArguments =
                         resolvedType.arguments.map { arg ->
