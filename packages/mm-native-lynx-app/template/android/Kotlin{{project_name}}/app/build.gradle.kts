@@ -80,4 +80,6 @@ dependencies {
     ksp("com.google.dagger:dagger-compiler:2.55")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
     implementation("dev.adamko.kxstsgen:kxs-ts-gen-core:0.2.1")
+    implementation(files("/Users/admin/Documents/Repos/templates/packages/mm-native-lynx-app/ktts-plugin"))
+    ksp(files("/Users/admin/Documents/Repos/templates/packages/mm-native-lynx-app/ktts-plugin"))
 }
