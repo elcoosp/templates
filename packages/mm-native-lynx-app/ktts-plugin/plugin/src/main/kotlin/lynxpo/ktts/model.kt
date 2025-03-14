@@ -8,14 +8,16 @@ data class TypeInfo(
         val name: String, // Renamed from simpleName
         val isNullable: Boolean = false,
         val typeArguments: List<TypeInfo> = emptyList(),
-        val customReturnHint: String? = null // Generalized from tsReturnInto
+        val customReturnHint: String? = null, // Generalized from tsReturnInto
+        val doc: String = "" // Added documentation field
 )
 
 @Serializable
 data class ParameterInfo(
         val name: String,
         val type: TypeInfo,
-        val hasDefaultValue: Boolean = false
+        val hasDefaultValue: Boolean = false,
+        val doc: String = "" // Added documentation field
 )
 
 @Serializable
@@ -28,7 +30,8 @@ data class MethodInfo(
         val visibility: Visibility = Visibility.PUBLIC,
         val isExtension: Boolean = false,
         val isInline: Boolean = false,
-        val isAsync: Boolean = false // Renamed from isSuspend
+        val isAsync: Boolean = false, // Renamed from isSuspend
+        val doc: String = "" // Added documentation field
 ) {
         @Serializable
         enum class Visibility {
@@ -42,9 +45,15 @@ data class MethodInfo(
 @Serializable
 data class EnumValueInfo(
         val name: String,
-        val associatedValues: List<AssociatedValue> = emptyList() // Renamed from properties
+        val associatedValues: List<AssociatedValue> = emptyList(), // Renamed from properties
+        val doc: String = "" // Added documentation field
 ) {
-        @Serializable data class AssociatedValue(val name: String, val type: TypeInfo)
+        @Serializable
+        data class AssociatedValue(
+                val name: String,
+                val type: TypeInfo,
+                val doc: String = "" // Added documentation field
+        )
 }
 
 @Serializable
@@ -54,20 +63,21 @@ data class SerializableTypeInfo(
         val kind: TypeKind,
         val propertyDefinitions: List<PropertyDefinition> =
                 emptyList(), // Common property structure
-        val enumValues: List<EnumValue> = emptyList() // Values per enum case
+        val enumValues: List<EnumValue> = emptyList(), // Values per enum case
+        val doc: String = "" // Added documentation field
 ) {
         @Serializable
         data class PropertyDefinition(
                 val name: String,
                 val type: TypeInfo,
-                val isNullable: Boolean = false,
         )
 
         @Serializable
         data class EnumValue(
                 val name: String,
                 val propertyValues: List<String> =
-                        emptyList() // Ordered values matching propertyDefinitions
+                        emptyList(), // Ordered values matching propertyDefinitions
+                val doc: String = "" // Added documentation field
         )
 
         @Serializable
@@ -86,5 +96,6 @@ data class ClassInfo(
         val name: String,
         val methods: List<MethodInfo> = emptyList(),
         val genericMetadata: String = "", // Generalized from lynxType
-        val serializableTypes: List<SerializableTypeInfo> = emptyList()
+        val serializableTypes: List<SerializableTypeInfo> = emptyList(),
+        val doc: String = "" // Added documentation field
 )

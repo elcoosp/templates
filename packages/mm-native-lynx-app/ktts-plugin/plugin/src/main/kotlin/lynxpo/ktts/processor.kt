@@ -47,6 +47,8 @@ class KttsPlugin(
     }
 
     private fun processClass(classDecl: KSClassDeclaration, resolver: Resolver) {
+        // Extract class documentation
+        val classDoc = extractDocumentation(classDecl)
 
         // Collect all nested serializable types
         val serializableTypes = mutableListOf<SerializableTypeInfo>()
@@ -71,7 +73,8 @@ class KttsPlugin(
                         name = classDecl.simpleName.asString(),
                         methods = methodsInfo,
                         genericMetadata = "", // No longer extracting the value from the annotation
-                        serializableTypes = serializableTypes // Add collected serializable types
+                        serializableTypes = serializableTypes, // Add collected serializable types
+                        doc = classDoc // Add class documentation
                 )
 
         // Generate metadata file
@@ -89,11 +92,24 @@ class KttsPlugin(
                         writer.write(prettyJson.encodeToString(classInfo))
                     }
                 }
-
-        // Generate a Kotlin companion file that allows accessing this information at compile time
-        generateTypeCompanion(classInfo, packageName)
     }
 
+    private fun extractDocumentation(element: KSClassDeclaration): String {
+        return element.docString?.trim() ?: ""
+    }
+    private fun extractDocumentation(element: KSAnnotated): String {
+        return ""
+    }
+    private fun extractDocumentation(element: KSPropertyDeclaration): String {
+        return element.docString?.trim() ?: ""
+    }
+
+    private fun extractDocumentation(_element: KSValueParameter): String {
+        return ""
+    }
+    private fun extractDocumentation(element: KSFunctionDeclaration): String {
+        return element.docString?.trim() ?: ""
+    }
     private fun collectSerializableTypes(
             classDecl: KSClassDeclaration,
             serializableTypes: MutableList<SerializableTypeInfo>,
@@ -124,6 +140,9 @@ class KttsPlugin(
         if (isSerializable) {
             processedSerializableTypes.add(qualifiedName)
 
+            // Extract class documentation
+            val classDoc = extractDocumentation(classDecl)
+
             // Create type info for this serializable class
             val serializableType =
                     when {
@@ -144,9 +163,6 @@ class KttsPlugin(
                                             SerializableTypeInfo.PropertyDefinition(
                                                     name = param.name?.asString() ?: "",
                                                     type = processTypeReference(param.type),
-                                                    isNullable =
-                                                            param.type.resolve().nullability ==
-                                                                    Nullability.NULLABLE
                                             )
                                         }
                                     } else {
@@ -178,7 +194,11 @@ class KttsPlugin(
 
                                         SerializableTypeInfo.EnumValue(
                                                 name = enumEntry.simpleName.asString(),
-                                                propertyValues = propertyValues
+                                                propertyValues = propertyValues,
+                                                doc =
+                                                        extractDocumentation(
+                                                                enumEntry
+                                                        ) // Add enum value documentation
                                         )
                                     }
 
@@ -187,7 +207,8 @@ class KttsPlugin(
                                     name = classDecl.simpleName.asString(),
                                     kind = SerializableTypeInfo.TypeKind.ENUM,
                                     propertyDefinitions = propertyDefinitions,
-                                    enumValues = enumValues
+                                    enumValues = enumValues,
+                                    doc = classDoc // Add enum class documentation
                             )
                         }
                         else -> {
@@ -200,7 +221,6 @@ class KttsPlugin(
                                                 SerializableTypeInfo.PropertyDefinition(
                                                         name = prop.simpleName.asString(),
                                                         type = propType,
-                                                        isNullable = propType.isNullable
                                                 )
                                             }
                                             .toList()
@@ -219,7 +239,8 @@ class KttsPlugin(
                                     name = classDecl.simpleName.asString(),
                                     kind = kind,
                                     propertyDefinitions = properties,
-                                    enumValues = emptyList() // Not an enum
+                                    enumValues = emptyList(), // Not an enum
+                                    doc = classDoc // Add class documentation
                             )
                         }
                     }
@@ -261,96 +282,6 @@ class KttsPlugin(
         }
     }
 
-    private fun generateTypeCompanion(classInfo: ClassInfo, packageName: String) {
-        val fileName = "${classInfo.name}TypeCompanion"
-
-        codeGenerator.createNewFile(Dependencies(false), packageName, fileName).use { output ->
-            OutputStreamWriter(output).use { writer ->
-                writer.write(
-                        """
-                    |package $packageName
-                    |
-                    |/**
-                    | * Compile-time type information for ${classInfo.name}
-                    | * Generated by KttsPlugin
-                    | */
-                    |@Suppress("unused")
-                    |object ${classInfo.name}TypeCompanion {
-                    |
-                    |    object Methods {
-                    |${classInfo.methods.joinToString("\n") { method ->
-                        """        /**
-                        | * ${method.name} type information
-                        | * Return type: ${typeInfoToString(method.returnType)}
-                        | * Parameters: ${method.parameters.joinToString(", ") { "${it.name}: ${typeInfoToString(it.type)}" }}
-                        | */
-                        |        const val ${method.name.uppercase()} = "${method.name}"""".trimMargin()
-                    }}
-                    |    }
-                    |
-                    |    object Types {
-                    |${classInfo.methods.joinToString("\n") { method ->
-                        """        const val ${method.name.uppercase()}_RETURN = "${typeInfoToString(method.returnType)}"""".trimMargin()
-                    }}
-                    |
-                    |${if (classInfo.serializableTypes.isNotEmpty()) generateSerializableCompanion(classInfo.serializableTypes) else ""}
-                    |    }
-                    |}
-                    |""".trimMargin()
-                )
-            }
-        }
-    }
-
-    private fun generateSerializableCompanion(types: List<SerializableTypeInfo>): String {
-        val sb = StringBuilder()
-        sb.append("        object Serializable {\n")
-
-        // Generate constants for all serializable types
-        for (type in types) {
-            sb.append(
-                    """
-            |            /**
-            | * ${type.name} type information
-            | * Kind: ${type.kind}
-            | * Qualified name: ${type.fullName}
-            | */
-            |            const val ${type.name.uppercase()} = "${type.fullName}"
-            |""".trimMargin()
-            )
-
-            // For enums, generate additional constants for their values
-            if (type.kind == SerializableTypeInfo.TypeKind.ENUM && type.enumValues.isNotEmpty()) {
-                sb.append("\n            object ${type.name} {\n")
-
-                // Generate constants for each enum value
-                for (enumValue in type.enumValues) {
-                    sb.append(
-                            "                const val ${enumValue.name} = \"${enumValue.name}\"\n"
-                    )
-
-                    // If the enum has properties, generate constants for them
-                    if (enumValue.propertyValues.isNotEmpty() &&
-                                    type.propertyDefinitions.isNotEmpty()
-                    ) {
-                        for (i in enumValue.propertyValues.indices) {
-                            val propName = type.propertyDefinitions.getOrNull(i)?.name ?: continue
-                            val propValue = enumValue.propertyValues[i]
-                            sb.append(
-                                    "                const val ${enumValue.name}_${propName.uppercase()} = $propValue\n"
-                            )
-                        }
-                    }
-                }
-
-                sb.append("            }\n")
-            }
-        }
-
-        sb.append("        }\n")
-        return sb.toString()
-    }
-
     private fun typeInfoToString(typeInfo: TypeInfo): String {
         val nullableSuffix = if (typeInfo.isNullable) "?" else ""
         val genericPart =
@@ -366,6 +297,9 @@ class KttsPlugin(
             resolver: Resolver,
             simpleNameToQualified: Map<String, String>
     ): MethodInfo {
+        // Extract function documentation
+        val funcDoc = extractDocumentation(funcDecl)
+
         // Get return type information from the declaration
         val declaredReturnTypeInfo = processTypeReference(funcDecl.returnType!!)
 
@@ -411,7 +345,8 @@ class KttsPlugin(
                     ParameterInfo(
                             name = param.name?.asString() ?: "",
                             type = processTypeReference(param.type),
-                            hasDefaultValue = param.hasDefault
+                            hasDefaultValue = param.hasDefault,
+                            doc = extractDocumentation(param) // Add parameter documentation
                     )
                 }
 
@@ -435,7 +370,8 @@ class KttsPlugin(
                 visibility = visibility,
                 isExtension = funcDecl.extensionReceiver != null,
                 isInline = funcDecl.modifiers.contains(Modifier.INLINE),
-                isAsync = funcDecl.modifiers.contains(Modifier.SUSPEND)
+                isAsync = funcDecl.modifiers.contains(Modifier.SUSPEND),
+                doc = funcDoc // Add function documentation
         )
     }
 

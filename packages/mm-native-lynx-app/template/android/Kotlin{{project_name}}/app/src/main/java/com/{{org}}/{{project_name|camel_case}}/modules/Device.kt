@@ -52,24 +52,29 @@ object EmulatorUtilities {
   }
 }
 
+/** DeviceModule superdoc */
 @Typed
 class DeviceModule(private val context: Context) : LynxModule(context) {
+  /** DeviceType superdoc */
   @Serializable
-  enum class DeviceType(val JSValue: Int) {
+  enum class DeviceType(
+    val JSValue: Int) {
+    /** DeviceType.UNKNOWN field superdoc */
     UNKNOWN(0),
     PHONE(1),
     TABLET(2),
     DESKTOP(3),
     TV(4)
   }
-
+  
   private fun getContext(): Context {
     val lynxContext = mContext as LynxContext
     return lynxContext.getContext()
   }
   
-    
-
+  
+  
+  /** Is it a device ? superdoc */
   @LynxMethod
   fun isDevice() = !isRunningOnEmulator
   @LynxMethod
