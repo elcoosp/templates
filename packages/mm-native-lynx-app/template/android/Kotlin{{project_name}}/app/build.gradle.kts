@@ -1,7 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-   alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.compose.compiler)
+    id("com.google.devtools.ksp") version "2.1.20-RC2-1.0.31"
+    kotlin("plugin.serialization") version "2.1.0"
 }
 
 android {
@@ -73,4 +75,9 @@ dependencies {
     implementation("org.lynxsdk.lynx:lynx-service-http:3.2.0-rc.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
+    // Lynxpo
+    implementation("com.google.dagger:dagger-compiler:2.55")
+    ksp("com.google.dagger:dagger-compiler:2.55")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
+    implementation("dev.adamko.kxstsgen:kxs-ts-gen-core:0.2.1")
 }
