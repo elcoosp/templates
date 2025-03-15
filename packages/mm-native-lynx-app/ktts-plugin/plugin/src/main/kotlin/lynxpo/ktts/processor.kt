@@ -8,11 +8,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import lynxpo.ktts.annotations.TsRetInto
 import lynxpo.ktts.annotations.Typed
-import lynxpo.ktts.model.ClassInfo
-import lynxpo.ktts.model.MethodInfo
-import lynxpo.ktts.model.ParameterInfo
-import lynxpo.ktts.model.SerializableTypeInfo
-import lynxpo.ktts.model.TypeInfo
+import lynxpo.ktts.model.*
 
 class KttsPlugin(
         private val codeGenerator: CodeGenerator,
@@ -37,6 +33,20 @@ class KttsPlugin(
         typedClasses.forEach { classDecl -> processClass(classDecl, resolver) }
         return emptyList()
     }
+    private fun extractLocation(node: KSNode): SourceLocation {
+        val location = node.location
+        val fileLocation = location as? FileLocation ?: return SourceLocation()
+        // FIXME find a way to retrieve it, not in fileLocation
+        val columnNumber = 0
+        return SourceLocation(
+                filePath = fileLocation.filePath,
+                startLine = fileLocation.lineNumber,
+                startColumn = columnNumber,
+                endLine = fileLocation.lineNumber, // KSP doesn't provide end line/column
+                endColumn = columnNumber + (node.toString().length) // Approximate end column
+        )
+    }
+
     private fun extractDocumentation(element: KSClassDeclaration): String {
         return element.docString?.trim() ?: ""
     }
@@ -64,6 +74,7 @@ class KttsPlugin(
             collectSerializableTypes(decl, serializableTypes, resolver)
         }
     }
+
     private fun processClass(classDecl: KSClassDeclaration, resolver: Resolver) {
         val classDoc = extractDocumentation(classDecl)
         val serializableTypes = mutableListOf<SerializableTypeInfo>()
@@ -97,7 +108,8 @@ class KttsPlugin(
                         methods = methodsInfo,
                         genericMetadata = "",
                         serializableTypes = serializableTypes,
-                        doc = classDoc
+                        doc = classDoc,
+                        location = extractLocation(classDecl)
                 )
 
         generateMetadataFile(classDecl, classInfo)
@@ -162,7 +174,8 @@ class KttsPlugin(
                         classDecl.primaryConstructor?.parameters?.map {
                             SerializableTypeInfo.PropertyDefinition(
                                     name = it.name?.asString() ?: "",
-                                    type = processTypeReference(it.type)
+                                    type = processTypeReference(it.type),
+                                    location = extractLocation(it)
                             )
                         }
                                 ?: emptyList()
@@ -191,10 +204,8 @@ class KttsPlugin(
                             SerializableTypeInfo.EnumValue(
                                     name = enumEntry.simpleName.asString(),
                                     propertyValues = propertyValues,
-                                    doc =
-                                            extractDocumentation(
-                                                    enumEntry
-                                            ) // Add enum value documentation
+                                    doc = extractDocumentation(enumEntry),
+                                    location = extractLocation(enumEntry)
                             )
                         }
                 SerializableTypeInfo(
@@ -203,7 +214,8 @@ class KttsPlugin(
                         kind = SerializableTypeInfo.TypeKind.ENUM,
                         propertyDefinitions = properties,
                         enumValues = enumValues.toList(),
-                        doc = extractDocumentation(classDecl)
+                        doc = extractDocumentation(classDecl),
+                        location = extractLocation(classDecl)
                 )
             }
             else -> {
@@ -213,7 +225,8 @@ class KttsPlugin(
                                 .map {
                                     SerializableTypeInfo.PropertyDefinition(
                                             name = it.simpleName.asString(),
-                                            type = processTypeReference(it.type)
+                                            type = processTypeReference(it.type),
+                                            location = extractLocation(it)
                                     )
                                 }
                                 .toList()
@@ -229,7 +242,8 @@ class KttsPlugin(
                                 },
                         propertyDefinitions = properties,
                         enumValues = emptyList(),
-                        doc = extractDocumentation(classDecl)
+                        doc = extractDocumentation(classDecl),
+                        location = extractLocation(classDecl)
                 )
             }
         }
@@ -318,7 +332,8 @@ class KttsPlugin(
                                     name = param.name?.asString() ?: "",
                                     type = processTypeReference(param.type),
                                     hasDefaultValue = param.hasDefault,
-                                    doc = extractDocumentation(param)
+                                    doc = extractDocumentation(param),
+                                    location = extractLocation(param)
                             )
                             .also {
                                 processPropertyTypeForSerializable(
@@ -346,9 +361,11 @@ class KttsPlugin(
                 isExtension = funcDecl.extensionReceiver != null,
                 isInline = funcDecl.modifiers.contains(Modifier.INLINE),
                 isAsync = funcDecl.modifiers.contains(Modifier.SUSPEND),
-                doc = extractDocumentation(funcDecl)
+                doc = extractDocumentation(funcDecl),
+                location = extractLocation(funcDecl)
         )
     }
+
     private fun Visibility.toModelVisibility(): MethodInfo.Visibility {
         return when (this) {
             Visibility.PUBLIC -> MethodInfo.Visibility.PUBLIC
@@ -396,10 +413,10 @@ class KttsPlugin(
                                             "kotlin.Any",
                                             "Any"
                                     ) // Default for star projections or unresolvable types
-                        }
+                        },
+                location = extractLocation(typeRef)
         )
     }
-
     private fun KSFunctionDeclaration.getVisibility(): Visibility {
         return when {
             modifiers.contains(Modifier.PUBLIC) -> Visibility.PUBLIC

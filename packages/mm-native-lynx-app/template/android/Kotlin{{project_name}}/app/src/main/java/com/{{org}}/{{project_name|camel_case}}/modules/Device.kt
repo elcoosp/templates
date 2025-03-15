@@ -21,7 +21,7 @@ import kotlin.math.sqrt
 import java.util.*
 
 import kotlinx.serialization.*
-import dev.adamko.kxstsgen.*
+import LynxpoModule
 import lynxpo.ktts.annotations.*
 
 object EmulatorUtilities {
@@ -54,7 +54,7 @@ object EmulatorUtilities {
 
 /** DeviceModule superdoc */
 @Typed
-class DeviceModule(private val context: Context) : LynxModule(context) {
+class DeviceModule(private val context: Context) : LynxpoModule(context) {
   /** DeviceType superdoc */
   @Serializable
   enum class DeviceType(
@@ -74,7 +74,6 @@ class DeviceModule(private val context: Context) : LynxModule(context) {
   
   
   
-  /** Is it a device ? superdoc */
   @LynxMethod
   fun isDevice() = !isRunningOnEmulator
   @LynxMethod
