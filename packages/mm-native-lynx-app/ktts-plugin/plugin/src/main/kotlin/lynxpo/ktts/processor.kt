@@ -369,8 +369,10 @@ class KttsPlugin(
                             TsRetInto::class.qualifiedName
                 }
         val tsRetIntoValue = annotation?.arguments?.firstOrNull()?.value as? String
-        val resolvedName =
-                tsRetIntoValue?.let { if (it.contains('.')) it else simpleNameToQualified[it] }
+        // TODO:        val resolvedName =
+        // tsRetIntoValue?.let { if (it.contains('.')) it else simpleNameToQualified[it] }
+
+        val resolvedName = tsRetIntoValue
 
         return if (resolvedName != null) {
             actualReturnType.copy(customReturnHint = resolvedName) to tsRetIntoValue
