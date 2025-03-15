@@ -1,55 +1,65 @@
 import android.content.Context
 import com.lynx.jsbridge.LynxModule
 
+@DslMarker
+annotation class LynxpoModuleDsl
+
 abstract class LynxpoModule(context: Context) : LynxModule(context) {
-    private val propDefinitions = mutableListOf<PropDefinition<*>>()
-    private val onCreateHandlers = mutableListOf<() -> Unit>()
-    private val onDestroyHandlers = mutableListOf<() -> Unit>()
-    private val onStartObservingHandlers = mutableListOf<() -> Unit>()
-    private val onStopObservingHandlers = mutableListOf<() -> Unit>()
-    private val activityLifecycleHandlers =
+    val propDefinitions = mutableListOf<PropDefinition<*>>()
+    val onCreateHandlers = mutableListOf<() -> Unit>()
+    val onDestroyHandlers = mutableListOf<() -> Unit>()
+    val onStartObservingHandlers = mutableListOf<() -> Unit>()
+    val onStopObservingHandlers = mutableListOf<() -> Unit>()
+    val activityLifecycleHandlers =
             mutableMapOf<ActivityLifecycleEvent, MutableList<() -> Unit>>()
 
-    // DSL support
-    protected class DslMarker
-
-    // Class properties that act as DSL elements
-    @JvmField protected val OnCreate = EventHandler(onCreateHandlers)
-    @JvmField protected val OnDestroy = EventHandler(onDestroyHandlers)
-    @JvmField protected val OnStartObserving = EventHandler(onStartObservingHandlers)
-    @JvmField protected val OnStopObserving = EventHandler(onStopObservingHandlers)
-    @JvmField
-    protected val OnActivityEntersForeground =
-            EventHandler(
-                    activityLifecycleHandlers.getOrPut(ActivityLifecycleEvent.ENTERS_FOREGROUND) {
-                        mutableListOf()
-                    }
-            )
-    @JvmField
-    protected val OnActivityEntersBackground =
-            EventHandler(
-                    activityLifecycleHandlers.getOrPut(ActivityLifecycleEvent.ENTERS_BACKGROUND) {
-                        mutableListOf()
-                    }
-            )
-    @JvmField
-    protected val OnActivityDestroys =
-            EventHandler(
-                    activityLifecycleHandlers.getOrPut(ActivityLifecycleEvent.DESTROYS) {
-                        mutableListOf()
-                    }
-            )
-
-    // Event handler class that supports the DSL syntax
-    protected class EventHandler(private val handlers: MutableList<() -> Unit>) {
-        operator fun invoke(handler: () -> Unit) {
-            handlers.add(handler)
-        }
+    // Prop API - Using inline function with reified type parameter
+    @LynxpoModuleDsl
+    inline fun <reified T> Prop(name: String, noinline setter: (value: T) -> Unit) {
+        propDefinitions.add(PropDefinition(name, setter))
     }
 
-    // Prop API
-    fun <T> Prop(name: String, setter: (value: T) -> Unit) {
-        propDefinitions.add(PropDefinition(name, setter))
+    // Lifecycle APIs - Using inline functions with crossinline lambdas
+    @LynxpoModuleDsl
+    inline fun OnCreate(crossinline handler: () -> Unit) {
+        onCreateHandlers.add { handler() }
+    }
+
+    @LynxpoModuleDsl
+    inline fun OnDestroy(crossinline handler: () -> Unit) {
+        onDestroyHandlers.add { handler() }
+    }
+
+    @LynxpoModuleDsl
+    inline fun OnStartObserving(crossinline handler: () -> Unit) {
+        onStartObservingHandlers.add { handler() }
+    }
+
+    @LynxpoModuleDsl
+    inline fun OnStopObserving(crossinline handler: () -> Unit) {
+        onStopObservingHandlers.add { handler() }
+    }
+
+    // Activity Lifecycle APIs - Using inline functions with crossinline lambdas
+    @LynxpoModuleDsl
+    inline fun OnActivityEntersForeground(crossinline handler: () -> Unit) {
+        activityLifecycleHandlers
+                .getOrPut(ActivityLifecycleEvent.ENTERS_FOREGROUND) { mutableListOf() }
+                .add { handler() }
+    }
+
+    @LynxpoModuleDsl
+    inline fun OnActivityEntersBackground(crossinline handler: () -> Unit) {
+        activityLifecycleHandlers
+                .getOrPut(ActivityLifecycleEvent.ENTERS_BACKGROUND) { mutableListOf() }
+                .add { handler() }
+    }
+
+    @LynxpoModuleDsl
+    inline fun OnActivityDestroys(crossinline handler: () -> Unit) {
+        activityLifecycleHandlers
+                .getOrPut(ActivityLifecycleEvent.DESTROYS) { mutableListOf() }
+                .add { handler() }
     }
 
     fun initialize() {
