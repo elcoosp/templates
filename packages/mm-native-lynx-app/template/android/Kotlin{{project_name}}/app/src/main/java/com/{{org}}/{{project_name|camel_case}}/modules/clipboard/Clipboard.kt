@@ -1,11 +1,5 @@
-// TODO add package
-import com.lynx.jsbridge.LynxMethod
-import com.lynx.jsbridge.LynxModule
-import com.lynx.jsbridge.Promise
-import com.lynx.tasm.behavior.LynxContext
-// TODO move in dedicated package
+package com.{{org}}.{{project_name|camel_case}}.modules.clipboard
 import LynxpoModule
-
 
 import android.content.ClipData
 import android.content.ClipDescription
@@ -18,12 +12,14 @@ import android.text.Spanned
 import android.text.TextUtils
 import android.util.Log
 import androidx.core.os.bundleOf
-
-
-
-
-
+import com.lynx.jsbridge.LynxMethod
+import com.lynx.jsbridge.Promise
+import com.lynx.tasm.behavior.LynxContext
 import java.io.File
+
+inline fun <T> T?.ifNull(block: () -> T): T = this ?: block()
+
+inline fun <reified T> Any?.takeIfInstanceOf(): T? = this as? T
 
 private const val moduleName = "ExpoClipboard"
 private val TAG = ClipboardModule::class.java.simpleName
@@ -39,19 +35,20 @@ private enum class ContentType(val jsName: String) {
 }
 
 class ClipboardModule(private val context: Context) : LynxpoModule(context) {
+
   init {
 
     OnCreate {
       clipboardEventEmitter = ClipboardEventEmitter()
       clipboardEventEmitter.attachListener()
     }
-    
+
     OnDestroy { clipboardEventEmitter.detachListener() }
-    
+
     OnActivityEntersBackground { clipboardEventEmitter.pauseListening() }
-    
+
     OnActivityEntersForeground { clipboardEventEmitter.resumeListening() }
-  }  
+  }
   
   @LynxMethod
   fun getStringAsync(options: SetStringOptions, promise: Promise) {
@@ -78,88 +75,75 @@ class ClipboardModule(private val context: Context) : LynxpoModule(context) {
     clipboardManager.setPrimaryClip(clip)
     return promise.resolve(true)
   }
-  
-  
+
   @LynxMethod
   fun hasStringAsync(promise: Promise): Boolean {
     clipboardManager.primaryClipDescription?.hasTextContent ?: false
   }
-  
+
+  // endregion
+
+  // region Images
   @LynxMethod
   fun getImageAsync(options: GetImageOptions, promise: Promise) {
     runBlocking {
-    launch {
-      val imageUri =
-              clipboardManager
-                      .takeIf { clipboardHasItemWithType("image/*") }
-                      ?.firstItem
-                      ?.uri
-                      .ifNull {
-                        return@Coroutine null
-                      }
-    
-      try {
-        val imageResult = imageFromContentUri(context, imageUri, options)
-        return@Coroutine imageResult.toBundle()
-      } catch (err: Throwable) {
-        err.printStackTrace()
-        throw when (err) {
-          is CodedException -> err
-          is SecurityException -> NoPermissionException(err)
-          else -> PasteFailureException(err, kind = "image")
+      launch {
+        val imageUri =
+                clipboardManager
+                        .takeIf { clipboardHasItemWithType("image/*") }
+                        ?.firstItem
+                        ?.uri
+                        .ifNull {
+                          return@launch promise.resolve(null)
+                        }
+
+        try {
+          val imageResult = imageFromContentUri(context, imageUri, options)
+          return@launch promise.resolve(imageResult.toBundle())
+        } catch (err: Throwable) {
+          err.printStackTrace()
+          return@launch promise.reject(
+                  when (err) {
+                    is CodedException -> err
+                    is SecurityException -> NoPermissionException(err)
+                    else -> PasteFailureException(err, kind = "image")
+                  }
+          )
         }
       }
     }
   }
-  
-  }
-  
-  
+
   @LynxMethod
   fun setImageAsync(imageData: String, promise: Promise) {
     runBlocking {
-    launch {
-      try {
-        val clip = clipDataFromBase64Image(context, imageData, clipboardCacheDir)
-        clipboardManager.setPrimaryClip(clip)
-      } catch (err: Throwable) {
-        err.printStackTrace()
-        throw when (err) {
-          is CodedException -> err
-          else -> CopyFailureException(err, kind = "image")
+      launch {
+        try {
+          val clip = clipDataFromBase64Image(context, imageData, clipboardCacheDir)
+          clipboardManager.setPrimaryClip(clip)
+        } catch (err: Throwable) {
+          err.printStackTrace()
+          return@launch promise.reject(
+                  when (err) {
+                    is CodedException -> err
+                    else -> CopyFailureException(err, kind = "image")
+                  }
+          )
         }
       }
     }
   }
-  
-  }
-  
-  
+
   @LynxMethod
   fun hasImageAsync(promise: Promise): Boolean {
     clipboardManager.primaryClipDescription?.hasMimeType("image/*") == true
   }
-  
-init {
 
-  OnCreate {
-    clipboardEventEmitter = ClipboardEventEmitter()
-    clipboardEventEmitter.attachListener()
-  }
-  
-  OnDestroy { clipboardEventEmitter.detachListener() }
-  
-  OnActivityEntersBackground { clipboardEventEmitter.pauseListening() }
-  
-  OnActivityEntersForeground { clipboardEventEmitter.resumeListening() }
-}  
 
   private fun getContext(): Context {
     val lynxContext = mContext as LynxContext
     return lynxContext.getContext()
   }
-  
-    
 
   private val clipboardManager: ClipboardManager
     get() =
@@ -205,24 +189,28 @@ init {
                   timestamp = clip.timestamp
                 }
 
-                getContext().sendGlobalEvent(CLIPBOARD_CHANGED_EVENT_NAME, bundleOf(
-                        "contentTypes" to
-                                listOfNotNull(
-                                                ContentType.PLAIN_TEXT.takeIf {
-                                                  clip.hasTextContent
-                                                },
-                                                ContentType.HTML.takeIf {
-                                                  clip.hasMimeType(
-                                                          ClipDescription.MIMETYPE_TEXT_HTML
-                                                  )
-                                                },
-                                                ContentType.IMAGE.takeIf {
-                                                  clip.hasMimeType("image/*")
-                                                }
-                                        )
-                                        .map { it.jsName }
-                ))
-                
+                getContext()
+                        .sendGlobalEvent(
+                                CLIPBOARD_CHANGED_EVENT_NAME,
+                                bundleOf(
+                                        "contentTypes" to
+                                                listOfNotNull(
+                                                                ContentType.PLAIN_TEXT.takeIf {
+                                                                  clip.hasTextContent
+                                                                },
+                                                                ContentType.HTML.takeIf {
+                                                                  clip.hasMimeType(
+                                                                          ClipDescription
+                                                                                  .MIMETYPE_TEXT_HTML
+                                                                  )
+                                                                },
+                                                                ContentType.IMAGE.takeIf {
+                                                                  clip.hasMimeType("image/*")
+                                                                }
+                                                        )
+                                                        .map { it.jsName }
+                                )
+                        )
               }
             }
 
@@ -250,7 +238,6 @@ init {
 
   // endregion
 }
-
 
 private fun plainTextFromHtml(htmlContent: String): String {
   val styledText: Spanned = Html.fromHtml(htmlContent, FROM_HTML_MODE_LEGACY)

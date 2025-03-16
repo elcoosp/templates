@@ -98,7 +98,7 @@ abstract class LynxpoModule(context: Context) : LynxModule(context) {
         // })
     }
 
-    private inner class PropDefinition<T>(val name: String, val setter: (T) -> Unit)
+    inner class PropDefinition<T>(val name: String, val setter: (T) -> Unit)
 
     enum class ActivityLifecycleEvent {
         ENTERS_FOREGROUND,

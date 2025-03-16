@@ -1,4 +1,4 @@
-package com.{{org}}.{{project_name|camel_case}}.modules
+package com.{{org}}.{{project_name|camel_case}}.modules.device
 
 import com.lynx.jsbridge.LynxMethod
 import com.lynx.jsbridge.LynxModule

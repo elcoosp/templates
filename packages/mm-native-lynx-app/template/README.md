@@ -13,7 +13,7 @@ pnpm install
 Then, run the development server:
 
 ```bash
-pnpm run dev
+ppnpm dev
 ```
 
 Scan the QRCode in the terminal with your LynxExplorer App to see the result.
