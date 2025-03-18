@@ -5,6 +5,7 @@ import reactLynxLogo from '@assets/react-logo.png?inline'
 import { ChangeLang } from '@components/ChangeLang'
 export function App() {
   const [alterLogo, setAlterLogo] = useState(false)
+  const [brand, setBrand] = useState('')
 
   useEffect(() => {
     console.info('Hello, ReactLynx')
@@ -13,6 +14,7 @@ export function App() {
   const onTap = useCallback(() => {
     'background only'
     setAlterLogo(!alterLogo)
+    setBrand(NativeModules.DeviceModule.brand())
   }, [alterLogo])
 
   const nav = useNavigate()
@@ -30,12 +32,13 @@ export function App() {
           </view>
           <text className="Title">React</text>
           <text className="Subtitle">on Lynx</text>
+          <text className="Subtitle">with phone brand from native {brand}</text>
         </view>
         <view className="Content">
           <image src={arrow} className="Arrow" />
           <text className="Description">Tap the logo and have fun!</text>
           <text className="Hint">
-            Edit<text style={{ fontStyle: 'italic' }}>{' src/App.tsx '}</text>
+            Edit<text style={{ fontStyle: 'italic' }}>{' src/routes/App.tsx '}</text>
             to see updates!
           </text>
           <text className="text-3xl font-bold">Hello world from tailwind!</text>
