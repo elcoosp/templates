@@ -1,5 +1,6 @@
 package com.{{org}}.{{project_name|camel_case}}.modules.clipboard
 import LynxpoModule
+import CodedException
 
 import android.content.ClipData
 import android.content.ClipDescription
@@ -14,8 +15,10 @@ import android.util.Log
 import androidx.core.os.bundleOf
 import com.lynx.jsbridge.LynxMethod
 import com.lynx.jsbridge.Promise
+import com.lynx.react.bridge.*
 import com.lynx.tasm.behavior.LynxContext
 import java.io.File
+import kotlinx.coroutines.*
 
 inline fun <T> T?.ifNull(block: () -> T): T = this ?: block()
 
@@ -51,15 +54,16 @@ class ClipboardModule(private val context: Context) : LynxpoModule(context) {
   }
   
   @LynxMethod
-  fun getStringAsync(options: SetStringOptions, promise: Promise) {
+  fun getStringAsync(options: GetStringOptions, promise: Promise) {
     val item = clipboardManager.firstItem
-    val result = when (options.preferredFormat) {
-      StringFormat.PLAIN -> item?.coerceToPlainText(context)
-      StringFormat.HTML -> item?.coerceToHtmlText(context)
-    }
-            ?: ""
+    val result =
+            when (options.preferredFormat) {
+              StringFormat.PLAIN -> item?.coerceToPlainText(context)
+              StringFormat.HTML -> item?.coerceToHtmlText(context)
+            }
     return promise.resolve(result)
   }
+
   
   @LynxMethod
   fun setStringAsync(content: String, options: SetStringOptions, promise: Promise) {
@@ -77,9 +81,7 @@ class ClipboardModule(private val context: Context) : LynxpoModule(context) {
   }
 
   @LynxMethod
-  fun hasStringAsync(promise: Promise): Boolean {
-    clipboardManager.primaryClipDescription?.hasTextContent ?: false
-  }
+  fun hasStringAsync(promise: Promise): Boolean = clipboardManager.primaryClipDescription?.hasTextContent ?: false
 
   // endregion
 
@@ -107,7 +109,7 @@ class ClipboardModule(private val context: Context) : LynxpoModule(context) {
                     is CodedException -> err
                     is SecurityException -> NoPermissionException(err)
                     else -> PasteFailureException(err, kind = "image")
-                  }
+                  }.toString()
           )
         }
       }
@@ -127,7 +129,7 @@ class ClipboardModule(private val context: Context) : LynxpoModule(context) {
                   when (err) {
                     is CodedException -> err
                     else -> CopyFailureException(err, kind = "image")
-                  }
+                  }.toString()
           )
         }
       }
@@ -135,9 +137,7 @@ class ClipboardModule(private val context: Context) : LynxpoModule(context) {
   }
 
   @LynxMethod
-  fun hasImageAsync(promise: Promise): Boolean {
-    clipboardManager.primaryClipDescription?.hasMimeType("image/*") == true
-  }
+  fun hasImageAsync(promise: Promise): Boolean = clipboardManager.primaryClipDescription?.hasMimeType("image/*") == true
 
 
   private fun getContext(): Context {
@@ -177,9 +177,9 @@ class ClipboardModule(private val context: Context) : LynxpoModule(context) {
 
     private val listener =
             ClipboardManager.OnPrimaryClipChangedListener {
-              if (!appContext.hasActiveReactInstance) {
-                return@OnPrimaryClipChangedListener
-              }
+              // if (!appContext.hasActiveReactInstance) {
+                // return@OnPrimaryClipChangedListener
+              // }
 
               maybeClipboardManager.takeIf { isListening }?.primaryClipDescription?.let { clip ->
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -188,28 +188,19 @@ class ClipboardModule(private val context: Context) : LynxpoModule(context) {
                   }
                   timestamp = clip.timestamp
                 }
-
-                getContext()
+                val contentTypes = listOfNotNull(
+                  ContentType.PLAIN_TEXT.takeIf { clip.hasTextContent },
+                  ContentType.HTML.takeIf { clip.hasMimeType(ClipDescription.MIMETYPE_TEXT_HTML) },
+                  ContentType.IMAGE.takeIf { clip.hasMimeType("image/*") }
+              ).map { it.jsName }
+              
+              // Create JavaOnlyArray for contentTypes
+              val contentTypesArray = JavaOnlyArray()
+              contentTypes.forEach { contentTypesArray.pushString(it) }
+                (mContext as LynxContext)
                         .sendGlobalEvent(
                                 CLIPBOARD_CHANGED_EVENT_NAME,
-                                bundleOf(
-                                        "contentTypes" to
-                                                listOfNotNull(
-                                                                ContentType.PLAIN_TEXT.takeIf {
-                                                                  clip.hasTextContent
-                                                                },
-                                                                ContentType.HTML.takeIf {
-                                                                  clip.hasMimeType(
-                                                                          ClipDescription
-                                                                                  .MIMETYPE_TEXT_HTML
-                                                                  )
-                                                                },
-                                                                ContentType.IMAGE.takeIf {
-                                                                  clip.hasMimeType("image/*")
-                                                                }
-                                                        )
-                                                        .map { it.jsName }
-                                )
+                                contentTypesArray
                         )
               }
             }
