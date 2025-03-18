@@ -10,6 +10,8 @@ import com.lynx.service.image.LynxImageService
 import com.lynx.service.log.LynxLogService
 import com.lynx.tasm.service.LynxServiceCenter
 import com.lynx.tasm.LynxEnv
+import com.{{org}}.{{project_name|camel_case}}.modules.device.DeviceModule
+import com.{{org}}.{{project_name|camel_case}}.modules.clipboard.ClipboardModule
 class {{project_name}}Application : Application() {
 
     override fun onCreate() {
@@ -28,6 +30,10 @@ class {{project_name}}Application : Application() {
         LynxServiceCenter.inst().registerService(LynxLogService)
         LynxServiceCenter.inst().registerService(LynxHttpService)
     }
+    private fun initLynxModules() {
+        LynxEnv.inst().registerModule("DeviceModule", DeviceModule::class.java)
+        LynxEnv.inst().registerModule("ClipboardModule", ClipboardModule::class.java)
+    }
 
     private fun initLynxEnv() {
          LynxEnv.inst().init(
@@ -36,5 +42,6 @@ class {{project_name}}Application : Application() {
              null,
              null
          )
+         initLynxModules()
      }
 }

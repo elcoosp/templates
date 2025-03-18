@@ -37,7 +37,7 @@ private enum class ContentType(val jsName: String) {
   IMAGE("image")
 }
 
-class ClipboardModule(private val context: Context) : LynxpoModule(context) {
+public class ClipboardModule(private val context: Context) : LynxpoModule(context) {
 
   init {
 
