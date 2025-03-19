@@ -1,9 +1,9 @@
-package com.{{org}}.{{project_name|camel_case}}
+package com.myOrg.myProj
 
-import lynxpo.core.LynxpoApp
 import lynxpo.core.modules.clipboard.ClipboardModule
 import lynxpo.core.modules.device.DeviceModule
 import lynxpo.core.modules.statusbar.StatusBarModule
+import lynxpo.core.LynxpoApp
 
 class MyProjApplication : LynxpoApp() {
     override val lynxpoModules
