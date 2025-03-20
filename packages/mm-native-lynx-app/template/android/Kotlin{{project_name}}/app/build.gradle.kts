@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
     id("com.google.devtools.ksp") version "2.1.20-RC3-1.0.31"
-    kotlin("plugin.serialization") version "2.1.0"
+    kotlin("plugin.serialization") version "2.1.20"
 }
 
 android {
