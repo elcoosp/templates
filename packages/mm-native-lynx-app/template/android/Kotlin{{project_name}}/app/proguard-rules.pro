@@ -21,7 +21,7 @@
 #-renamesourcefileattribute SourceFile
 
 # LYNX START
-# use @Keep to annotate retained classes.
+# Classes retained by using the @Keep annotation.
 -dontwarn android.support.annotation.Keep
 -keep @android.support.annotation.Keep class **
 -keep @android.support.annotation.Keep class ** {
@@ -34,8 +34,7 @@
     @androidx.annotation.Keep <fields>;
     @androidx.annotation.Keep <methods>;
 }
-
-# native method call
+# Native method invocation.
 -keepclasseswithmembers,includedescriptorclasses class * {
     native <methods>;
 }
@@ -43,7 +42,7 @@
     @com.lynx.tasm.base.CalledByNative <methods>;
 }
 
-# to customize a module, you need to keep the class name and the method annotated as LynxMethod.
+# For custom modules, class names and methods annotated as LynxMethod need to be retained.
 -keepclasseswithmembers class * {
     @com.lynx.jsbridge.LynxMethod <methods>;
 }
@@ -60,13 +59,13 @@
 
 # in case R8 compiler may remove mLoader in bytecode.
 # as mLoader is not used in java and passed as a WeakRef in JNI.
--keepclassmembers class com.lynx.tasm.LynxTemplateRender {
+-keepclassmembers class com.lynx.tasm.LynxTemplateRenderer {
     private com.lynx.tasm.core.LynxResourceLoader mLoader;
 }
 
-# the automatically generated setter classes use the class names of LynxBaseUI and ShadowNode and their subclasses.
 -keep class com.lynx.tasm.behavior.ui.LynxBaseUI
 -keep class com.lynx.tasm.behavior.shadow.ShadowNode
+-keep class com.lynx.tasm.LynxSettingsManager { *; }
 -keep class com.lynx.jsbridge.LynxModule { *; }
 -keep class * extends com.lynx.tasm.behavior.ui.LynxBaseUI
 -keep class * extends com.lynx.tasm.behavior.shadow.ShadowNode
