@@ -1,24 +1,21 @@
 import { NODE_REF_INVOKE_ERROR_CODE } from '@lynx-js/types'
 import {
   type InvocationResult,
-  type ReturnTypeOf,
-  type UIElementMap,
-  createTagInvoker,
-  invokeElementMethod,
-  invokeElementMethodWithCallbacks
+  createTypedInvoker,
+  type AllowedIdOf, 
 } from '@utils/typed-lynx'
 
 // Extend the base types with component-specific definitions
 declare module '@utils/typed-lynx' {
-  // Define InputElement interface with direct method signatures
+  // Define InputElement interface with method signatures (removed tag property)
   interface InputElement extends UIElementBase {
-    tag: 'input'
     methods: {
-      // Simple method
       blur: () => void,
       focus: () => void
-      // You can add more methods directly with their signatures
+      // You can add more methods as needed
     }
+    // Optional: restrict to specific selectors at compile time
+    allowedSelectors: ['#loginInput', '#searchInput'] // Example of restricting allowed selectors
   }
 
   // Add InputElement to UIElementMap
@@ -29,44 +26,29 @@ declare module '@utils/typed-lynx' {
 }
 
 // Helper functions for common elements
-export function getInputInvoker(id: string) {
-  return createTagInvoker('input', id)
+// Now uses AllowedIdOf to restrict IDs at the type level
+export function getInputInvoker<TId extends AllowedIdOf<'input'>>(id: TId) {
+  return createTypedInvoker('input', id)
 }
 
-// New style with result callback
-export function blurElement(
-  inputId: string,
-  callback?: (result: InvocationResult<void>) => void,
+// Simple wrapper functions for common operations
+// Now uses EnsureIdAllowed to enforce type constraints
+export function blurElement<ID extends AllowedIdOf<'input'>>(
+  inputId: ID,
+  callback?: (result: InvocationResult<void, { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }>) => void,
 ): void {
-  invokeElementMethod(`#${inputId}`, 'blur', {}, callback)
+  getInputInvoker(inputId).invoke('blur', undefined, callback)
 }
 
-export function focusElement(
-  inputId: string,
-  callback?: (result: InvocationResult<void>) => void,
-): void {
-  invokeElementMethod(`#${inputId}`, 'focus', {}, callback)
-}
-
-// Legacy style with separate callbacks (for backward compatibility)
-export function blurElementLegacy(
-  inputId: string,
-  success?: (res: ReturnTypeOf<UIElementMap['input'], 'blur'>) => void,
-  fail?: (res: { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }) => void,
-): void {
-  invokeElementMethodWithCallbacks(`#${inputId}`, 'blur', {}, success, fail)
-}
-
-export function focusElementLegacy(
-  inputId: string,
-  success?: (res: ReturnTypeOf<UIElementMap['input'], 'focus'>) => void,
-  fail?: (res: { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }) => void,
-): void {
-  invokeElementMethodWithCallbacks(`#${inputId}`, 'focus', {}, success, fail)
+export function focusElement<ID extends AllowedIdOf<'input'>>(
+  inputId: ID,
+  callback?: (result: InvocationResult<void, { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }>) => void,
+) {
+  getInputInvoker(inputId).invoke('focus', undefined, callback)
 }
 
 // Example usage with the new pattern
-export function handleInputOperation(inputId: string): void {
+export function handleInputOperation(inputId: AllowedIdOf<'input'>): void {
   blurElement(inputId, (result) => {
     if (result.ok) {
       console.log('Blur operation successful');

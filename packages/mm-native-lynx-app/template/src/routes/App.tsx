@@ -67,7 +67,7 @@ export function Input() {
     const currentValue = e.detail.value.trim()
     setInputValue(currentValue)
   }
-  const inputId = 'my-invokable-input'
+  const inputId = 'loginInput'
   const requestFocus = () =>
     focusElement(inputId, () => console.log('lynx', 'request focus success'))
 
