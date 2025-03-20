@@ -6,7 +6,6 @@ ignore = [
     "pnpm-lock.yaml",
     ".turbo",
     "node_modules",
-    "template/android/Java{{project_name}}/.gradle",
     "template/android/Kotlin{{project_name}}/.gradle",
 ]
 copy_without_render = [
