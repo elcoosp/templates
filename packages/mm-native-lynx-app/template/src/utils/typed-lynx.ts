@@ -6,15 +6,20 @@ export type InvocationResult<
   TError = { code: NODE_REF_INVOKE_ERROR_CODE; data?: any },
 > = { ok: true; data: TData } | { ok: false; error: TError }
 
-// Base UI element interface without tag (removed redundancy)
+// Base UI element interface
 export interface UIElementBase {
   methods: Record<string, (...args: any[]) => any>
-  allowedSelectors?: string[] // Used for type checking only
 }
 
 // Map UI element types to their definitions (for type inference)
 export interface UIElementMap {
   // Empty by default, will be extended via declaration merging
+}
+
+// Define a custom error type for more descriptive compile-time errors
+type ErrorMessage<T extends string> = {
+  __errorMessage: T
+  __validSelector: never
 }
 
 // Type helper for getting element type from selector
@@ -41,42 +46,15 @@ export type ReturnTypeOf<
   TMethod extends MethodsOf<TElement>,
 > = ReturnType<TElement['methods'][TMethod]>
 
-/**
- * Type utility that extracts the allowed selectors from a UI element type.
- * If the element has allowedSelectors, it returns those selectors.
- * Otherwise, it returns string (allowing any selector).
- */
-export type AllowedSelectorsOf<TTag extends keyof UIElementMap> =
-  UIElementMap[TTag] extends { allowedSelectors: infer TSelectors }
-    ? TSelectors extends string[]
-      ? TSelectors[number]
-      : string
-    : string
-
-// Get allowed selectors for an element type, with the '#' prefix removed
-type AllowedIdsOf<TTag extends keyof UIElementMap> =
-  UIElementMap[TTag]['allowedSelectors'] extends Array<`#${infer Id}`>
-    ? Id
-    : string // Fallback to allow any string if no allowedSelectors
-
-/**
- * Type guard to ensure an ID is allowed for a specific element type.
- * Returns the ID if it's allowed, otherwise returns never.
- */
-export type EnsureIdAllowed<
-  TTag extends keyof UIElementMap,
-  TId extends string,
-> = TId extends AllowedIdsOf<TTag> ? TId : never
-
-// Check if an ID is allowed for a specific tag, with a descriptive error
+// Simplified approach to validate element IDs
 export type ValidateElementId<
   TTag extends keyof UIElementMap,
   TId extends string,
-> = UIElementMap[TTag]['allowedSelectors'] extends string[]
-  ? TId extends AllowedIdsOf<TTag>
+> = UIElementMap[TTag] extends { allowedIds: infer AllowedIds }
+  ? TId extends AllowedIds & string
     ? TId
-    : ErrorMessage<`Error: ID "${TId}" is not allowed for ${string & TTag} elements. Allowed IDs are: ${AllowedIdsOf<TTag> extends string ? `"${AllowedIdsOf<TTag>}"` : never}`>
-  : TId // If no allowedSelectors constraint, accept any ID
+    : ErrorMessage<`Error: ID "${TId}" is not allowed for ${string & TTag} elements. Allowed IDs are: ${string & AllowedIds}`>
+  : TId
 
 // Generic type for invoke options with improved type inference
 export type TypedInvokeOptions<
@@ -135,16 +113,10 @@ export function invokeExec<
     .exec()
 }
 
-// Define a custom error type for more descriptive compile-time errors
-type ErrorMessage<T extends string> = {
-  __errorMessage: T
-  __validSelector: never
-}
-
 /**
  * Creates a typed invoker with improved error messages
  * @param tag The UI element tag (e.g., 'input')
- * @param id The element ID to validate against allowed selectors
+ * @param id The element ID to validate against allowed IDs
  */
 export function createTypedInvoker<
   TTag extends keyof UIElementMap,
@@ -194,4 +166,40 @@ export function invokeElementMethod<
   ) => void,
 ): void {
   invokeExec<TSelector, TElement, TMethod>(selector, method, params, callback)
+}
+
+// Simplified parameter type for invoker functions
+export type InvokerParams<
+  TTag extends keyof UIElementMap,
+  TMethod extends MethodsOf<UIElementMap[TTag]>
+> = ParamsOf<UIElementMap[TTag], TMethod>
+
+// Simplified callback type for invoker functions
+export type InvokerCallback<
+  TTag extends keyof UIElementMap,
+  TMethod extends MethodsOf<UIElementMap[TTag]>
+> = (
+  result: InvocationResult<
+    ReturnTypeOf<UIElementMap[TTag], TMethod>,
+    { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }
+  >
+) => void
+
+/**
+ * Creates a higher-order function that generates an element method invoker function
+ * @param tag The UI element tag (e.g., 'input')
+ * @param method The method to invoke on the element
+ * @returns A function that takes an ID, params, and callback and invokes the method
+ */
+export function createMethodInvoker<
+  TTag extends keyof UIElementMap,
+  TMethod extends MethodsOf<UIElementMap[TTag]>
+>(tag: TTag, method: TMethod) {
+  return <TId extends string>(
+    id: ValidateElementId<TTag, TId>,
+    params?: InvokerParams<TTag, TMethod>,
+    callback?: InvokerCallback<TTag, TMethod>
+  ): void => {
+    createTypedInvoker(tag, id).invoke(method, params, callback)
+  }
 }
