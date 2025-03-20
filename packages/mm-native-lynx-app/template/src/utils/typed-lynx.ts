@@ -1,5 +1,10 @@
 import { NODE_REF_INVOKE_ERROR_CODE, type SelectorQuery } from '@lynx-js/types'
 
+// Define the Result type to handle success and failure
+export type InvocationResult<TData = void, TError = { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }> = 
+  | { ok: true; data: TData }
+  | { ok: false; error: TError }
+
 // Define UI element types with direct method signatures
 export interface UIElementBase {
   tag: string // The JSX tag name
@@ -25,17 +30,17 @@ export type MethodsOf<T extends UIElementBase> = keyof T['methods']
 export type ParamsOf<
   TElement extends UIElementBase,
   TMethod extends MethodsOf<TElement>
-> = TElement['methods'][TMethod] extends (params: infer P) => any
-  ? P
-  : never
+> = Parameters<TElement['methods'][TMethod]>[0] extends undefined
+  ? {}
+  : Parameters<TElement['methods'][TMethod]>[0]
 
 // Extract return type from a method function signature
 export type ReturnTypeOf<
   TElement extends UIElementBase,
   TMethod extends MethodsOf<TElement>
-> = TElement['methods'][TMethod] extends (...args: any[]) => infer R
+> = TElement['methods'][TMethod] extends (...args: any[]) => InvocationResult<infer R, any>
   ? R
-  : never
+  : void
 
 // Generic type for invoke options with improved type inference
 export type TypedInvokeOptions<
@@ -71,8 +76,7 @@ export function invokeExec<
   selector: TSelector,
   method: TMethod,
   params: ParamsOf<TElement, TMethod>,
-  success: (res: ReturnTypeOf<TElement, TMethod>) => void,
-  fail: (res: { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }) => void,
+  callback?: (result: InvocationResult<ReturnTypeOf<TElement, TMethod>>) => void,
 ): void {
   return lynx
     .createSelectorQuery()
@@ -80,8 +84,12 @@ export function invokeExec<
     .invoke({
       method,
       params,
-      success,
-      fail,
+      success: (res: ReturnTypeOf<TElement, TMethod>) => {
+        callback?.({ ok: true, data: res });
+      },
+      fail: (error: { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }) => {
+        callback?.({ ok: false, error });
+      },
     })
     .exec()
 }
@@ -96,17 +104,17 @@ export function createTypedInvoker<TSelector extends keyof UIElementMap>(
     invoke: <TMethod extends MethodsOf<Element>>(
       method: TMethod,
       params: ParamsOf<Element, TMethod>,
-      success: (res: ReturnTypeOf<Element, TMethod>) => void,
-      fail?: (res: { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }) => void,
+      callback?: (result: InvocationResult<ReturnTypeOf<Element, TMethod>>) => void,
     ) => {
       invokeExec(
         `#${String(selector)}`,
         method,
         params,
-        success,
-        fail ||
-          ((error) =>
-            console.error(`Error invoking ${String(method)}:`, error)),
+        callback || ((result) => {
+          if (!result.ok) {
+            console.error(`Error invoking ${String(method)}:`, result.error)
+          }
+        }),
       )
     },
   }
@@ -121,25 +129,52 @@ export function invokeElementMethod<
   selector: TSelector,
   method: TMethod,
   params: ParamsOf<TElement, TMethod> = {} as ParamsOf<TElement, TMethod>,
-  success?: (res: ReturnTypeOf<TElement, TMethod>) => void,
-  fail?: { (res: { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }): void },
+  callback?: (result: InvocationResult<ReturnTypeOf<TElement, TMethod>>) => void,
 ): void {
   invokeExec(
     selector,
     method,
     params,
-    (res) => {
-      success?.(res)
-    },
-    (res) => {
-      fail?.(res)
-      console.error(
-        'lynx',
-        `${String(method)} method failed`,
-        JSON.stringify(res),
-      )
-    },
+    callback || ((result) => {
+      if (!result.ok) {
+        console.error(
+          'lynx',
+          `${String(method)} method failed`,
+          JSON.stringify(result.error),
+        )
+      }
+    }),
   )
+}
+
+// For compatibility with existing code
+export function invokeElementMethodWithCallbacks<
+  TSelector extends string,
+  TElement extends UIElementBase = ElementTypeFromSelector<TSelector>,
+  TMethod extends MethodsOf<TElement> = MethodsOf<TElement>,
+>(
+  selector: TSelector,
+  method: TMethod,
+  params: ParamsOf<TElement, TMethod> = {} as ParamsOf<TElement, TMethod>,
+  success?: (res: ReturnTypeOf<TElement, TMethod>) => void,
+  fail?: (res: { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }) => void,
+): void {
+  return lynx
+    .createSelectorQuery()
+    .select(selector)
+    .invoke({
+      method,
+      params,
+      success: success || (() => {}),
+      fail: fail || ((error) => {
+        console.error(
+          'lynx',
+          `${String(method)} method failed`,
+          JSON.stringify(error),
+        )
+      }),
+    })
+    .exec()
 }
 
 // Extract all available tags from UIElementMap
@@ -163,10 +198,23 @@ export function createTagInvoker<TTag extends AvailableTags>(
     invoke: <TMethod extends MethodsOf<ElementType>>(
       method: TMethod,
       params?: ParamsOf<ElementType, TMethod>,
-      success?: (res: ReturnTypeOf<ElementType, TMethod>) => void,
-      fail?: { (res: { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }): void },
+      callback?: (result: InvocationResult<ReturnTypeOf<ElementType, TMethod>>) => void,
     ) => {
       invokeElementMethod(
+        `#${id}`,
+        method,
+        params || ({} as ParamsOf<ElementType, TMethod>),
+        callback,
+      )
+    },
+    // For backward compatibility
+    invokeWithCallbacks: <TMethod extends MethodsOf<ElementType>>(
+      method: TMethod,
+      params?: ParamsOf<ElementType, TMethod>,
+      success?: (res: ReturnTypeOf<ElementType, TMethod>) => void,
+      fail?: (res: { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }) => void,
+    ) => {
+      invokeElementMethodWithCallbacks(
         `#${id}`,
         method,
         params || ({} as ParamsOf<ElementType, TMethod>),
