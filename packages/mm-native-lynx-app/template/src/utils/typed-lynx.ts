@@ -1,9 +1,10 @@
 import { NODE_REF_INVOKE_ERROR_CODE, type SelectorQuery } from '@lynx-js/types'
 
 // Define the Result type to handle success and failure
-export type InvocationResult<TData = void, TError = { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }> = 
-  | { ok: true; data: TData }
-  | { ok: false; error: TError }
+export type InvocationResult<
+  TData = void,
+  TError = { code: NODE_REF_INVOKE_ERROR_CODE; data?: any },
+> = { ok: true; data: TData } | { ok: false; error: TError }
 
 // Base UI element interface without tag (removed redundancy)
 export interface UIElementBase {
@@ -17,12 +18,11 @@ export interface UIElementMap {
 }
 
 // Type helper for getting element type from selector
-export type ElementTypeFromSelector<T extends string> = 
-  T extends `#${infer ID}`
-    ? ID extends keyof UIElementMap
-      ? UIElementMap[ID]
-      : UIElementBase
+export type ElementTypeFromSelector<T extends string> = T extends `#${infer ID}`
+  ? ID extends keyof UIElementMap
+    ? UIElementMap[ID]
     : UIElementBase
+  : UIElementBase
 
 // Get methods available for an element type
 export type MethodsOf<T extends UIElementBase> = keyof T['methods']
@@ -30,7 +30,7 @@ export type MethodsOf<T extends UIElementBase> = keyof T['methods']
 // Extract parameter types from a method function signature
 export type ParamsOf<
   TElement extends UIElementBase,
-  TMethod extends MethodsOf<TElement>
+  TMethod extends MethodsOf<TElement>,
 > = Parameters<TElement['methods'][TMethod]>[0] extends undefined
   ? {}
   : Parameters<TElement['methods'][TMethod]>[0]
@@ -38,7 +38,7 @@ export type ParamsOf<
 // Extract return type from a method function signature
 export type ReturnTypeOf<
   TElement extends UIElementBase,
-  TMethod extends MethodsOf<TElement>
+  TMethod extends MethodsOf<TElement>,
 > = ReturnType<TElement['methods'][TMethod]>
 
 /**
@@ -46,21 +46,18 @@ export type ReturnTypeOf<
  * If the element has allowedSelectors, it returns those selectors.
  * Otherwise, it returns string (allowing any selector).
  */
-export type AllowedSelectorsOf<TTag extends keyof UIElementMap> = 
+export type AllowedSelectorsOf<TTag extends keyof UIElementMap> =
   UIElementMap[TTag] extends { allowedSelectors: infer TSelectors }
     ? TSelectors extends string[]
       ? TSelectors[number]
       : string
     : string
 
-/**
- * Helper type that gets an allowed ID from a UI element type.
- * Strips the '#' prefix from allowed selectors if present.
- */
-export type AllowedIdOf<TTag extends keyof UIElementMap> =
-  AllowedSelectorsOf<TTag> extends `#${infer TId}`
-    ? TId
-    : AllowedSelectorsOf<TTag>
+// Get allowed selectors for an element type, with the '#' prefix removed
+type AllowedIdsOf<TTag extends keyof UIElementMap> =
+  UIElementMap[TTag]['allowedSelectors'] extends Array<`#${infer Id}`>
+    ? Id
+    : string // Fallback to allow any string if no allowedSelectors
 
 /**
  * Type guard to ensure an ID is allowed for a specific element type.
@@ -68,8 +65,18 @@ export type AllowedIdOf<TTag extends keyof UIElementMap> =
  */
 export type EnsureIdAllowed<
   TTag extends keyof UIElementMap,
-  TId extends string
-> = TId extends AllowedIdOf<TTag> ? TId : never
+  TId extends string,
+> = TId extends AllowedIdsOf<TTag> ? TId : never
+
+// Check if an ID is allowed for a specific tag, with a descriptive error
+export type ValidateElementId<
+  TTag extends keyof UIElementMap,
+  TId extends string,
+> = UIElementMap[TTag]['allowedSelectors'] extends string[]
+  ? TId extends AllowedIdsOf<TTag>
+    ? TId
+    : ErrorMessage<`Error: ID "${TId}" is not allowed for ${string & TTag} elements. Allowed IDs are: ${AllowedIdsOf<TTag> extends string ? `"${AllowedIdsOf<TTag>}"` : never}`>
+  : TId // If no allowedSelectors constraint, accept any ID
 
 // Generic type for invoke options with improved type inference
 export type TypedInvokeOptions<
@@ -105,7 +112,12 @@ export function invokeExec<
   selector: TSelector,
   method: TMethod,
   params: ParamsOf<TElement, TMethod>,
-  callback?: (result: InvocationResult<ReturnTypeOf<TElement, TMethod>, { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }>) => void,
+  callback?: (
+    result: InvocationResult<
+      ReturnTypeOf<TElement, TMethod>,
+      { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }
+    >,
+  ) => void,
 ): void {
   return lynx
     .createSelectorQuery()
@@ -114,50 +126,52 @@ export function invokeExec<
       method,
       params,
       success: (res: ReturnTypeOf<TElement, TMethod>) => {
-        callback?.({ ok: true, data: res });
+        callback?.({ ok: true, data: res })
       },
       fail: (error: { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }) => {
-        callback?.({ ok: false, error });
+        callback?.({ ok: false, error })
       },
     })
     .exec()
 }
 
-// Type guard to ensure selector is allowed at compile time
-type EnsureSelectorAllowed<
-  TElement extends UIElementBase,
-  TSelector extends string
-> = TElement['allowedSelectors'] extends string[]
-  ? TSelector extends TElement['allowedSelectors'][number] 
-    ? TSelector 
-    : never
-  : TSelector;
+// Define a custom error type for more descriptive compile-time errors
+type ErrorMessage<T extends string> = {
+  __errorMessage: T
+  __validSelector: never
+}
 
-// Higher-level typed helper functions with compile-time selector validation
+/**
+ * Creates a typed invoker with improved error messages
+ * @param tag The UI element tag (e.g., 'input')
+ * @param id The element ID to validate against allowed selectors
+ */
 export function createTypedInvoker<
   TTag extends keyof UIElementMap,
-  TId extends string
+  TId extends string,
 >(
-  tag: TTag,
-  id: TId
+  _tag: TTag,
+  // Validate ID at the parameter level
+  id: ValidateElementId<TTag, TId>,
 ) {
-  type TElement = UIElementMap[TTag];
-  // This type constraint runs at compile time
-  type ValidSelector = EnsureSelectorAllowed<TElement, `#${TId}`>;
-  
-  // This will cause a compile error if the selector is not allowed
-  // because ValidSelector will be 'never' in that case
+  type TElement = UIElementMap[TTag]
+
   return {
     invoke: <TMethod extends MethodsOf<TElement>>(
       method: TMethod,
       params?: ParamsOf<TElement, TMethod>,
-      callback?: (result: InvocationResult<ReturnTypeOf<TElement, TMethod>, { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }>) => void,
+      callback?: (
+        result: InvocationResult<
+          ReturnTypeOf<TElement, TMethod>,
+          { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }
+        >,
+      ) => void,
     ) => {
-      invokeExec<ValidSelector, TElement, TMethod>(
-        `#${id}` as ValidSelector, // Cast is safe because of the type constraint
+      invokeExec(
+        `#${id}`,
         method,
         params || ({} as ParamsOf<TElement, TMethod>),
-        callback
+        callback,
       )
     },
   }
@@ -172,12 +186,12 @@ export function invokeElementMethod<
   selector: TSelector,
   method: TMethod,
   params: ParamsOf<TElement, TMethod> = {} as ParamsOf<TElement, TMethod>,
-  callback?: (result: InvocationResult<ReturnTypeOf<TElement, TMethod>, { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }>) => void,
+  callback?: (
+    result: InvocationResult<
+      ReturnTypeOf<TElement, TMethod>,
+      { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }
+    >,
+  ) => void,
 ): void {
-  invokeExec<TSelector, TElement, TMethod>(
-    selector,
-    method,
-    params,
-    callback
-  )
+  invokeExec<TSelector, TElement, TMethod>(selector, method, params, callback)
 }
