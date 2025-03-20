@@ -3,6 +3,7 @@ import arrow from '@assets/arrow.png?inline'
 import lynxLogo from '@assets/lynx-logo.png?inline'
 import reactLynxLogo from '@assets/react-logo.png?inline'
 import { ChangeLang } from '@components/ChangeLang'
+import { focusElement } from '@utils/invokers'
 export function App() {
   const [alterLogo, setAlterLogo] = useState(false)
   const [brand, setBrand] = useState('')
@@ -66,38 +67,19 @@ export function Input() {
     const currentValue = e.detail.value.trim()
     setInputValue(currentValue)
   }
-
-  const requestFocus = () => {
-    lynx
-      .createSelectorQuery()
-      .select('#input-id')
-      .invoke({
-        method: 'focus',
-        params: {},
-        success: function (res) {
-          console.log('lynx', 'request focus success')
-        },
-        fail: function (res) {
-          setFocusInputError(JSON.stringify(res))
-          console.log('lynx', 'request focus fail')
-        },
-      })
-      .exec()
-  }
+  const inputId = 'my-invokable-input'
+  const requestFocus = () =>
+    focusElement(inputId, () => console.log('lynx', 'request focus success'))
 
   return (
-    <view className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex-1">
-      <text className="block text-gray-700 text-sm font-bold mb-2">
-        Card URL {focusInputError}
-      </text>
-      <input
-        id="input-id"
-        className="shadow appearance-none border rounded w-full py-4 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        bindinput={handleInput}
-        bindtap={requestFocus}
-        value={inputValue}
-        placeholder="Enter Card URL"
-      />
-    </view>
+    <input
+      id={inputId}
+      bindtap={requestFocus}
+      className="border rounded-md p-2 block bg-white h-12 w-64"
+      text-color="000000"
+      bindinput={handleInput}
+      value={inputValue}
+      placeholder="Enter Card URL"
+    />
   )
 }

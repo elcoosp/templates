@@ -20,7 +20,7 @@ lynxServiceHttp = "3.2.0-rc.0"
 lynxServiceImage = "3.2.0-rc.0"
 lynxServiceLog = "3.2.0-rc.0"
 lynxTrace = "3.2.0-rc.0"
-lynxpo = "1.0.19"
+lynxpo = "1.0.21"
 okhttp = "4.12.0"
 primjs = "2.11.1-rc.2"
 

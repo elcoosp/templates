@@ -1,5 +1,8 @@
 {
-  "extends": ["@tsconfig/strictest", "@tsconfig/node20"],
+  "extends": [
+    "@tsconfig/strictest",
+    "@tsconfig/node20"
+  ],
   "compilerOptions": {
     "jsx": "preserve",
     "module": "ESNext",
@@ -10,10 +13,21 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "paths": {
-      "@assets/*": ["./assets/*"],
-      "@components/*": ["./src/components/*"]
+      "@assets/*": [
+        "./assets/*"
+      ],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@utils/*": [
+        "./src/utils/*"
+      ]
     }
   },
-  "exclude": ["dist"],
-  "include": ["src"]
+  "exclude": [
+    "dist"
+  ],
+  "include": [
+    "src"
+  ]
 }
