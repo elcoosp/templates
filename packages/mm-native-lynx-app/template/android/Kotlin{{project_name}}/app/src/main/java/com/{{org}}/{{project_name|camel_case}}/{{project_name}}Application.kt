@@ -1,40 +1,22 @@
 package com.{{org}}.{{project_name|camel_case}}
 
-import android.app.Application
-import com.facebook.drawee.backends.pipeline.Fresco
-import com.facebook.imagepipeline.core.ImagePipelineConfig
-import com.facebook.imagepipeline.memory.PoolConfig
-import com.facebook.imagepipeline.memory.PoolFactory
-import com.lynx.service.http.LynxHttpService
-import com.lynx.service.image.LynxImageService
-import com.lynx.service.log.LynxLogService
-import com.lynx.tasm.service.LynxServiceCenter
-import com.lynx.tasm.LynxEnv
-class {{project_name}}Application : Application() {
+import android.view.View
+import lynxpo.core.LynxpoApp
+import lynxpo.core.LynxpoUI
+import lynxpo.core.modules.clipboard.ClipboardModule
+import lynxpo.core.modules.device.DeviceModule
+import lynxpo.core.modules.statusbar.StatusBarModule
+import lynxpo.core.modules.ui.input.InputUI
 
-    override fun onCreate() {
-        super.onCreate()
-        initLynxService()
-        initLynxEnv()
-    }
-
-    private fun initLynxService() {
-        // Init Fresco which is needed by LynxImageService
-        val factory = PoolFactory(PoolConfig.newBuilder().build())
-        val builder = ImagePipelineConfig.newBuilder(applicationContext).setPoolFactory(factory)
-        Fresco.initialize(applicationContext, builder.build())
-
-        LynxServiceCenter.inst().registerService(LynxImageService.getInstance())
-        LynxServiceCenter.inst().registerService(LynxLogService)
-        LynxServiceCenter.inst().registerService(LynxHttpService)
-    }
-
-    private fun initLynxEnv() {
-         LynxEnv.inst().init(
-             this,
-             null,
-             null,
-             null
-         )
-     }
+class MyProjApplication : LynxpoApp() {
+    override val lynxpoModules
+        get() = arrayOf(
+            Pair("ClipboardModule", ClipboardModule::class.java),
+            Pair("DeviceModule", DeviceModule::class.java),
+            Pair("StatusBarModule", StatusBarModule::class.java)
+        )
+    override val lynxpoUiModules: Array<Pair<String, Class<out LynxpoUI<out View>>>>
+        get() = arrayOf(
+            Pair("input", InputUI::class.java)
+        )
 }

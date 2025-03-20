@@ -1,4 +1,0 @@
-<resources>
-    <string name="app_name">Java{{project_name}}</string>
-    <string name="greeting">Hello World!</string>
-</resources>

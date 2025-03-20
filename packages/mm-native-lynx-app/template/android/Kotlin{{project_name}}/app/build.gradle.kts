@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
-    id("com.google.devtools.ksp") version "2.1.20-RC2-1.0.31"
+    id("com.google.devtools.ksp") version "2.1.20-RC3-1.0.31"
     kotlin("plugin.serialization") version "2.1.0"
 }
 
@@ -25,22 +25,25 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro",
+                getDefaultProguardFile("proguard-android.txt")
             )
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions { jvmTarget = "1.8" }
+    kotlinOptions { jvmTarget = "17" }
     buildFeatures { compose = true }
     composeOptions { kotlinCompilerExtensionVersion = "1.5.15" }
     packaging { resources { excludes += "/META-INF/{AL2.0,LGPL2.1}" } }
 }
 
 dependencies {
+    api(libs.commons.math3)
+    implementation(libs.guava)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -60,27 +63,21 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     // Lynx dependencies
-    implementation("org.lynxsdk.lynx:lynx:3.2.0-rc.0")
-    implementation("org.lynxsdk.lynx:lynx-jssdk:3.2.0-rc.0")
-    implementation("org.lynxsdk.lynx:lynx-trace:3.2.0-rc.0")
-    implementation("org.lynxsdk.lynx:primjs:2.11.1-rc.2")
+    implementation(libs.lynx)
+    implementation(libs.lynx.jssdk)
+    implementation(libs.lynx.trace)
 
-    implementation("org.lynxsdk.lynx:lynx-service-image:3.2.0-rc.0")
-    implementation("com.facebook.fresco:fresco:2.6.0")
-    implementation("com.facebook.fresco:animated-gif:2.6.0")
-    implementation("com.facebook.fresco:animated-webp:2.6.0")
-    implementation("com.facebook.fresco:webpsupport:2.6.0")
-    implementation("com.facebook.fresco:animated-base:2.6.0")
-    implementation("org.lynxsdk.lynx:lynx-service-log:3.2.0-rc.0")
-    implementation("org.lynxsdk.lynx:lynx-service-http:3.2.0-rc.0")
-    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation(libs.lynx.service.log)
+    implementation(libs.lynx.service.http)
+    implementation(libs.lynx.service.image)
 
-    // Lynxpo
-    implementation("com.google.dagger:dagger-compiler:2.55")
-    ksp("com.google.dagger:dagger-compiler:2.55")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
-    implementation("dev.adamko.kxstsgen:kxs-ts-gen-core:0.2.1")
+    implementation(libs.primjs)
+    implementation(libs.fresco)
+    implementation(libs.animated.gif)
+    implementation(libs.animated.webp)
+    implementation(libs.webpsupport)
+    implementation(libs.animated.base)
+    implementation(libs.okhttp)
 
-    implementation("lynxpo.ktts:ktts-plugin:1.0.0")
-    ksp("lynxpo.ktts:ktts-plugin:1.0.0")
+    implementation(libs.lynxpo)
 }

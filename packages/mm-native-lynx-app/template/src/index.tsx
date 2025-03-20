@@ -1,7 +1,7 @@
 import { root } from '@lynx-js/react'
 import { MemoryRouter, Routes, Route } from 'react-router'
-import { App } from '@components/App'
-import { Home } from '@components/Home'
+import { App } from './routes/App'
+import { Home } from './routes/Home'
 root.render(
   <MemoryRouter>
     <Routes>

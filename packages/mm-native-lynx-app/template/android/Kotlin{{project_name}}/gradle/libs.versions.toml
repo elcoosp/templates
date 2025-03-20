@@ -1,6 +1,10 @@
+
 [versions]
+commons-math3 = "3.6.1"
+fresco = "2.6.0"
+guava = "33.3.1-jre"
 agp = "8.9.0"
-kotlin = "2.1.20-RC2"
+kotlin = "2.1.20-RC3"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -10,8 +14,24 @@ activityCompose = "1.10.1"
 composeBom = "2025.03.00"
 constraintlayout = "2.2.1"
 appcompat = "1.7.0"
+lynx = "3.2.0-rc.0"
+lynxJssdk = "3.2.0-rc.0"
+lynxServiceHttp = "3.2.0-rc.0"
+lynxServiceImage = "3.2.0-rc.0"
+lynxServiceLog = "3.2.0-rc.0"
+lynxTrace = "3.2.0-rc.0"
+lynxpo = "1.0.21"
+okhttp = "4.12.0"
+primjs = "2.11.1-rc.2"
 
 [libraries]
+animated-base = { module = "com.facebook.fresco:animated-base", version.ref = "fresco" }
+animated-gif = { module = "com.facebook.fresco:animated-gif", version.ref = "fresco" }
+animated-webp = { module = "com.facebook.fresco:animated-webp", version.ref = "fresco" }
+commons-math3 = { module = "org.apache.commons:commons-math3", version.ref = "commons-math3" }
+fresco = { module = "com.facebook.fresco:fresco", version.ref = "fresco" }
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
+
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -28,6 +48,16 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+lynx = { module = "org.lynxsdk.lynx:lynx", version.ref = "lynx" }
+lynx-jssdk = { module = "org.lynxsdk.lynx:lynx-jssdk", version.ref = "lynxJssdk" }
+lynx-service-http = { module = "org.lynxsdk.lynx:lynx-service-http", version.ref = "lynxServiceHttp" }
+lynx-service-image = { module = "org.lynxsdk.lynx:lynx-service-image", version.ref = "lynxServiceImage" }
+lynx-service-log = { module = "org.lynxsdk.lynx:lynx-service-log", version.ref = "lynxServiceLog" }
+lynx-trace = { module = "org.lynxsdk.lynx:lynx-trace", version.ref = "lynxTrace" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+primjs = { module = "org.lynxsdk.lynx:primjs", version.ref = "primjs" }
+webpsupport = { module = "com.facebook.fresco:webpsupport", version.ref = "fresco" }
+lynxpo = { module = "lynxpo.core:core", version.ref = "lynxpo" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
