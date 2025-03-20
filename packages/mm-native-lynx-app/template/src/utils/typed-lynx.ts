@@ -1,15 +1,9 @@
 import { NODE_REF_INVOKE_ERROR_CODE, type SelectorQuery } from '@lynx-js/types'
 
-// Define UI element types - each UI component will extend this interface
+// Define UI element types with direct method signatures
 export interface UIElementBase {
   tag: string // The JSX tag name
-  methods: Record<
-    string,
-    {
-      params: any
-      returnType: any
-    }
-  >
+  methods: Record<string, (...args: any[]) => any>
 }
 
 // Map UI element types to their selectors (for type inference)
@@ -27,17 +21,21 @@ export type ElementTypeFromSelector<T extends string> = T extends `#${infer ID}`
 // Get methods available for an element type
 export type MethodsOf<T extends UIElementBase> = keyof T['methods']
 
-// Get params type for a specific method
+// Extract parameter types from a method function signature
 export type ParamsOf<
   TElement extends UIElementBase,
-  TMethod extends MethodsOf<TElement>,
-> = TElement['methods'][TMethod]['params']
+  TMethod extends MethodsOf<TElement>
+> = TElement['methods'][TMethod] extends (params: infer P) => any
+  ? P
+  : never
 
-// Get return type for a specific method
+// Extract return type from a method function signature
 export type ReturnTypeOf<
   TElement extends UIElementBase,
-  TMethod extends MethodsOf<TElement>,
-> = TElement['methods'][TMethod]['returnType']
+  TMethod extends MethodsOf<TElement>
+> = TElement['methods'][TMethod] extends (...args: any[]) => infer R
+  ? R
+  : never
 
 // Generic type for invoke options with improved type inference
 export type TypedInvokeOptions<
@@ -45,7 +43,7 @@ export type TypedInvokeOptions<
   TMethod extends MethodsOf<TElement>,
 > = {
   method: TMethod
-  params?: ParamsOf<TElement, TMethod>
+  params: ParamsOf<TElement, TMethod>
   success?(res: ReturnTypeOf<TElement, TMethod>): void
   fail?(res: { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }): void
 }
@@ -114,7 +112,7 @@ export function createTypedInvoker<TSelector extends keyof UIElementMap>(
   }
 }
 
-// Generic element invoker
+// Generic element invoker with direct type extraction
 export function invokeElementMethod<
   TSelector extends string,
   TElement extends UIElementBase = ElementTypeFromSelector<TSelector>,

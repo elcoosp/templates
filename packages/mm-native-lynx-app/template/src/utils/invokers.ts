@@ -6,21 +6,20 @@ import {
   invokeElementMethod,
 } from '@utils/typed-lynx'
 
+
 // Extend the base types with component-specific definitions
 declare module '@utils/typed-lynx' {
-  // Define InputElement interface
+  // Define InputElement interface with direct method signatures
   interface InputElement extends UIElementBase {
     tag: 'input'
     methods: {
-      focus: {
-        params: {}
-        returnType: { code: number; message?: string }
-      }
-      blur: {
-        params: {}
-        returnType: { code: number; message?: string }
-      }
-      // Add more methods as needed
+      // Simple method
+      blur: () => void,
+      
+      // Complex method with generics and multiple parameters
+      focus: () => void
+      
+      // You can add more methods directly with their signatures
     }
   }
 
@@ -31,16 +30,11 @@ declare module '@utils/typed-lynx' {
   }
 }
 
-// Type-safe focus element helper
-export function focusElement(
-  inputId: string,
-  success?: (res: ReturnTypeOf<UIElementMap['input'], 'focus'>) => void,
-  fail?: (res: { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }) => void,
-): void {
-  invokeElementMethod(`#${inputId}`, 'focus', {}, success, fail)
-}
 
-// Type-safe blur element helper
+// Helper functions for common elements
+export function getInputInvoker(id: string) {
+  return createTagInvoker('input', id)
+}
 export function blurElement(
   inputId: string,
   success?: (res: ReturnTypeOf<UIElementMap['input'], 'blur'>) => void,
@@ -49,22 +43,11 @@ export function blurElement(
   invokeElementMethod(`#${inputId}`, 'blur', {}, success, fail)
 }
 
-// Helper functions for common elements
-export function getInputInvoker(id: string) {
-  return createTagInvoker('input', id)
+
+export function focusElement(
+  inputId: string,
+  success?: (res: ReturnTypeOf<UIElementMap['input'], 'focus'>) => void,
+  fail?: (res: { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }) => void,
+): void {
+  invokeElementMethod(`#${inputId}`, 'focus', {}, success, fail)
 }
-
-// Usage example:
-/*
-// Focus an input element
-focusElement('myInput', 
-  result => console.log('Focus successful', result.code), 
-  error => console.error('Focus failed', error)
-);
-
-// Or use the tag-based invoker
-const inputControl = getInputInvoker('myInput');
-inputControl.invoke('focus', {}, 
-  result => console.log('Focus successful', result.code)
-);
-*/
