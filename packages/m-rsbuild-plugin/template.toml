@@ -3,7 +3,10 @@ description = "Monorepo for an rsbuild plugin"
 kickstart_version = 1
 authors = ["elcoosp"]
 ignore = [".turbo", "node_modules"]
-copy_without_render = []
+copy_without_render = [
+    "template/.github/workflows/release.yml",
+    "template/.github/workflows/test.yml",
+]
 directory = "template"
 
 [[variables]]
