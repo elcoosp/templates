@@ -12,7 +12,7 @@
     "preview": "rspeedy preview"
   },
   "dependencies": {
-    "@lynx-js/react": "^0.105.2",
+    "@lynx-js/react": "^0.106.0",
     "i18next": "24.2.3",
     "react-router": "6.30.0"
   },
