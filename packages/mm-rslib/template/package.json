@@ -1,6 +1,5 @@
 {
-  "name": "@{{scope}}/{{project-name}}",
-  "author": "{{authors}}",
+  "name": "@{{org}}/{{project_name}}",
   "version": "0.0.0",
   "type": "module",
   "description": "{{description}}",
@@ -14,7 +13,11 @@
   },
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"{% if filesOnly %}, "src"{% endif %}],
+  {%- if files_only %}
+  "files": ["dist", "src"],
+  {% else %}
+  "files": ["dist"],
+  {%- endif -%}
   "publishConfig": {
     "access": "public"
   },

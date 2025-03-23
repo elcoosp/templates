@@ -16,7 +16,7 @@
     <img src="https://raw.githubusercontent.com/elcoosp/templates/HEAD/images/logo.png" style="max-height: 200px; object-fit: contain;" alt="Logo">
   </a>
   <h3 align="center">Templates</h3>
-  <h4 align="center">@{{scope}}/{{project-name}}</h4>
+  <h4 align="center">@{{org}}/{{project_name}}</h4>
   <p align="center">
     Templates using [cargo generate](https://cargo-generate.github.io/)
     <br />
@@ -32,7 +32,7 @@
 </div>
 
 > [!NOTE]
-> You are inside the **@{{scope}}/{{project-name}}** workspace member package, not the repository entry point
+> You are inside the **@{{org}}/{{project_name}}** workspace member package, not the repository entry point
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -66,16 +66,16 @@ See installation
 ## 📋 Installation
 
 ```sh
-npm add @{{scope}}/{{project-name}}
+npm add @{{org}}/{{project_name}}
 ```
 ```sh
-pnpm add @{{scope}}/{{project-name}}
+pnpm add @{{org}}/{{project_name}}
 ```
 ```sh
-yarn add @{{scope}}/{{project-name}}
+yarn add @{{org}}/{{project_name}}
 ```
 ```sh
-deno add npm:@{{scope}}/{{project-name}}
+deno add npm:@{{org}}/{{project_name}}
 ```
 
 ## 🔧 Usage
@@ -105,10 +105,10 @@ Project Link: [https://github.com/elcoosp/templates](https://github.com/elcoosp/
 <!--https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 ![Alt](https://repobeats.axiom.co/api/embed/b4ebcd827d58791b008f7bf5bddd78a2dd0e6a43.svg "Repobeats analytics image")
 
-[npm-version-shield]: https://img.shields.io/npm/v/@{{scope}}/{{project-name}}.svg?style=for-the-badge
-[npm-version-url]: https://www.npmjs.com/package/@{{scope}}/{{project-name}}
+[npm-version-shield]: https://img.shields.io/npm/v/@{{org}}/{{project_name}}.svg?style=for-the-badge
+[npm-version-url]: https://www.npmjs.com/package/@{{org}}/{{project_name}}
 [codecov-shield]: https://img.shields.io/codecov/c/github/elcoosp/templates/main.svg?style=for-the-badge
-[codecov-url]: https://codecov.io/github/elcoosp/templates/tree/main/@{{scope}}/{{project-name}}
+[codecov-url]: https://codecov.io/github/elcoosp/templates/tree/main/@{{org}}/{{project_name}}
 [contributors-shield]: https://img.shields.io/github/contributors/elcoosp/templates.svg?style=for-the-badge
 [contributors-url]: https://github.com/elcoosp/templates/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/elcoosp/templates.svg?style=for-the-badge
