@@ -1,9 +1,9 @@
-import { defineConfig } from '@lynx-js/rspeedy'
-import { pluginReactLynx } from '@lynx-js/react-rsbuild-plugin'
 import { pluginQRCode } from '@lynx-js/qrcode-rsbuild-plugin'
+import { pluginReactLynx } from '@lynx-js/react-rsbuild-plugin'
+import { defineConfig } from '@lynx-js/rspeedy'
+import fs from 'fs/promises'
 import { pluginTailwindCSS } from 'rsbuild-plugin-tailwindcss'
 import pluginAutoImport from 'unplugin-auto-import/rspack'
-import fs from 'fs/promises'
 
 const copyNativeBundle = async (
   platform: 'android' | 'ios',

@@ -171,18 +171,18 @@ export function invokeElementMethod<
 // Simplified parameter type for invoker functions
 export type InvokerParams<
   TTag extends keyof UIElementMap,
-  TMethod extends MethodsOf<UIElementMap[TTag]>
+  TMethod extends MethodsOf<UIElementMap[TTag]>,
 > = ParamsOf<UIElementMap[TTag], TMethod>
 
 // Simplified callback type for invoker functions
 export type InvokerCallback<
   TTag extends keyof UIElementMap,
-  TMethod extends MethodsOf<UIElementMap[TTag]>
+  TMethod extends MethodsOf<UIElementMap[TTag]>,
 > = (
   result: InvocationResult<
     ReturnTypeOf<UIElementMap[TTag], TMethod>,
     { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }
-  >
+  >,
 ) => void
 
 /**
@@ -193,12 +193,12 @@ export type InvokerCallback<
  */
 export function createMethodInvoker<
   TTag extends keyof UIElementMap,
-  TMethod extends MethodsOf<UIElementMap[TTag]>
+  TMethod extends MethodsOf<UIElementMap[TTag]>,
 >(tag: TTag, method: TMethod) {
   return <TId extends string>(
     id: ValidateElementId<TTag, TId>,
     params?: InvokerParams<TTag, TMethod>,
-    callback?: InvokerCallback<TTag, TMethod>
+    callback?: InvokerCallback<TTag, TMethod>,
   ): void => {
     createTypedInvoker(tag, id).invoke(method, params, callback)
   }
