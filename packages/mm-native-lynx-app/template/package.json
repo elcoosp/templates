@@ -12,7 +12,7 @@
     "preview": "rspeedy preview"
   },
   "dependencies": {
-    "@lynx-js/react": "^npm:@lynx-js/react-canary/@0.105.3-canary-20250320-54ad7060",
+    "@lynx-js/react": "^0.106.1",
     "i18next": "24.2.3",
     "react-router": "6.30.0"
   },
@@ -32,7 +32,10 @@
     "typescript": "~5.8.2"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["@biomejs/biome", "core-js"]
+    "onlyBuiltDependencies": [
+      "@biomejs/biome",
+      "core-js"
+    ]
   },
   "engines": {
     "node": ">=18"
