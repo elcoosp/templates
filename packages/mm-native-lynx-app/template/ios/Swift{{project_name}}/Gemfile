@@ -6,6 +6,6 @@ source 'https://rubygems.org'
 
 gem "cocoapods", '1.10.1'
 # lock public_suffix's version to avoid occasional failure in dependencies resolving
-gem "public_suffix", '5.0.4' if RUBY_VERSION < "3.0"
+gem "public_suffix", '5.1.1' if RUBY_VERSION < "3.0"
 gem "ffi", "1.17.2"
 gem "xcodeproj", "1.27.0"
