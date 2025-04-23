@@ -12,7 +12,7 @@
     "preview": "rspeedy preview"
   },
   "dependencies": {
-    "@lynx-js/react": "^0.106.1",
+    "@lynx-js/react": "^0.106.5",
     "i18next": "25.0.1",
     "react-router": "6.30.0"
   },
@@ -27,9 +27,9 @@
     "@tsconfig/node20": "^20.1.5",
     "@tsconfig/strictest": "^2.0.5",
     "autoprefixer": "10.4.21",
-    "rsbuild-plugin-tailwindcss": "^0.2.0",
+    "rsbuild-plugin-tailwindcss": "^0.2.1",
     "tailwindcss": "^3.4.17",
-    "typescript": "~5.8.2"
+    "typescript": "~5.8.3"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

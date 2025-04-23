@@ -11,6 +11,7 @@ ignore = [
 copy_without_render = [
     "template/src/routes/App.tsx",
     "template/src/routes/Home.tsx",
+    "template/src/components/**/**",
 ]
 directory = "template"
 post_gen_hooks = [{ name = "Finish setup", path = "scripts/finish_setup.sh" }]
