@@ -15,16 +15,24 @@ export function ClipboardExample() {
   const [copiedText, setCopiedText] = useState("default");
 
   const copyToClipboard = () => {
-    NativeModules.ClipboardModule.setStringAsync(
-      "hello world",
-      {
-        inputFormat: "plainText",
-      },
-      () => {},
-    );
+    "background only";
+
+    try {
+      NativeModules.ClipboardModule.setStringAsync(
+        "hello world",
+        {
+          inputFormat: "plainText",
+        },
+        () => {},
+      );
+    } catch (e) {
+      setCopiedText(e.toString());
+    }
   };
 
   const fetchCopiedText = () => {
+    "background only";
+
     try {
       const text = NativeModules.ClipboardModule.getStringAsync(
         {

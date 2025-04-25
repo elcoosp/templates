@@ -3,6 +3,7 @@ package com.{{org}}.{{project_name|camel_case}}
 import android.view.View
 import lynxpo.core.LynxpoApp
 import lynxpo.core.LynxpoUI
+import lynxpo.core.modules.backhandler.BackHandlerModule
 import lynxpo.core.modules.clipboard.ClipboardModule
 import lynxpo.core.modules.device.DeviceModule
 import lynxpo.core.modules.statusbar.StatusBarModule
@@ -11,6 +12,7 @@ import lynxpo.core.modules.ui.input.InputUI
 class MyProjApplication : LynxpoApp() {
     override val lynxpoModules
         get() = arrayOf(
+            Pair("BackHandlerModule", BackHandlerModule::class.java),
             Pair("ClipboardModule", ClipboardModule::class.java),
             Pair("DeviceModule", DeviceModule::class.java),
             Pair("StatusBarModule", StatusBarModule::class.java)
