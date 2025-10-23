@@ -33,6 +33,6 @@ target 'Swift{{project_name}}' do
 
   # add dependency here
 
-  pod 'SDWebImage','5.15.5'
+  pod 'SDWebImage','5.21.3'
   pod 'SDWebImageWebPCoder', '0.14.6'
 end
