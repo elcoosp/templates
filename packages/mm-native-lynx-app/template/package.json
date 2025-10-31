@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "unplugin-auto-import": "20.2.0",
-    "@biomejs/biome": "^1.9.4",
+    "@biomejs/biome": "^2.0.0",
     "@lynx-js/qrcode-rsbuild-plugin": "^0.4.0",
     "@lynx-js/react-rsbuild-plugin": "^0.11.0",
     "@lynx-js/rspeedy": "^0.11.0",
