@@ -15,7 +15,9 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rslib build",
     "dev": "rslib build --watch",
@@ -23,9 +25,8 @@
     "lint:write": "biome check . --write",
     "prepare": "npm run build",
     "test": "playwright test",
-    "bump": "npx bumpp"
-  }
-
+    "bump": "npx bump"
+  },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@playwright/test": "^1.51.1",
@@ -43,7 +44,7 @@
       "optional": true
     }
   },
-  "packageManager": "pnpm@10.20.0",
+  "packageManager": "pnpm@10.21.0",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"

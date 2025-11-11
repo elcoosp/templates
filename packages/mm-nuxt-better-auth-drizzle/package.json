@@ -1,0 +1,21 @@
+{
+  "name": "@elcoosp-templates/mm-rslib",
+  "version": "1.0.1",
+  "description": "Monorepo member with `rslib`",
+  "keywords": ["templates", "cargo-generate"],
+  "author": "elcoosp <elcoosp@gmail.com>",
+  "license": "MIT",
+  "files": ["template"],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "rslib build",
+    "dev": "rslib build --watch",
+    "check": "biome check --write",
+    "fmt": "biome format --write",
+    "test": "vitest run",
+    "test:cov": "vitest run --coverage",
+    "test:watch": "vitest run --watch"
+  }
+}

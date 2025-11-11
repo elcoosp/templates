@@ -12,3 +12,4 @@ words:
 ignorePaths:
   - "*.cast"
   - "packages/mm-native-lynx-app/template/*"
+  - "pnpm-lock.yaml"
