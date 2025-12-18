@@ -24,7 +24,7 @@
     "@lynx-js/rspeedy": "^0.11.0",
     "@lynx-contrib/tailwind-preset": "0.0.2",
     "@lynx-js/types": "3.5.11",
-    "@tsconfig/node20": "^20.1.5",
+    "@tsconfig/node22": "^22.0.0",
     "@tsconfig/strictest": "^2.0.5",
     "autoprefixer": "10.4.22",
     "rsbuild-plugin-tailwindcss": "^0.2.1",
