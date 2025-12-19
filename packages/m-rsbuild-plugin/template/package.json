@@ -44,7 +44,10 @@
       "optional": true
     }
   },
-  "packageManager": "pnpm@10.22.0",
+
+  "packageManager": "pnpm@10.21.0",
+=======
+>>>>>>> 4dd63cc (fix: rm packageManager block ci)
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
