@@ -26,7 +26,7 @@
     "@lynx-js/types": "3.5.11",
     "@tsconfig/node22": "^22.0.0",
     "@tsconfig/strictest": "^2.0.5",
-    "autoprefixer": "10.4.22",
+    "autoprefixer": "10.4.23",
     "rsbuild-plugin-tailwindcss": "^0.2.1",
     "tailwindcss": "^4.0.0",
     "typescript": "~5.9.0"
