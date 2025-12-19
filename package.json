@@ -8,10 +8,7 @@
   ],
   "author": "elcoosp <elcoosp@gmail.com>",
   "license": "MIT",
-
-  "packageManager": "pnpm@10.21.0",
-=======
->>>>>>> 4dd63cc (fix: rm packageManager block ci)
+  "packageManager": "pnpm@10.26.0",
   "scripts": {
     "boot": "pnpm i && turbo check lint fmt test doc & pnpm gen:readme",
     "gen:readme": "deno run -A jsr:@readma/cli gen",
