@@ -17,7 +17,7 @@
     "react-router": "7.11.0"
   },
   "devDependencies": {
-    "unplugin-auto-import": "20.2.0",
+    "unplugin-auto-import": "20.3.0",
     "@biomejs/biome": "^2.0.0",
     "@lynx-js/qrcode-rsbuild-plugin": "^0.4.0",
     "@lynx-js/react-rsbuild-plugin": "^0.12.0",
