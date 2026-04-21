@@ -14,7 +14,7 @@
   "dependencies": {
     "@lynx-js/react": "^0.119.0",
     "i18next": "26.0.6",
-    "react-router": "7.14.1"
+    "react-router": "7.14.2"
   },
   "devDependencies": {
     "unplugin-auto-import": "21.0.0",
