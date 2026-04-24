@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@lynx-js/react": "^0.119.0",
-    "i18next": "26.0.7",
+    "i18next": "26.0.8",
     "react-router": "7.14.2"
   },
   "devDependencies": {
