@@ -21,7 +21,7 @@ lynxServiceImage = "4.1.0-nightly.202606260632.87.g01ad13ce"
 lynxServiceLog = "4.1.0-nightly.202606210627.78.gdfa91d8f"
 lynxTrace = "4.0.0-nightly.202606180635.75.g94f7161c"
 lynxpo = "1.0.24"
-okhttp = "5.3.2"
+okhttp = "5.4.0"
 primjs = "3.8.0"
 
 [libraries]
