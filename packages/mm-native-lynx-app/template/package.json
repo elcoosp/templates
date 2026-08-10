@@ -29,7 +29,7 @@
     "autoprefixer": "10.5.4",
     "rsbuild-plugin-tailwindcss": "^0.2.1",
     "tailwindcss": "^4.0.0",
-    "typescript": "~6.0.0"
+    "typescript": "~7.0.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
