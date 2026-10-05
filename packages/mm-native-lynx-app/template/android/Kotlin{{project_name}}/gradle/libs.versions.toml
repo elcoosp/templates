@@ -2,7 +2,7 @@
 [versions]
 commons-math3 = "3.6.1"
 fresco = "3.7.0"
-guava = "33.7.1-jre"
+guava = "33.7.2-jre"
 agp = "9.4.0"
 kotlin = "2.4.20"
 coreKtx = "1.19.0"
