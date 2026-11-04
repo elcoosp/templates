@@ -14,7 +14,10 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   {%- if files_only %}
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   {% else %}
   "files": ["dist"],
   {%- endif -%}
@@ -24,12 +27,23 @@
   "scripts": {
     "build": "rslib build",
     "dev": "rslib build --watch",
-    "check": "biome check --write",
-    "fmt": "biome format --write",
+    "check": "biome ci .",
+    "fix": "biome check --write .",
+    "lint": "biome lint .",
+    "fmt": "biome format --write .",
+    "fmt:check": "biome format .",
+    "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "test:cov": "vitest run --coverage",
     "test:watch": "vitest run --watch"
   },
   "devDependencies": {
-    "@elcoosp-configs/rslib": "2"
-  }
+    "@biomejs/biome": "^2.6.4",
+    "@elcoosp-configs/rslib": "2",
+    "@types/node": "^26.6.6",
+    "@vitest/coverage-v8": "^5.1.0",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
+  },
+  "packageManager": "pnpm@12.16.1"
 }
