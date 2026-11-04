@@ -7,8 +7,8 @@
  * with extendable configuration.
  */
 
-import i18next from 'i18next'
 import type { i18n } from 'i18next'
+import i18next from 'i18next'
 
 /**
  * Translation format configuration registry
