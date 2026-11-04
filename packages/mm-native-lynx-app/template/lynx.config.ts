@@ -1,7 +1,7 @@
 import { pluginQRCode } from '@lynx-js/qrcode-rsbuild-plugin'
 import { pluginReactLynx } from '@lynx-js/react-rsbuild-plugin'
 import { defineConfig } from '@lynx-js/rspeedy'
-import fs from 'fs/promises'
+import fs from 'node:fs/promises'
 import { pluginTailwindCSS } from 'rsbuild-plugin-tailwindcss'
 import pluginAutoImport from 'unplugin-auto-import/rspack'
 
@@ -76,6 +76,7 @@ export default defineConfig({
   source: {
     alias: {
       '@assets': './assets',
+      'react-router': './src/router.tsx',
     },
   },
 })
