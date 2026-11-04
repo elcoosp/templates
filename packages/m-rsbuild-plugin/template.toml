@@ -8,6 +8,7 @@ copy_without_render = [
     "template/.github/workflows/test.yml",
 ]
 directory = "template"
+post_gen_hooks = [{ name = "Finish setup", path = "scripts/finish_setup.sh" }]
 
 [[variables]]
 name = "project_name"
