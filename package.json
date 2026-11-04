@@ -1,27 +1,33 @@
 {
   "name": "@elcoosp-templates/root",
   "version": "1.0.0",
-  "description": "",
+  "description": "Monorepo of cargo generate and kickstart templates",
   "keywords": [
     "templates",
-    "cargo-generate"
+    "cargo-generate",
+    "kickstart"
   ],
   "author": "elcoosp <elcoosp@gmail.com>",
   "license": "MIT",
-  "packageManager": "pnpm@12.9.1",
+  "packageManager": "pnpm@12.16.1",
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
-    "boot": "pnpm i && turbo check lint fmt test doc & pnpm gen:readme",
-    "gen:readme": "deno run -A jsr:@readma/cli gen",
+    "boot": "pnpm install && pnpm build && pnpm check && pnpm test",
     "build": "turbo run build",
     "check": "turbo run check",
     "lint": "turbo run lint",
     "fmt": "turbo run fmt",
+    "fmt:check": "turbo run fmt:check",
+    "fix": "turbo run fix",
+    "typecheck": "turbo run typecheck",
     "test": "turbo run test",
     "test:cov": "turbo run test:cov",
     "test:watch": "turbo run test:watch",
+    "spellcheck": "cspell --no-progress --no-summary .",
     "test-lynx:clean": "rm -rf ../test-mm-native-lynx-app && kickstart --no-input packages/mm-native-lynx-app -o ../test-mm-native-lynx-app && pnpm test-lynx",
-    "test-lynx": "cd ../test-mm-native-lynx-app && pnpm i && pnpm build",
-    "doc": "turbo run doc",
+    "test-lynx": "cd ../test-mm-native-lynx-app && pnpm i && pnpm exec rspeedy build",
     "ci:publish": "changeset publish",
     "ci:version": "changeset version",
     "changeset": "changeset"
@@ -29,14 +35,14 @@
   "devDependencies": {
     "@biomejs/biome": "^2.6.4",
     "@changesets/changelog-github": "^1.0.1",
-    "@vitest/coverage-v8": "^5.1.0",
     "@changesets/cli": "^3.0.3",
-    "@elcoosp-configs/biome": "0.0.4",
-    "@elcoosp-configs/cspell": "0.0.7",
-    "@elcoosp-configs/rslib": "2.1.0",
+    "@elcoosp-configs/cspell": "^0.0.7",
     "@rslib/core": "^1.0.5",
+    "@vitest/coverage-v8": "^5.1.0",
+    "cspell": "^10.4.0",
     "lefthook": "^2.2.2",
     "turbo": "^2.11.10",
+    "typescript": "^7.0.2",
     "vitest": "^5.1.0"
   }
 }
