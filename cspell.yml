@@ -9,7 +9,63 @@ words:
   - emptyproject
   - gradlew
   - lynxpo
+  # Tooling
+  - kickstart
+  - kickstarted
+  - rsbuild
+  - rslib
+  - rspeedy
+  - oxlint
+  - readma
+  - biomejs
+  - turbo
+  - vitest
+  - lefthook
+  - changesets
+  - renovatebot
+  - cspell
+  - spellcheck
+  - typecheck
+  - git-cliff
+  - cliff
+  - frozen
+  - lockfile
+  - lockfiles
+  - pipeline
+  - pipelines
+  # Template stacks
+  - nuxt
+  - drizzle
+  - drizzle-kit
+  - better-auth
+  - betterauth
+  - sqlite
+  - postgres
+  - postgresql
+  - kebab
+  - PascalCase
+  - camelCase
+  - kebab-case
+  - unixepoch
+  - unplugin
+  - i18next
+  - rsbuild-plugin
+  - jsr
+  # git-cliff
+  - endfor
+  - endif
+  - elif
+  - trim_start_matches
+  - topo
+  - striptags
 ignorePaths:
   - "*.cast"
-  - "packages/mm-native-lynx-app/template/*"
-  - "pnpm-lock.yaml"
+  - "**/pnpm-lock.yaml"
+  - "**/deno.lock"
+  - "**/*.snap"
+  - "**/coverage/**"
+  - "**/node_modules/**"
+  - "**/dist/**"
+  - "**/.turbo/**"
+  - "packages/**/template/**"
+  - "images/**"
