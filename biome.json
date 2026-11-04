@@ -1,6 +1,46 @@
 {
-    "$schema": "https://biomejs.dev/schemas/1.8.0/schema.json",
-    "extends": ["node_modules/@elcoosp-configs/biome/src/fmt-base.json"],
-    "files":{ "ignore":["*.liquid", "packages/**/template/package.json", "packages/**/template/tests/index.test.ts"]}
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "includes": [
+      "**",
+      "!**/.turbo",
+      "!**/dist",
+      "!**/*.liquid",
+      "!**/__snapshots__",
+      "!packages/**/template"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space"
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "semicolons": "asNeeded"
+    }
+  },
+  "css": {
+    "parser": {
+      "cssModules": true
+    }
+  },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended"
+    }
   }
-  
+}
