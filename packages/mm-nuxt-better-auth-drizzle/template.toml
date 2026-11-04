@@ -1,11 +1,16 @@
-name = "mm-rsbuild"
-description = "Monorepo member with nuxt"
+name = "mm-nuxt-better-auth-drizzle"
+description = "Monorepo member with nuxt, better-auth and drizzle"
 kickstart_version = 1
 authors = ["elcoosp"]
 ignore = [".turbo", "node_modules"]
-copy_without_render = []
+copy_without_render = [
+    "template/app/app.vue",
+    "template/app/pages/index.vue",
+    "template/app/assets/css/main.css",
+]
 directory = "template"
 post_gen_hooks = [{ name = "Finish setup", path = "scripts/finish_setup.sh" }]
+
 [[variables]]
 name = "project_name"
 default = "my-proj"
@@ -20,17 +25,11 @@ validation = "^([a-z][a-zA-Z0-9_-]+)$"
 
 [[variables]]
 name = "description"
-default = "{{project_name}} rslib"
+default = "{{project_name}} nuxt app with better-auth and drizzle"
 prompt = "Description of the project"
 
 [[variables]]
-name = "files_only"
-default = true
-prompt = "Is the package files only ?"
-
-[[variables]]
-name = "files_only_type"
-default = "json"
-prompt = "Please select one file type which src folder should contain (and error in index import - with test)"
-only_if = { name = "files_only", value = true }
-choices = ["yml", "json"]
+name = "database"
+default = "sqlite"
+prompt = "Which database does drizzle target ?"
+choices = ["sqlite", "postgres"]
