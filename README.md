@@ -8,23 +8,6 @@
     production-ready from the first commit.
   </p>
 
-  <!-- Status badges -->
-  <p>
-    <a href="https://github.com/elcoosp/templates/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/elcoosp/templates/ci.yml?branch=main&style=for-the-badge&label=CI" alt="CI status" /></a>
-    <a href="https://codecov.io/gh/elcoosp/templates"><img src="https://img.shields.io/codecov/c/github/elcoosp/templates?style=for-the-badge&label=Coverage" alt="Codecov coverage" /></a>
-    <a href="https://github.com/elcoosp/templates/releases"><img src="https://img.shields.io/github/v/release/elcoosp/templates?style=for-the-badge&label=Release" alt="Latest release" /></a>
-    <a href="https://github.com/elcoosp/templates/blob/main/LICENSE.txt"><img src="https://img.shields.io/github/license/elcoosp/templates?style=for-the-badge&label=License" alt="MIT license" /></a>
-  </p>
-
-  <!-- Community badges -->
-  <p>
-    <a href="https://github.com/elcoosp/templates/stargazers"><img src="https://img.shields.io/github/stars/elcoosp/templates?style=for-the-badge&label=Stars" alt="GitHub stars" /></a>
-    <a href="https://github.com/elcoosp/templates/network/members"><img src="https://img.shields.io/github/forks/elcoosp/templates?style=for-the-badge&label=Forks" alt="GitHub forks" /></a>
-    <a href="https://github.com/elcoosp/templates/graphs/contributors"><img src="https://img.shields.io/github/contributors/elcoosp/templates?style=for-the-badge&label=Contributors" alt="GitHub contributors" /></a>
-    <a href="https://github.com/elcoosp/templates/commits/main"><img src="https://img.shields.io/github/commit-activity/m/elcoosp/templates?style=for-the-badge&label=Commits" alt="Commit activity" /></a>
-    <a href="https://github.com/elcoosp/templates/issues"><img src="https://img.shields.io/github/issues/elcoosp/templates?style=for-the-badge&label=Issues" alt="GitHub issues" /></a>
-  </p>
-
   <!-- Toolchain badges -->
   <p>
     <a href="#quality-gates"><img src="https://img.shields.io/badge/Coverage-100%25-12b76a?style=for-the-badge&labelColor=10352a" alt="Test coverage 100 percent" /></a>
