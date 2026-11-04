@@ -1,20 +1,18 @@
-import { NODE_REF_INVOKE_ERROR_CODE, type SelectorQuery } from '@lynx-js/types'
+import type { NODE_REF_INVOKE_ERROR_CODE, SelectorQuery } from '@lynx-js/types'
 
 // Define the Result type to handle success and failure
 export type InvocationResult<
   TData = void,
-  TError = { code: NODE_REF_INVOKE_ERROR_CODE; data?: any },
+  TError = { code: NODE_REF_INVOKE_ERROR_CODE; data?: unknown },
 > = { ok: true; data: TData } | { ok: false; error: TError }
 
 // Base UI element interface
 export interface UIElementBase {
-  methods: Record<string, (...args: any[]) => any>
+  methods: Record<string, (...args: unknown[]) => unknown>
 }
 
 // Map UI element types to their definitions (for type inference)
-export interface UIElementMap {
-  // Empty by default, will be extended via declaration merging
-}
+export type UIElementMap = {}
 
 // Define a custom error type for more descriptive compile-time errors
 type ErrorMessage<T extends string> = {
@@ -64,7 +62,7 @@ export type TypedInvokeOptions<
   method: TMethod
   params: ParamsOf<TElement, TMethod>
   success?(res: ReturnTypeOf<TElement, TMethod>): void
-  fail?(res: { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }): void
+  fail?(res: { code: NODE_REF_INVOKE_ERROR_CODE; data?: unknown }): void
 }
 
 // Enhance the NodesRef interface via declaration merging
@@ -77,7 +75,7 @@ declare module '@lynx-js/types' {
 
   // Add uiMethodOptions type
   interface uiMethodOptions {
-    fail?(res: { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }): void
+    fail?(res: { code: NODE_REF_INVOKE_ERROR_CODE; data?: unknown }): void
   }
 }
 
@@ -93,7 +91,7 @@ export function invokeExec<
   callback?: (
     result: InvocationResult<
       ReturnTypeOf<TElement, TMethod>,
-      { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }
+      { code: NODE_REF_INVOKE_ERROR_CODE; data?: unknown }
     >,
   ) => void,
 ): void {
@@ -106,7 +104,7 @@ export function invokeExec<
       success: (res: ReturnTypeOf<TElement, TMethod>) => {
         callback?.({ ok: true, data: res })
       },
-      fail: (error: { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }) => {
+      fail: (error: { code: NODE_REF_INVOKE_ERROR_CODE; data?: unknown }) => {
         callback?.({ ok: false, error })
       },
     })
@@ -135,7 +133,7 @@ export function createTypedInvoker<
       callback?: (
         result: InvocationResult<
           ReturnTypeOf<TElement, TMethod>,
-          { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }
+          { code: NODE_REF_INVOKE_ERROR_CODE; data?: unknown }
         >,
       ) => void,
     ) => {
@@ -161,7 +159,7 @@ export function invokeElementMethod<
   callback?: (
     result: InvocationResult<
       ReturnTypeOf<TElement, TMethod>,
-      { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }
+      { code: NODE_REF_INVOKE_ERROR_CODE; data?: unknown }
     >,
   ) => void,
 ): void {
@@ -181,7 +179,7 @@ export type InvokerCallback<
 > = (
   result: InvocationResult<
     ReturnTypeOf<UIElementMap[TTag], TMethod>,
-    { code: NODE_REF_INVOKE_ERROR_CODE; data?: any }
+    { code: NODE_REF_INVOKE_ERROR_CODE; data?: unknown }
   >,
 ) => void
 
