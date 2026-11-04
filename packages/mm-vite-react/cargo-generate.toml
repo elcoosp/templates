@@ -1,0 +1,6 @@
+[template]
+cargo_generate_version = ">=0.22.0"
+
+[placeholders]
+description = { type = "text", prompt = "Description of the project" }
+scope = { type = "text", prompt = "Scope of the project (used in @{scope}/{pkgName})" }
