@@ -1,0 +1,31 @@
+# Dependencies
+node_modules
+
+# Nuxt
+.nuxt
+.output
+.data
+dist
+
+# Drizzle migrations are tracked, but the local database is not
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log*
+
+# Coverage
+coverage
+
+# System
+.DS_Store
+
+# Turbo
+.turbo
