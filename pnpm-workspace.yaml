@@ -1,11 +1,12 @@
 packages:
-  - packages/mm-rslib
-  - packages/mm-vite-react
+  - packages/m-deno
   - packages/mm-native-lynx-app
   - packages/mm-nuxt-better-auth-drizzle
-  - packages/m-deno
-onlyBuiltDependencies:
-  - "@biomejs/biome"
-  - core-js
-  - esbuild
-  - lefthook
+  - packages/mm-rslib
+  - packages/mm-vite-react
+  - packages/m-rsbuild-plugin
+allowBuilds:
+  "@biomejs/biome": true
+  core-js: true
+  esbuild: true
+  lefthook: true
