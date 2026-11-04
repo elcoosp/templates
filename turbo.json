@@ -1,25 +1,33 @@
 {
-    "$schema": "https://turbo.build/schema.json",
-    "tasks": {
-      "build": {
-        "outputs": ["dist/**"]
-      },
-      "check": {
-        "dependsOn": ["^check"]
-      },
-      "fmt": {},
-      "lint": {},
-      "test": {},
-      "test:cov": {},
-      "doc": {},
-      "test:watch": {
-        "cache": false,
-        "persistent": true
-      },
-      "dev": {
-        "persistent": true,
-        "cache": false
-      }
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "build": {
+      "outputs": ["dist/**"],
+      "dependsOn": ["^build"]
+    },
+    "typecheck": {},
+    "check": {},
+    "lint": {},
+    "fix": {
+      "cache": false
+    },
+    "fmt": {
+      "cache": false
+    },
+    "fmt:check": {},
+    "test": {
+      "dependsOn": ["^build"]
+    },
+    "test:cov": {
+      "dependsOn": ["^build"]
+    },
+    "test:watch": {
+      "cache": false,
+      "persistent": true
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
     }
   }
-  
+}
