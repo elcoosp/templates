@@ -1,9 +1,9 @@
 import {
+  createMethodInvoker,
+  createTypedInvoker,
   type InvokerCallback,
   type InvokerParams,
   type ValidateElementId,
-  createMethodInvoker,
-  createTypedInvoker,
 } from '@utils/typed-lynx'
 
 // Extend the base types with component-specific definitions
