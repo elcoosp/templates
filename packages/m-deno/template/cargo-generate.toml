@@ -1,6 +1,7 @@
 [template]
 cargo_generate_version = ">=0.22.0"
 ignore = ["pnpm-lock.yaml", ".turbo", "node_modules", "deno.lock"]
+exclude = ["images/screenshot.gif"]
 
 [hooks]
 pre = ["pre-script.rhai"]
