@@ -1,5 +1,5 @@
 remotes:
-  - git_url: git@github.com:elcoosp/elcoosp-configs
+  - git_url: https://github.com/elcoosp/elcoosp-configs
     ref: main
     configs:
       - packages/lefthook/src/biome.yml
