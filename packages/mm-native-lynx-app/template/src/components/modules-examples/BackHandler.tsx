@@ -1,15 +1,15 @@
 export function BackHandlerEample() {
-  const [txt, setTxt] = useState("default");
+  const [txt, setTxt] = useState('default')
   useEffect(() => {
-    "background only";
+    'background only'
     setTimeout(() => {
       try {
-        setTxt(NativeModules.BackHandlerModule.test().toString());
+        setTxt(NativeModules.BackHandlerModule.test().toString())
       } catch (e) {
-        setTxt(e.toString());
+        setTxt(e.toString())
       }
-    }, 2000);
-  });
+    }, 2000)
+  })
 
-  return <text style={{ color: "white" }}>{txt}</text>;
+  return <text style={{ color: 'white' }}>{txt}</text>
 }
