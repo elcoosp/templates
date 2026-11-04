@@ -2,11 +2,93 @@ name: CI
 
 on:
   push:
-    branches: '**'
+    branches: "**"
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+# Least-privilege default: jobs must opt in to any extra permission.
+permissions:
+  contents: read
+
+# Cancel superseded runs on the same ref to save resources.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  ci:
-    uses: elcoosp/elcoosp-configs/.github/workflows/ci.yml@main
-    secrets: inherit
+  quality:
+    name: Quality gates
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6.1.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7.1.0
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Verify pnpm and Node versions
+        run: |
+          pnpm --version
+          node --version
+
+      - name: Install dependencies (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+
+      - name: Build all packages
+        run: pnpm build
+
+      - name: Lint with Biome
+        run: pnpm check
+
+      - name: Check formatting
+        run: pnpm fmt:check
+
+      - name: Spellcheck
+        run: pnpm spellcheck
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Test with 100% coverage gate
+        run: pnpm test:cov
+
+      - name: Collect coverage reports
+        if: always()
+        run: |
+          mkdir -p ./coverage-artifacts
+          for dir in packages/*/coverage; do
+            if [ -d "$dir" ]; then
+              pkg=$(echo "$dir" | cut -d'/' -f2)
+              mkdir -p "./coverage-artifacts/$pkg"
+              cp -r "$dir"/. "./coverage-artifacts/$pkg/"
+            fi
+          done
+          find ./coverage-artifacts -type f | head -20
+
+      - name: Upload coverage reports artifact
+        if: always()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: coverage-reports
+          path: coverage-artifacts
+          retention-days: 7
+          if-no-files-found: warn
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        continue-on-error: true
+        with:
+          directory: coverage-artifacts
+          fail_ci_if_error: false
+          token: ${{ secrets.CODECOV_TOKEN }}
