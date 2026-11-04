@@ -1,5 +1,7 @@
-template_dir=template
-cd $template_dir
-mv * ../
-cd ..
-rm -r $template_dir
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Flatten the rendered template directory into the output project root
+shopt -s dotglob
+mv template/* .
+rmdir template
