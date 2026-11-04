@@ -28,26 +28,23 @@
     "bump": "npx bump"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.0.0",
-    "@playwright/test": "^1.51.1",
-    "@rsbuild/core": "^1.2.19",
-    "@rslib/core": "^0.18.0",
-    "@types/node": "^24.0.0",
-    "playwright": "^1.51.1",
-    "typescript": "^5.8.2"
+    "@biomejs/biome": "^2.6.4",
+    "@playwright/test": "^1.64.1",
+    "@rsbuild/core": "^2.3.1",
+    "@rslib/core": "^1.0.5",
+    "@types/node": "^26.6.6",
+    "playwright": "^1.64.1",
+    "typescript": "^7.0.2"
   },
   "peerDependencies": {
-    "@rsbuild/core": "1.6.15"
+    "@rsbuild/core": "^2.3.1"
   },
   "peerDependenciesMeta": {
     "@rsbuild/core": {
       "optional": true
     }
   },
-
-  "packageManager": "pnpm@10.21.0",
-=======
->>>>>>> 4dd63cc (fix: rm packageManager block ci)
+  "packageManager": "pnpm@12.16.1",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
