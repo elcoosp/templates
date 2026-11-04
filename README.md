@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/elcoosp/templates/HEAD/images/logo.png" style="max-height: 180px; object-fit: contain;" alt="Templates logo" />
+  <img src="docs/logo.png" width="300" alt="Elcoosp Templates logo" />
   <h1>Templates</h1>
   <p><b>Opinionated monorepo scaffolding templates for cargo-generate and kickstart</b></p>
   <p>
