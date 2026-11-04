@@ -12,24 +12,23 @@
     "preview": "rspeedy preview"
   },
   "dependencies": {
-    "@lynx-js/react": "^0.126.2",
-    "i18next": "26.7.1",
-    "react-router": "8.5.1"
+    "@lynx-js/react": "^0.129.1",
+    "i18next": "26.7.1"
   },
   "devDependencies": {
     "unplugin-auto-import": "21.1.0",
     "@biomejs/biome": "^2.6.4",
     "@lynx-js/qrcode-rsbuild-plugin": "^0.7.3",
-    "@lynx-js/react-rsbuild-plugin": "^0.20.4",
-    "@lynx-js/rspeedy": "^0.17.2",
+    "@lynx-js/react-rsbuild-plugin": "^0.22.1",
+    "@lynx-js/rspeedy": "^0.18.4",
     "@lynx-contrib/tailwind-preset": "0.0.2",
     "@lynx-js/types": "4.4.2",
     "@tsconfig/node24": "^24.0.5",
     "@tsconfig/strictest": "^2.0.8",
     "autoprefixer": "10.6.2",
     "rsbuild-plugin-tailwindcss": "^0.2.4",
-    "tailwindcss": "^4.3.4",
-    "typescript": "~7.0.2"
+    "tailwindcss": "^3.4.17",
+    "typescript": "~6.0.3"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
@@ -37,6 +36,7 @@
       "core-js"
     ]
   },
+  "packageManager": "pnpm@12.16.1",
   "engines": {
     "node": ">=18"
   },
