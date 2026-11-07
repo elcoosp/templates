@@ -86,7 +86,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7
         continue-on-error: true
         with:
           directory: coverage-artifacts
