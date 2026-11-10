@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@lynx-js/react": "^0.129.1",
-    "i18next": "26.7.1"
+    "i18next": "27.1.1"
   },
   "devDependencies": {
     "unplugin-auto-import": "21.1.0",
